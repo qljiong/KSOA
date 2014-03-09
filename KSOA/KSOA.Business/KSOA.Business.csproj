@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,13 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CustomerLogic.cs" />
     <Compile Include="DbAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KSOA.DataAccess\KSOA.DataAccess.csproj">
-      <Project>{c7776920-4126-4965-b602-9a7810d937fe}</Project>
+      <Project>{5b8d60bc-187d-4969-bf2d-64812f8772b4}</Project>
       <Name>KSOA.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\KSOA.Model\KSOA.Model.csproj">

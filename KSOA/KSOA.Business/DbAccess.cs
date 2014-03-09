@@ -4,30 +4,30 @@ using System.Linq;
 using System.Text;
 using KSOA.DataAccess;
 
-namespace U1City.Shop.WebBusiness
+namespace KSOA.Business
 {
-    public abstract class DbAccess //: IDisposable
+    public abstract class DbAccess : IDisposable
     {
-        /*
-        protected DataAccess.ShopEntities _db
+
+        protected DataAccess.KSOAEntities _db
         {
             get;
             set;
         }
 
 
-        public DbAccess(ShopEntities db = null)
+        public DbAccess(DataAccess.KSOAEntities db = null)
         {
             if (db == null)
             {
-                _db = new ShopEntities(Connection.ConnectionString);
+                _db = new KSOAEntities(Connection.ConnectionString);
             }
             else
             {
                 _db = db;
             } 
          
-            _db.SavingChanges += new EventHandler(_db_SavingChanges);
+            //_db.SavingChanges += new EventHandler(_db_SavingChanges);
         }
 
 
@@ -37,16 +37,17 @@ namespace U1City.Shop.WebBusiness
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void _db_SavingChanges(object sender, EventArgs e)
-        {
-            string sql = _db.ToString();
-        }
+        //private void _db_SavingChanges(object sender, EventArgs e)
+        //{
+        //    string sql = _db.ToString();
+        //}
 
 
         #region IDisposable 成员
 
         public void Dispose()
         {
+
             _db.Connection.Close();
             //_db = null;
             _db.Dispose();
@@ -59,7 +60,5 @@ namespace U1City.Shop.WebBusiness
         }
 
         #endregion
-         * 
-         * */
     }
 }
