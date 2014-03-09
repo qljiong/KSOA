@@ -7,7 +7,7 @@ using System.Net;
 using System.Configuration;
 using System.Web;
 
-namespace DTcms.Common
+namespace KSOA.Common
 {
     public class Utils
     {

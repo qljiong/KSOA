@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace U1City.Shop.Unit
+namespace KSOA.Common
 {
     public class SerializeHelp
     {

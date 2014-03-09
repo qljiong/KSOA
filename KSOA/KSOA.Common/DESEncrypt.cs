@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DTcms.Common
+namespace KSOA.Common
 {
     /// <summary>
     /// DES加密/解密类。

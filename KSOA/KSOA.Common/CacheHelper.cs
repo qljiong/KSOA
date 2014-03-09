@@ -4,7 +4,7 @@ using System.Text;
 using System.Web;
 using System.Web.Caching;
 
-namespace DTcms.Common
+namespace KSOA.Common
 {
     public class CacheHelper
     {

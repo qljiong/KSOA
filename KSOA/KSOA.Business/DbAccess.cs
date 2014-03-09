@@ -6,8 +6,9 @@ using KSOA.DataAccess;
 
 namespace U1City.Shop.WebBusiness
 {
-    public abstract class DbAccess : IDisposable
+    public abstract class DbAccess //: IDisposable
     {
+        /*
         protected DataAccess.ShopEntities _db
         {
             get;
@@ -58,5 +59,7 @@ namespace U1City.Shop.WebBusiness
         }
 
         #endregion
+         * 
+         * */
     }
 }

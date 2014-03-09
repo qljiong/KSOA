@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTcms.Common
+namespace KSOA.Common
 {
     public class DTKeys
     {
