@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KSOAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="KSOA.DataAccess.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,7 +12,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityContainer Name="KSOAModelStoreContainer">
+        <EntityContainer Name="KSOADataAccessStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -34,7 +34,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="KSOAModelStoreContainer" CdmEntityContainer="KSOAEntities">
+        <EntityContainerMapping StorageEntityContainer="KSOADataAccessStoreContainer" CdmEntityContainer="KSOAEntities">
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="KSOA.DataAccess.Customer">
               <MappingFragment StoreEntitySet="Customer">
@@ -64,10 +64,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram DiagramId="0dc81ffaa6d440f6887b765cf159115f" Name="Diagram1">
-        <EntityTypeShape EntityType="KSOA.DataAccess.Customer" Width="1.5" PointX="0.75" PointY="0.75" />
-      </Diagram>
-    </Diagrams>
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>
