@@ -68,29 +68,53 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<Customer> Customer
+        public ObjectSet<Admin_Role> Admin_Role
         {
             get
             {
-                if ((_Customer == null))
+                if ((_Admin_Role == null))
                 {
-                    _Customer = base.CreateObjectSet<Customer>("Customer");
+                    _Admin_Role = base.CreateObjectSet<Admin_Role>("Admin_Role");
                 }
-                return _Customer;
+                return _Admin_Role;
             }
         }
-        private ObjectSet<Customer> _Customer;
+        private ObjectSet<Admin_Role> _Admin_Role;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<KSCustomer> KSCustomer
+        {
+            get
+            {
+                if ((_KSCustomer == null))
+                {
+                    _KSCustomer = base.CreateObjectSet<KSCustomer>("KSCustomer");
+                }
+                return _KSCustomer;
+            }
+        }
+        private ObjectSet<KSCustomer> _KSCustomer;
 
         #endregion
 
         #region AddTo 方法
     
         /// <summary>
-        /// 用于向 Customer EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// 用于向 Admin_Role EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToCustomer(Customer customer)
+        public void AddToAdmin_Role(Admin_Role admin_Role)
         {
-            base.AddObject("Customer", customer);
+            base.AddObject("Admin_Role", admin_Role);
+        }
+    
+        /// <summary>
+        /// 用于向 KSCustomer EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToKSCustomer(KSCustomer kSCustomer)
+        {
+            base.AddObject("KSCustomer", kSCustomer);
         }
 
         #endregion
@@ -104,22 +128,28 @@ namespace KSOA.DataAccess
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="KSOA.DataAccess", Name="Customer")]
+    [EdmEntityTypeAttribute(NamespaceName="KSOA.DataAccess", Name="Admin_Role")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Customer : EntityObject
+    public partial class Admin_Role : EntityObject
     {
         #region 工厂方法
     
         /// <summary>
-        /// 创建新的 Customer 对象。
+        /// 创建新的 Admin_Role 对象。
         /// </summary>
         /// <param name="id">ID 属性的初始值。</param>
-        public static Customer CreateCustomer(global::System.Int32 id)
+        /// <param name="roleName">RoleName 属性的初始值。</param>
+        /// <param name="isDelete">IsDelete 属性的初始值。</param>
+        /// <param name="addTime">AddTime 属性的初始值。</param>
+        public static Admin_Role CreateAdmin_Role(global::System.Int32 id, global::System.String roleName, global::System.Boolean isDelete, global::System.DateTime addTime)
         {
-            Customer customer = new Customer();
-            customer.ID = id;
-            return customer;
+            Admin_Role admin_Role = new Admin_Role();
+            admin_Role.ID = id;
+            admin_Role.RoleName = roleName;
+            admin_Role.IsDelete = isDelete;
+            admin_Role.AddTime = addTime;
+            return admin_Role;
         }
 
         #endregion
@@ -156,26 +186,335 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Name
+        public global::System.String RoleName
         {
             get
             {
-                return _Name;
+                return _RoleName;
             }
             set
             {
-                OnNameChanging(value);
-                ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Name");
-                OnNameChanged();
+                OnRoleNameChanging(value);
+                ReportPropertyChanging("RoleName");
+                _RoleName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("RoleName");
+                OnRoleNameChanged();
             }
         }
-        private global::System.String _Name;
-        partial void OnNameChanging(global::System.String value);
-        partial void OnNameChanged();
+        private global::System.String _RoleName;
+        partial void OnRoleNameChanging(global::System.String value);
+        partial void OnRoleNameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsDelete
+        {
+            get
+            {
+                return _IsDelete;
+            }
+            set
+            {
+                OnIsDeleteChanging(value);
+                ReportPropertyChanging("IsDelete");
+                _IsDelete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsDelete");
+                OnIsDeleteChanged();
+            }
+        }
+        private global::System.Boolean _IsDelete;
+        partial void OnIsDeleteChanging(global::System.Boolean value);
+        partial void OnIsDeleteChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime AddTime
+        {
+            get
+            {
+                return _AddTime;
+            }
+            set
+            {
+                OnAddTimeChanging(value);
+                ReportPropertyChanging("AddTime");
+                _AddTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddTime");
+                OnAddTimeChanged();
+            }
+        }
+        private global::System.DateTime _AddTime;
+        partial void OnAddTimeChanging(global::System.DateTime value);
+        partial void OnAddTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoleNote
+        {
+            get
+            {
+                return _RoleNote;
+            }
+            set
+            {
+                OnRoleNoteChanging(value);
+                ReportPropertyChanging("RoleNote");
+                _RoleNote = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RoleNote");
+                OnRoleNoteChanged();
+            }
+        }
+        private global::System.String _RoleNote;
+        partial void OnRoleNoteChanging(global::System.String value);
+        partial void OnRoleNoteChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="KSOA.DataAccess", Name="KSCustomer")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class KSCustomer : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 KSCustomer 对象。
+        /// </summary>
+        /// <param name="id">ID 属性的初始值。</param>
+        /// <param name="cusName">CusName 属性的初始值。</param>
+        /// <param name="cusPwd">CusPwd 属性的初始值。</param>
+        /// <param name="roleID">RoleID 属性的初始值。</param>
+        /// <param name="cusEmail">CusEmail 属性的初始值。</param>
+        /// <param name="cusPhoneNum">CusPhoneNum 属性的初始值。</param>
+        /// <param name="isDelete">IsDelete 属性的初始值。</param>
+        public static KSCustomer CreateKSCustomer(global::System.Int32 id, global::System.String cusName, global::System.String cusPwd, global::System.String roleID, global::System.String cusEmail, global::System.String cusPhoneNum, global::System.Boolean isDelete)
+        {
+            KSCustomer kSCustomer = new KSCustomer();
+            kSCustomer.ID = id;
+            kSCustomer.CusName = cusName;
+            kSCustomer.CusPwd = cusPwd;
+            kSCustomer.RoleID = roleID;
+            kSCustomer.CusEmail = cusEmail;
+            kSCustomer.CusPhoneNum = cusPhoneNum;
+            kSCustomer.IsDelete = isDelete;
+            return kSCustomer;
+        }
+
+        #endregion
+
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CusName
+        {
+            get
+            {
+                return _CusName;
+            }
+            set
+            {
+                OnCusNameChanging(value);
+                ReportPropertyChanging("CusName");
+                _CusName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CusName");
+                OnCusNameChanged();
+            }
+        }
+        private global::System.String _CusName;
+        partial void OnCusNameChanging(global::System.String value);
+        partial void OnCusNameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CusPwd
+        {
+            get
+            {
+                return _CusPwd;
+            }
+            set
+            {
+                OnCusPwdChanging(value);
+                ReportPropertyChanging("CusPwd");
+                _CusPwd = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CusPwd");
+                OnCusPwdChanged();
+            }
+        }
+        private global::System.String _CusPwd;
+        partial void OnCusPwdChanging(global::System.String value);
+        partial void OnCusPwdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String RoleID
+        {
+            get
+            {
+                return _RoleID;
+            }
+            set
+            {
+                OnRoleIDChanging(value);
+                ReportPropertyChanging("RoleID");
+                _RoleID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("RoleID");
+                OnRoleIDChanged();
+            }
+        }
+        private global::System.String _RoleID;
+        partial void OnRoleIDChanging(global::System.String value);
+        partial void OnRoleIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CusEmail
+        {
+            get
+            {
+                return _CusEmail;
+            }
+            set
+            {
+                OnCusEmailChanging(value);
+                ReportPropertyChanging("CusEmail");
+                _CusEmail = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CusEmail");
+                OnCusEmailChanged();
+            }
+        }
+        private global::System.String _CusEmail;
+        partial void OnCusEmailChanging(global::System.String value);
+        partial void OnCusEmailChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CusPhoneNum
+        {
+            get
+            {
+                return _CusPhoneNum;
+            }
+            set
+            {
+                OnCusPhoneNumChanging(value);
+                ReportPropertyChanging("CusPhoneNum");
+                _CusPhoneNum = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CusPhoneNum");
+                OnCusPhoneNumChanged();
+            }
+        }
+        private global::System.String _CusPhoneNum;
+        partial void OnCusPhoneNumChanging(global::System.String value);
+        partial void OnCusPhoneNumChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsDelete
+        {
+            get
+            {
+                return _IsDelete;
+            }
+            set
+            {
+                OnIsDeleteChanging(value);
+                ReportPropertyChanging("IsDelete");
+                _IsDelete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsDelete");
+                OnIsDeleteChanged();
+            }
+        }
+        private global::System.Boolean _IsDelete;
+        partial void OnIsDeleteChanging(global::System.Boolean value);
+        partial void OnIsDeleteChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> AddTime
+        {
+            get
+            {
+                return _AddTime;
+            }
+            set
+            {
+                OnAddTimeChanging(value);
+                ReportPropertyChanging("AddTime");
+                _AddTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddTime");
+                OnAddTimeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _AddTime;
+        partial void OnAddTimeChanging(Nullable<global::System.DateTime> value);
+        partial void OnAddTimeChanged();
 
         #endregion
 

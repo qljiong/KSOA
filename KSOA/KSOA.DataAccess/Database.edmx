@@ -5,29 +5,63 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KSOA.DataAccess.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityType Name="Customer">
+        <EntityType Name="Admin_Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="RoleNote" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="KSCustomer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CusPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CusEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CusPhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" />
         </EntityType>
         <EntityContainer Name="KSOADataAccessStoreContainer">
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Role" EntityType="Self.Admin_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KSCustomer" EntityType="Self.KSCustomer" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KSOA.DataAccess" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="KSOAEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Customer" EntityType="KSOA.DataAccess.Customer" />
+          <EntitySet Name="Admin_Role" EntityType="KSOA.DataAccess.Admin_Role" />
+          <EntitySet Name="KSCustomer" EntityType="KSOA.DataAccess.KSCustomer" />
         </EntityContainer>
-        <EntityType Name="Customer">
+        <EntityType Name="Admin_Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RoleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="KSCustomer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusPhoneNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -35,10 +69,27 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KSOADataAccessStoreContainer" CdmEntityContainer="KSOAEntities">
-          <EntitySetMapping Name="Customer">
-            <EntityTypeMapping TypeName="KSOA.DataAccess.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="Admin_Role">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_Role">
+              <MappingFragment StoreEntitySet="Admin_Role">
+                <ScalarProperty Name="RoleNote" ColumnName="RoleNote" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KSCustomer">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.KSCustomer">
+              <MappingFragment StoreEntitySet="KSCustomer">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CusPhoneNum" ColumnName="CusPhoneNum" />
+                <ScalarProperty Name="CusEmail" ColumnName="CusEmail" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CusPwd" ColumnName="CusPwd" />
+                <ScalarProperty Name="CusName" ColumnName="CusName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
