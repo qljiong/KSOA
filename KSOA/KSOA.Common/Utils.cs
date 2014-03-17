@@ -31,7 +31,7 @@ namespace KSOA.Common
             }
             public string ProductName
             {
-                get { return "DTcms"; }
+                get { return "KSOA"; }
             }
             public int ProductType
             {

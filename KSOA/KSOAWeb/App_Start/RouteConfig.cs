@@ -13,6 +13,20 @@ namespace KSOAWeb
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            #region 后台路由规则
+            routes.MapRoute(
+                    name: "AdminRouteReWrite",
+                    url: "Admin/{action}.html",
+                    defaults: new { controller = "Admin", action = "Login" }
+                );
+            routes.MapRoute(
+                name: "AdminRoute",
+                url: "Admin/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Login", id = UrlParameter.Optional }
+            ); 
+            #endregion
+
+            //默认路由规则要放在最下面,否则会屏蔽自定义规则
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

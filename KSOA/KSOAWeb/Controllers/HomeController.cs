@@ -14,7 +14,7 @@ namespace KSOAWeb.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.name = new KSCustomerLogic().test();
+            ViewBag.name = new Admin_KSCustomerLogic().test();
             return View();
         }
 

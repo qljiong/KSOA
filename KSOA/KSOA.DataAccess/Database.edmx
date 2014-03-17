@@ -5,63 +5,1171 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KSOA.DataAccess.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Admin_Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DpName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_ExcelResourceForComplain">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileDateTime" Type="datetime" Nullable="false" />
+          <Property Name="UserNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderTime" Type="datetime" Nullable="false" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PayAmount" Type="decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_ExcelResourceForMonth">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowNumber" Type="int" Nullable="false" />
+          <Property Name="StatisticsTime" Type="datetime" Nullable="false" />
+          <Property Name="SingleOpusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NotBaoyuePlayNum" Type="int" Nullable="false" />
+          <Property Name="BaoyuePlayNum" Type="int" Nullable="false" />
+          <Property Name="PayBillPlayNum" Type="int" Nullable="false" />
+          <Property Name="FreePlayNum" Type="int" Nullable="false" />
+          <Property Name="NotBaoyuePayBillPlayNum" Type="int" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_KSCustomer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RealName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="CusPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CusEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CusPhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="QQ" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_OperatLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OperatorID" Type="int" Nullable="false" />
+          <Property Name="OperatorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Module" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OperationContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OpIp" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_Platform">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admin_Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Input" Type="bit" Nullable="false" />
+          <Property Name="See" Type="bit" Nullable="false" />
+          <Property Name="Import" Type="bit" Nullable="false" />
+          <Property Name="Export" Type="bit" Nullable="false" />
+          <Property Name="RoleNote" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="RoleNote" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="KSCustomer">
+        <EntityType Name="Admin_SysErrorLog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CusName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CusPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RoleID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CusEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CusPhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageUrl" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ErrorMsg" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_SysMenu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentID" Type="int" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MenuUrl" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="OrderIndex" Type="int" Nullable="false" />
+          <Property Name="AdminRoleID" Type="int" Nullable="false" />
+          <Property Name="IsEnable" Type="bit" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
-          <Property Name="AddTime" Type="datetime" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bank_CommercialOpus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpusID" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CpAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ChannelAddres" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Bank_Opus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="OpTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OpAuthor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OpBeginTime" Type="datetime" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bank_OriginalGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpusCopyright" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="CreationInfo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OpusName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="OpusAuthor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SalePrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccreditPlatform" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccreditCompany" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccreditTime" Type="datetime" Nullable="false" />
+          <Property Name="AccreditType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Awards" Type="nvarchar(max)" />
+          <Property Name="OpusMascot" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“KSOA.dbo.UI_ExcelImportByChannel”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="UI_ExcelImportByChannel">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="ExSpreadType" />
+            <PropertyRef Name="ExTime" />
+            <PropertyRef Name="ExOpusName" />
+            <PropertyRef Name="ExCollectNum" />
+            <PropertyRef Name="ExChargeCollectNum" />
+            <PropertyRef Name="ExOpusUnitPrice" />
+            <PropertyRef Name="ExAccountPrice" />
+            <PropertyRef Name="ExAccountCollectNum" />
+            <PropertyRef Name="HistoryPercent" />
+            <PropertyRef Name="AddTime" />
+            <PropertyRef Name="IsDelete" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="ExSpreadType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ExTime" Type="datetime" Nullable="false" />
+          <Property Name="ExOpusName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ExCollectNum" Type="int" Nullable="false" />
+          <Property Name="ExChargeCollectNum" Type="int" Nullable="false" />
+          <Property Name="ExOpusUnitPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ExAccountPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ExAccountCollectNum" Type="int" Nullable="false" />
+          <Property Name="HistoryPercent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“KSOA.dbo.UI_ExcelImportByPlatform”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="UI_ExcelImportByPlatform">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="ExType" />
+            <PropertyRef Name="ExTime" />
+            <PropertyRef Name="ExCpName" />
+            <PropertyRef Name="ExOpusName" />
+            <PropertyRef Name="ExCooperation" />
+            <PropertyRef Name="ExCollectNum" />
+            <PropertyRef Name="ExSingleCollectNum" />
+            <PropertyRef Name="ExOpusUnitPrice" />
+            <PropertyRef Name="ExAccountPrice" />
+            <PropertyRef Name="AddTime" />
+            <PropertyRef Name="IsDelete" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="ExType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ExTime" Type="datetime" Nullable="false" />
+          <Property Name="ExCpName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExOpusName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ExCooperation" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ExCollectNum" Type="int" Nullable="false" />
+          <Property Name="ExSingleCollectNum" Type="int" Nullable="false" />
+          <Property Name="ExOpusUnitPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ExAccountPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Work_Note">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="WriterID" Type="int" Nullable="false" />
+          <Property Name="WriterName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WConetent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WTaster" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="WIP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Work_Notice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NCustomerID" Type="int" Nullable="false" />
+          <Property Name="NCustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nlevel" Type="int" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="NIP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“KSOA.dbo.Work_Schedule”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="Work_Schedule">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="ItemLaunchTime" />
+            <PropertyRef Name="AddTime" />
+            <PropertyRef Name="IsDelete" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemLaunchTime" Type="datetime" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="KSOADataAccessStoreContainer">
+          <EntitySet Name="Admin_Department" EntityType="Self.Admin_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="Self.Admin_ExcelResourceForComplain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="Self.Admin_ExcelResourceForMonth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_KSCustomer" EntityType="Self.Admin_KSCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_OperatLog" EntityType="Self.Admin_OperatLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Platform" EntityType="Self.Admin_Platform" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Role" EntityType="Self.Admin_Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="KSCustomer" EntityType="Self.KSCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_SysErrorLog" EntityType="Self.Admin_SysErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_SysMenu" EntityType="Self.Admin_SysMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank_CommercialOpus" EntityType="Self.Bank_CommercialOpus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank_Opus" EntityType="Self.Bank_Opus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank_OriginalGroup" EntityType="Self.Bank_OriginalGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Work_Note" EntityType="Self.Work_Note" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Work_Notice" EntityType="Self.Work_Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UI_ExcelImportByChannel" EntityType="Self.UI_ExcelImportByChannel" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[UI_ExcelImportByChannel].[ID] AS [ID], 
+[UI_ExcelImportByChannel].[CustomerID] AS [CustomerID], 
+[UI_ExcelImportByChannel].[ExSpreadType] AS [ExSpreadType], 
+[UI_ExcelImportByChannel].[ExTime] AS [ExTime], 
+[UI_ExcelImportByChannel].[ExOpusName] AS [ExOpusName], 
+[UI_ExcelImportByChannel].[ExCollectNum] AS [ExCollectNum], 
+[UI_ExcelImportByChannel].[ExChargeCollectNum] AS [ExChargeCollectNum], 
+[UI_ExcelImportByChannel].[ExOpusUnitPrice] AS [ExOpusUnitPrice], 
+[UI_ExcelImportByChannel].[ExAccountPrice] AS [ExAccountPrice], 
+[UI_ExcelImportByChannel].[ExAccountCollectNum] AS [ExAccountCollectNum], 
+[UI_ExcelImportByChannel].[HistoryPercent] AS [HistoryPercent], 
+[UI_ExcelImportByChannel].[AddTime] AS [AddTime], 
+[UI_ExcelImportByChannel].[IsDelete] AS [IsDelete]
+FROM [dbo].[UI_ExcelImportByChannel] AS [UI_ExcelImportByChannel]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UI_ExcelImportByPlatform" EntityType="Self.UI_ExcelImportByPlatform" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[UI_ExcelImportByPlatform].[ID] AS [ID], 
+[UI_ExcelImportByPlatform].[CustomerID] AS [CustomerID], 
+[UI_ExcelImportByPlatform].[ExType] AS [ExType], 
+[UI_ExcelImportByPlatform].[ExTime] AS [ExTime], 
+[UI_ExcelImportByPlatform].[ExCpName] AS [ExCpName], 
+[UI_ExcelImportByPlatform].[ExOpusName] AS [ExOpusName], 
+[UI_ExcelImportByPlatform].[ExCooperation] AS [ExCooperation], 
+[UI_ExcelImportByPlatform].[ExCollectNum] AS [ExCollectNum], 
+[UI_ExcelImportByPlatform].[ExSingleCollectNum] AS [ExSingleCollectNum], 
+[UI_ExcelImportByPlatform].[ExOpusUnitPrice] AS [ExOpusUnitPrice], 
+[UI_ExcelImportByPlatform].[ExAccountPrice] AS [ExAccountPrice], 
+[UI_ExcelImportByPlatform].[AddTime] AS [AddTime], 
+[UI_ExcelImportByPlatform].[IsDelete] AS [IsDelete]
+FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Work_Schedule" EntityType="Self.Work_Schedule" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Work_Schedule].[ID] AS [ID], 
+[Work_Schedule].[ItemName] AS [ItemName], 
+[Work_Schedule].[ItemLaunchTime] AS [ItemLaunchTime], 
+[Work_Schedule].[AddTime] AS [AddTime], 
+[Work_Schedule].[IsDelete] AS [IsDelete]
+FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KSOA.DataAccess" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="KSOAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin_Department" EntityType="KSOA.DataAccess.Admin_Department" />
+          <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="KSOA.DataAccess.Admin_ExcelResourceForComplain" />
+          <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="KSOA.DataAccess.Admin_ExcelResourceForMonth" />
+          <EntitySet Name="Admin_KSCustomer" EntityType="KSOA.DataAccess.Admin_KSCustomer" />
+          <EntitySet Name="Admin_OperatLog" EntityType="KSOA.DataAccess.Admin_OperatLog" />
+          <EntitySet Name="Admin_Platform" EntityType="KSOA.DataAccess.Admin_Platform" />
           <EntitySet Name="Admin_Role" EntityType="KSOA.DataAccess.Admin_Role" />
-          <EntitySet Name="KSCustomer" EntityType="KSOA.DataAccess.KSCustomer" />
+          <EntitySet Name="Admin_SysErrorLog" EntityType="KSOA.DataAccess.Admin_SysErrorLog" />
+          <EntitySet Name="Admin_SysMenu" EntityType="KSOA.DataAccess.Admin_SysMenu" />
+          <EntitySet Name="Bank_CommercialOpus" EntityType="KSOA.DataAccess.Bank_CommercialOpus" />
+          <EntitySet Name="Bank_Opus" EntityType="KSOA.DataAccess.Bank_Opus" />
+          <EntitySet Name="Bank_OriginalGroup" EntityType="KSOA.DataAccess.Bank_OriginalGroup" />
+          <EntitySet Name="Work_Note" EntityType="KSOA.DataAccess.Work_Note" />
+          <EntitySet Name="Work_Notice" EntityType="KSOA.DataAccess.Work_Notice" />
+          <EntitySet Name="UI_ExcelImportByChannel" EntityType="KSOA.DataAccess.UI_ExcelImportByChannel" />
+          <EntitySet Name="UI_ExcelImportByPlatform" EntityType="KSOA.DataAccess.UI_ExcelImportByPlatform" />
+          <EntitySet Name="Work_Schedule" EntityType="KSOA.DataAccess.Work_Schedule" />
         </EntityContainer>
+        <EntityType Name="Admin_Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>部门表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>部门名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Admin_ExcelResourceForComplain">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>源数据表,投诉表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="FileDateTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>投诉归档日期</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="UserNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>用户号码</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Province" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>省份</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OrderTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>订购日期</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>订购业务名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="PayAmount" Type="Decimal" Nullable="false" Precision="38" Scale="0">
+            <Documentation>
+              <Summary>支付费用</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目增加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Admin_ExcelResourceForMonth">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>Excel源数据表(包月)ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RowNumber" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>行号</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StatisticsTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>统计日期</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="SingleOpusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>单部名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="NotBaoyuePlayNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>非包月点播次数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="BaoyuePlayNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>包月点播次数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="PayBillPlayNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>付费点播次数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="FreePlayNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>免费点播次数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="NotBaoyuePayBillPlayNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>非包月付费点播次数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Admin_KSCustomer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>用户表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>外键关联Admin_Role表的ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RealName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>真实姓名</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>用户名(昵称)</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
+            <Documentation>
+              <Summary>性别;X:女,Y:男,Z:未知</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Age" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>年龄</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CusPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>用户密码（需MD5混淆过的）</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>用户邮箱（可做登陆用），设置唯一约束</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CusPhoneNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>用户手机（可做登陆用），设置唯一约束</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="QQ" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false">
+            <Documentation>
+              <Summary>用户qq</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Admin_OperatLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>系统操作日志表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OperatorID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>操作人ID,关联用户表的用户ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OperatorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>操作人名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Module" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>操作的模块名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OperationContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>操作详细描述</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpIp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false">
+            <Documentation>
+              <Summary>操作人的Ip</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Admin_Platform">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>平台表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="PType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>平台类型;CP,渠道,SDK,合作渠道</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="PName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>平台名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
         <EntityType Name="Admin_Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RoleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>角色表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>角色名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Input" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>录入的权限</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="See" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>查看的权限</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Import" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>导入的权限</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Export" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>导出的权限</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RoleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>角色权限描述</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
         </EntityType>
-        <EntityType Name="KSCustomer">
+        <EntityType Name="Admin_SysErrorLog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CusPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CusPhoneNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Precision="3" />
+          <Property Name="PageUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>错误页面URL</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ErrorMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>错误提示信息</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Admin_SysMenu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
+            <Documentation>
+              <Summary>系统菜单表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ParentID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>菜单级别ID;0:一级菜单,其它自关联当前表ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>菜单名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="MenuUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>菜单URL</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OrderIndex" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>菜单排序ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AdminRoleID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>关联AdminRole表的ID,外键</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsEnable" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否启用;0:未启用,1:已启用</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Bank_CommercialOpus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpusID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>作品ID,关联Bank_Opus的id</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品使用公司名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CpAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品CP地址</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ChannelAddres" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品渠道地址</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Bank_Opus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
+            <Documentation>
+              <Summary>作品类型;B:buy(作品购买),S:sell(销售)</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作者</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpBeginTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>发布,上架时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Bank_OriginalGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpusCopyright" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>版权信息</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CreationInfo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>创作信息</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpusName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpusAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作者</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="SalePrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
+            <Documentation>
+              <Summary>销售金额</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AccreditPlatform" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>授权平台</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AccreditCompany" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>授权公司</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AccreditTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>授权日期</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AccreditType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>授权类型</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Awards" Type="String" MaxLength="Max" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>获奖情况</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="OpusMascot" Type="String" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>原创形象相关信息</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Work_Note">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
+            <Documentation>
+              <Summary>工作报告类型;D:日报,W:周报,M:月报</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WriterID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>填写人ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WriterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>工作报告填写人</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>日报标题</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WConetent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>工作报告内容</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WTaster" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>日报审阅人ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false">
+            <Documentation>
+              <Summary>填写人IP</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Work_Notice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>公告标题</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="NContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>公告内容</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="NCustomerID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>发布人ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="NCustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>发布人名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Nlevel" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>公告级别,1,2,3,4;1的级别最大</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="NIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false">
+            <Documentation>
+              <Summary>发布人IP</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="UI_ExcelImportByChannel">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="ExSpreadType" />
+            <PropertyRef Name="ExTime" />
+            <PropertyRef Name="ExOpusName" />
+            <PropertyRef Name="ExCollectNum" />
+            <PropertyRef Name="ExChargeCollectNum" />
+            <PropertyRef Name="ExOpusUnitPrice" />
+            <PropertyRef Name="ExAccountPrice" />
+            <PropertyRef Name="ExAccountCollectNum" />
+            <PropertyRef Name="HistoryPercent" />
+            <PropertyRef Name="AddTime" />
+            <PropertyRef Name="IsDelete" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>导入操作人ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExSpreadType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
+            <Documentation>
+              <Summary>推广平台;Q:渠道,S:SDK,C:CP(内容提供商)</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>日期:导入表单里的时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExOpusName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExCollectNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>作品对应的集数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExChargeCollectNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>作品对应集数计费条数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
+            <Documentation>
+              <Summary>作品单价</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
+            <Documentation>
+              <Summary>结算金额</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExAccountCollectNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>结算条数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="HistoryPercent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>渠道结算金额比例设置调整记录</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="UI_ExcelImportByPlatform">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="ExType" />
+            <PropertyRef Name="ExTime" />
+            <PropertyRef Name="ExCpName" />
+            <PropertyRef Name="ExOpusName" />
+            <PropertyRef Name="ExCooperation" />
+            <PropertyRef Name="ExCollectNum" />
+            <PropertyRef Name="ExSingleCollectNum" />
+            <PropertyRef Name="ExOpusUnitPrice" />
+            <PropertyRef Name="ExAccountPrice" />
+            <PropertyRef Name="AddTime" />
+            <PropertyRef Name="IsDelete" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>导入操作人ID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
+            <Documentation>
+              <Summary>导入类别;W:WAP,S:SDK,Q:渠道</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>导入表单里的时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExCpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>CP(内容提供商)名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExOpusName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>作品名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExCooperation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>对应合作渠道推广商</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExCollectNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>作品对应集数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExSingleCollectNum" Type="Int32" Nullable="false">
+            <Documentation>
+              <Summary>单集计费条数</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
+            <Documentation>
+              <Summary>作品单价</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
+            <Documentation>
+              <Summary>结算金额</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="Work_Schedule">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="ItemLaunchTime" />
+            <PropertyRef Name="AddTime" />
+            <PropertyRef Name="IsDelete" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
+            <Documentation>
+              <Summary>项目名称</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ItemLaunchTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>项目发起时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
+            <Documentation>
+              <Summary>条目添加时间</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="IsDelete" Type="Boolean" Nullable="false">
+            <Documentation>
+              <Summary>是否已删除；0：未删除，1：已删除</Summary>
+            </Documentation>
+          </Property>
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -69,27 +1177,252 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KSOADataAccessStoreContainer" CdmEntityContainer="KSOAEntities">
+          <EntitySetMapping Name="Admin_Department">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_Department">
+              <MappingFragment StoreEntitySet="Admin_Department">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="DpName" ColumnName="DpName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_ExcelResourceForComplain">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_ExcelResourceForComplain">
+              <MappingFragment StoreEntitySet="Admin_ExcelResourceForComplain">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="PayAmount" ColumnName="PayAmount" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="UserNumber" ColumnName="UserNumber" />
+                <ScalarProperty Name="FileDateTime" ColumnName="FileDateTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_ExcelResourceForMonth">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_ExcelResourceForMonth">
+              <MappingFragment StoreEntitySet="Admin_ExcelResourceForMonth">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="NotBaoyuePayBillPlayNum" ColumnName="NotBaoyuePayBillPlayNum" />
+                <ScalarProperty Name="FreePlayNum" ColumnName="FreePlayNum" />
+                <ScalarProperty Name="PayBillPlayNum" ColumnName="PayBillPlayNum" />
+                <ScalarProperty Name="BaoyuePlayNum" ColumnName="BaoyuePlayNum" />
+                <ScalarProperty Name="NotBaoyuePlayNum" ColumnName="NotBaoyuePlayNum" />
+                <ScalarProperty Name="SingleOpusName" ColumnName="SingleOpusName" />
+                <ScalarProperty Name="StatisticsTime" ColumnName="StatisticsTime" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_KSCustomer">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_KSCustomer">
+              <MappingFragment StoreEntitySet="Admin_KSCustomer">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="CusPhoneNum" ColumnName="CusPhoneNum" />
+                <ScalarProperty Name="CusEmail" ColumnName="CusEmail" />
+                <ScalarProperty Name="CusPwd" ColumnName="CusPwd" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CusName" ColumnName="CusName" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_OperatLog">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_OperatLog">
+              <MappingFragment StoreEntitySet="Admin_OperatLog">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="OpIp" ColumnName="OpIp" />
+                <ScalarProperty Name="OperationContent" ColumnName="OperationContent" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_Platform">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_Platform">
+              <MappingFragment StoreEntitySet="Admin_Platform">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="PName" ColumnName="PName" />
+                <ScalarProperty Name="PType" ColumnName="PType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Admin_Role">
             <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_Role">
               <MappingFragment StoreEntitySet="Admin_Role">
-                <ScalarProperty Name="RoleNote" ColumnName="RoleNote" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="RoleNote" ColumnName="RoleNote" />
+                <ScalarProperty Name="Export" ColumnName="Export" />
+                <ScalarProperty Name="Import" ColumnName="Import" />
+                <ScalarProperty Name="See" ColumnName="See" />
+                <ScalarProperty Name="Input" ColumnName="Input" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="KSCustomer">
-            <EntityTypeMapping TypeName="KSOA.DataAccess.KSCustomer">
-              <MappingFragment StoreEntitySet="KSCustomer">
+          <EntitySetMapping Name="Admin_SysErrorLog">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_SysErrorLog">
+              <MappingFragment StoreEntitySet="Admin_SysErrorLog">
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="ErrorMsg" ColumnName="ErrorMsg" />
+                <ScalarProperty Name="PageUrl" ColumnName="PageUrl" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_SysMenu">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_SysMenu">
+              <MappingFragment StoreEntitySet="Admin_SysMenu">
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="CusPhoneNum" ColumnName="CusPhoneNum" />
-                <ScalarProperty Name="CusEmail" ColumnName="CusEmail" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="CusPwd" ColumnName="CusPwd" />
-                <ScalarProperty Name="CusName" ColumnName="CusName" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="AdminRoleID" ColumnName="AdminRoleID" />
+                <ScalarProperty Name="OrderIndex" ColumnName="OrderIndex" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bank_CommercialOpus">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Bank_CommercialOpus">
+              <MappingFragment StoreEntitySet="Bank_CommercialOpus">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="ChannelAddres" ColumnName="ChannelAddres" />
+                <ScalarProperty Name="CpAddress" ColumnName="CpAddress" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="OpusID" ColumnName="OpusID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bank_Opus">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Bank_Opus">
+              <MappingFragment StoreEntitySet="Bank_Opus">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="OpBeginTime" ColumnName="OpBeginTime" />
+                <ScalarProperty Name="OpAuthor" ColumnName="OpAuthor" />
+                <ScalarProperty Name="OpTitle" ColumnName="OpTitle" />
+                <ScalarProperty Name="OpType" ColumnName="OpType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bank_OriginalGroup">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Bank_OriginalGroup">
+              <MappingFragment StoreEntitySet="Bank_OriginalGroup">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="OpusMascot" ColumnName="OpusMascot" />
+                <ScalarProperty Name="Awards" ColumnName="Awards" />
+                <ScalarProperty Name="AccreditType" ColumnName="AccreditType" />
+                <ScalarProperty Name="AccreditTime" ColumnName="AccreditTime" />
+                <ScalarProperty Name="AccreditCompany" ColumnName="AccreditCompany" />
+                <ScalarProperty Name="AccreditPlatform" ColumnName="AccreditPlatform" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="OpusAuthor" ColumnName="OpusAuthor" />
+                <ScalarProperty Name="OpusName" ColumnName="OpusName" />
+                <ScalarProperty Name="CreationInfo" ColumnName="CreationInfo" />
+                <ScalarProperty Name="OpusCopyright" ColumnName="OpusCopyright" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Work_Note">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Note">
+              <MappingFragment StoreEntitySet="Work_Note">
+                <ScalarProperty Name="WIP" ColumnName="WIP" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="WTaster" ColumnName="WTaster" />
+                <ScalarProperty Name="WConetent" ColumnName="WConetent" />
+                <ScalarProperty Name="WTitle" ColumnName="WTitle" />
+                <ScalarProperty Name="WriterName" ColumnName="WriterName" />
+                <ScalarProperty Name="WriterID" ColumnName="WriterID" />
+                <ScalarProperty Name="WType" ColumnName="WType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Work_Notice">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Notice">
+              <MappingFragment StoreEntitySet="Work_Notice">
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="Nlevel" ColumnName="Nlevel" />
+                <ScalarProperty Name="NCustomerName" ColumnName="NCustomerName" />
+                <ScalarProperty Name="NCustomerID" ColumnName="NCustomerID" />
+                <ScalarProperty Name="NContent" ColumnName="NContent" />
+                <ScalarProperty Name="NTitle" ColumnName="NTitle" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UI_ExcelImportByChannel">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.UI_ExcelImportByChannel">
+              <MappingFragment StoreEntitySet="UI_ExcelImportByChannel">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="HistoryPercent" ColumnName="HistoryPercent" />
+                <ScalarProperty Name="ExAccountCollectNum" ColumnName="ExAccountCollectNum" />
+                <ScalarProperty Name="ExAccountPrice" ColumnName="ExAccountPrice" />
+                <ScalarProperty Name="ExOpusUnitPrice" ColumnName="ExOpusUnitPrice" />
+                <ScalarProperty Name="ExChargeCollectNum" ColumnName="ExChargeCollectNum" />
+                <ScalarProperty Name="ExCollectNum" ColumnName="ExCollectNum" />
+                <ScalarProperty Name="ExOpusName" ColumnName="ExOpusName" />
+                <ScalarProperty Name="ExTime" ColumnName="ExTime" />
+                <ScalarProperty Name="ExSpreadType" ColumnName="ExSpreadType" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UI_ExcelImportByPlatform">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.UI_ExcelImportByPlatform">
+              <MappingFragment StoreEntitySet="UI_ExcelImportByPlatform">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="ExAccountPrice" ColumnName="ExAccountPrice" />
+                <ScalarProperty Name="ExOpusUnitPrice" ColumnName="ExOpusUnitPrice" />
+                <ScalarProperty Name="ExSingleCollectNum" ColumnName="ExSingleCollectNum" />
+                <ScalarProperty Name="ExCollectNum" ColumnName="ExCollectNum" />
+                <ScalarProperty Name="ExCooperation" ColumnName="ExCooperation" />
+                <ScalarProperty Name="ExOpusName" ColumnName="ExOpusName" />
+                <ScalarProperty Name="ExCpName" ColumnName="ExCpName" />
+                <ScalarProperty Name="ExTime" ColumnName="ExTime" />
+                <ScalarProperty Name="ExType" ColumnName="ExType" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Work_Schedule">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Schedule">
+              <MappingFragment StoreEntitySet="Work_Schedule">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="ItemLaunchTime" ColumnName="ItemLaunchTime" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

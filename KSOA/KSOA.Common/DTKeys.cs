@@ -10,11 +10,11 @@ namespace KSOA.Common
         /// <summary>
         /// 版本号全称
         /// </summary>
-        public const string ASSEMBLY_VERSION = "2.1.0";
+        public const string ASSEMBLY_VERSION = "1.0";
         /// <summary>
         /// 版本年号
         /// </summary>
-        public const string ASSEMBLY_YEAR = "2012";
+        public const string ASSEMBLY_YEAR = "2014";
         //File======================================================
         /// <summary>
         /// 插件配制文件名

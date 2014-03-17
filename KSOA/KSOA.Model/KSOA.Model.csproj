@@ -40,7 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin_Department.cs" />
+    <Compile Include="Admin_ExcelResourceForComplain.cs" />
+    <Compile Include="Admin_KSCustomer.cs" />
+    <Compile Include="Admin_OperatLog.cs" />
+    <Compile Include="Admin_Platform.cs" />
+    <Compile Include="Admin_Role.cs" />
+    <Compile Include="Admin_SysErrorLog.cs" />
+    <Compile Include="Admin_SysMenu.cs" />
+    <Compile Include="Bank_CommercialOpus.cs" />
+    <Compile Include="Bank_Opus.cs" />
+    <Compile Include="Bank_OriginalGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI_ExcelImportByChannel.cs" />
+    <Compile Include="UI_ExcelImportByPlatform.cs" />
+    <Compile Include="Work_Note.cs" />
+    <Compile Include="Work_Notice.cs" />
+    <Compile Include="Work_Schedule.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

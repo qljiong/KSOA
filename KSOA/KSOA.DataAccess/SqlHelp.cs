@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
-using KSOA.DataAccess;
-namespace WE_Customer.DataAccess
+namespace KSOA.DataAccess
 {
     public class SQLHelper
     {

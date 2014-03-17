@@ -57,7 +57,7 @@ namespace KSOA.Common
         /// <returns></returns>
         public static string Decrypt(string Text)
         {
-            return Decrypt(Text, "DTcms");
+            return Decrypt(Text, "KSOA");
         }
         /// <summary> 
         /// 解密数据 

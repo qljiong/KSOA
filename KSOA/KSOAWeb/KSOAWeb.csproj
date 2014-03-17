@@ -40,6 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KSOA.Common\NPOI\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -126,12 +130,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\UserStateManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -139,6 +143,75 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\Admin.css" />
+    <Content Include="Content\Image\Admin\arrow_left.png" />
+    <Content Include="Content\Image\Admin\btn_bg.gif" />
+    <Content Include="Content\Image\Admin\default_user_avatar.gif" />
+    <Content Include="Content\Image\Admin\folder.gif" />
+    <Content Include="Content\Image\Admin\folder_open.gif" />
+    <Content Include="Content\Image\Admin\foot_bg.gif" />
+    <Content Include="Content\Image\Admin\head_bg.gif" />
+    <Content Include="Content\Image\Admin\head_bg_line.gif" />
+    <Content Include="Content\Image\Admin\head_logo.png" />
+    <Content Include="Content\Image\Admin\home.gif" />
+    <Content Include="Content\Image\Admin\ico-0.png" />
+    <Content Include="Content\Image\Admin\ico-0_.png" />
+    <Content Include="Content\Image\Admin\ico-1.png" />
+    <Content Include="Content\Image\Admin\ico-1_.png" />
+    <Content Include="Content\Image\Admin\ico-2.png" />
+    <Content Include="Content\Image\Admin\ico-2_.png" />
+    <Content Include="Content\Image\Admin\ico-3.png" />
+    <Content Include="Content\Image\Admin\ico-3_.png" />
+    <Content Include="Content\Image\Admin\ico-4.png" />
+    <Content Include="Content\Image\Admin\ico-4_.png" />
+    <Content Include="Content\Image\Admin\ico-5.png" />
+    <Content Include="Content\Image\Admin\ico-5_.png" />
+    <Content Include="Content\Image\Admin\ico-6.png" />
+    <Content Include="Content\Image\Admin\ico-show-img.png" />
+    <Content Include="Content\Image\Admin\ico-show-txt.png" />
+    <Content Include="Content\Image\Admin\icon_asc.gif" />
+    <Content Include="Content\Image\Admin\icon_attach.png" />
+    <Content Include="Content\Image\Admin\icon_audit.gif" />
+    <Content Include="Content\Image\Admin\icon_channel.png" />
+    <Content Include="Content\Image\Admin\icon_comment.gif" />
+    <Content Include="Content\Image\Admin\icon_correct.png" />
+    <Content Include="Content\Image\Admin\icon_del.gif" />
+    <Content Include="Content\Image\Admin\icon_del2.gif" />
+    <Content Include="Content\Image\Admin\icon_desc.gif" />
+    <Content Include="Content\Image\Admin\icon_disable.png" />
+    <Content Include="Content\Image\Admin\icon_edit.gif" />
+    <Content Include="Content\Image\Admin\icon_log.png" />
+    <Content Include="Content\Image\Admin\icon_manaer.png" />
+    <Content Include="Content\Image\Admin\icon_mark.png" />
+    <Content Include="Content\Image\Admin\icon_msg.gif" />
+    <Content Include="Content\Image\Admin\icon_no.png" />
+    <Content Include="Content\Image\Admin\icon_plugin.png" />
+    <Content Include="Content\Image\Admin\icon_setting.png" />
+    <Content Include="Content\Image\Admin\icon_site.gif" />
+    <Content Include="Content\Image\Admin\icon_templet.png" />
+    <Content Include="Content\Image\Admin\icon_user.png" />
+    <Content Include="Content\Image\Admin\icon_view.gif" />
+    <Content Include="Content\Image\Admin\ie_update.jpg" />
+    <Content Include="Content\Image\Admin\li_bg.gif" />
+    <Content Include="Content\Image\Admin\loading.gif" />
+    <Content Include="Content\Image\Admin\loading2.gif" />
+    <Content Include="Content\Image\Admin\login_bg.gif" />
+    <Content Include="Content\Image\Admin\login_btn_bg.gif" />
+    <Content Include="Content\Image\Admin\login_logo.png" />
+    <Content Include="Content\Image\Admin\memeber.gif" />
+    <Content Include="Content\Image\Admin\menu_icons.gif" />
+    <Content Include="Content\Image\Admin\msg_icon.gif" />
+    <Content Include="Content\Image\Admin\nav_icon.gif" />
+    <Content Include="Content\Image\Admin\noimg.gif" />
+    <Content Include="Content\Image\Admin\order_speed.gif" />
+    <Content Include="Content\Image\Admin\style.css" />
+    <Content Include="Content\Image\Admin\t.gif" />
+    <Content Include="Content\Image\Admin\tools_bg.gif" />
+    <Content Include="Content\Image\Admin\tools_btn_bg.gif" />
+    <Content Include="Content\Image\Admin\tools_icon.gif" />
+    <Content Include="Content\Image\Admin\upbtn_bg.gif" />
+    <Content Include="Content\Image\Admin\upfile_bg.gif" />
+    <Content Include="Content\Image\Admin\user_toolbar.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -195,24 +268,160 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
     <None Include="Properties\PublishProfiles\KSOAdeploy.pubxml" />
-    <None Include="Scripts\jquery-1.8.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.8.24.js" />
-    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\Admin\function.js" />
+    <Content Include="Scripts\jquery-1.3.2.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.Jcrop.min.js" />
+    <Content Include="Scripts\jquery.jqzoom.js" />
+    <Content Include="Scripts\jquery.KinSlideshow-1.2.1.min.js" />
+    <Content Include="Scripts\jquery.metadata.js" />
+    <Content Include="Scripts\jquery.pagination.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\messages_cn.js" />
+    <Content Include="Scripts\ui\js\ligerBuild.min.js" />
+    <Content Include="Scripts\ui\js\ligerBuild.source.js" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-all.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-common.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-dialog.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-form.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-grid.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-layout.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-menu.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-tab.css" />
+    <Content Include="Scripts\ui\skins\Aqua\css\ligerui-tree.css" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-done.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-error.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-l-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-l.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-question.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-r-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-r.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn-warn.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-btn.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-close-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-close.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-lefttop.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-righttop.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\box-top.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\box\tabs-item-left-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\common\loading.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-bc.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-bl.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-br.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-button.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-button.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-cl.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-close.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-cr.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-done.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-error.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-icons.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-question.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-tc.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-title-icon.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-tl.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-tr.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\dialog-warn.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\ie6\dialog-bc.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\ie6\dialog-cl.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\ie6\dialog-cr.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\ie6\dialog-tc.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\form\verify-corner.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\box-lefttop.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\box-righttop.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-checkbox-checked.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-checkbox.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-detail-close.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-detail-open.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-line.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-tree-close.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\grid-tree-open.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\header-bg-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\header-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\header2-bg.jpg" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\loading.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\popup-line.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\popup-row-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\popup-row-over.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\bar-button-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\checkbox-checked.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\checkbox.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-close-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-close.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-close18X18.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-done.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-down.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-drop.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-edited.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-first.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-last.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-line.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-load.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-load.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-milestone.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-next.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-prev.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-remark15X15.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-sort-asc.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-sort-desc.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-up.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\icon-warn.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\magnifier.png" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\accordion-content.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\accordion-header-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\accordion-header.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\layout-header-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\layout-header.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\layout-sidebar-header.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\mini-bottom.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\mini-left.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\mini-right.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\mini-top.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\panel-content.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\panel-header-over.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\panel-header.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-item-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-item-left-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-item-over-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-item-right-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-tools.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\togglebar.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-item-arrow.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-item-down.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-item-over-l.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-item-over-m.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-item-over-r.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-line-x.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\menu-line-y.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\bar-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\header-bg.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\header-bg.jpg" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\header2-bg.jpg" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-btn-l.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-btn-r.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-btn.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-header.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-menu-item-down.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-menu.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-menu.jpg" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-toolbar.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-toolbar.jpg" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-tools-sprites.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\panel-tools.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\folder-open.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\folder.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\loading.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-leaf.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-level.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-noline.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-status-close.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-status-open.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-status.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.gif" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -227,12 +436,32 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\ImportExcel.cshtml" />
+    <Content Include="Scripts\ui\skins\Aqua\images\common\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\ie6\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\dialog\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\form\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\grid\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\icon\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tab.psd" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\tabs-tools.psd" />
+    <Content Include="Scripts\ui\skins\Aqua\images\layout\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\menu\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\panel\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\Thumbs.db" />
+    <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.psd" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\Managerpwd.cshtml" />
+    <Content Include="Views\Admin\ImportExcelByComplain.cshtml" />
+    <Content Include="Views\Admin\ImportExcelByMonth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="UploadFile\Complain\" />
+    <Folder Include="UploadFile\Month\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -241,6 +470,14 @@
     <ProjectReference Include="..\KSOA.Business\KSOA.Business.csproj">
       <Project>{a4939b7c-0c22-4d84-a7d4-476674e68f23}</Project>
       <Name>KSOA.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KSOA.Common\KSOA.Common.csproj">
+      <Project>{f98be8dc-8fc6-472f-bdd3-7e802921618e}</Project>
+      <Name>KSOA.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KSOA.Model\KSOA.Model.csproj">
+      <Project>{28512ff0-e8ba-48c6-920e-90f6f7840bc7}</Project>
+      <Name>KSOA.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,19 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ImportExcel</title>
+</head>
+<body>
+    @using (Html.BeginForm("ImportExcel", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" id="InputExcel" name="InputExcel" />
+        <input type="submit" value="上传" />
+    }
+</body>
+</html>
