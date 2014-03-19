@@ -1,0 +1,53 @@
+﻿@model PagedList<Webdiyer.MvcPagerDemo.Models.Article>
+@{
+    ViewBag.Title = "选择页索引";
+}
+
+<h2>选择页索引</h2>
+<div class="description">该示例演示如何使MvcPager在分页时允许用户手工输入或选择页索引。是否允许用户输入或选择页索引可以通过PagerOptions.ShowPageIndexBox属性来设置，当PagerOptions.ShowGoButton为false时，
+    将不显示跳转按钮，这种情况下，用户输入或选择页索引后会自动跳转，否则需要点击跳转按钮来实现跳转。
+</div>
+<table width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PubDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+        </tr>
+    }
+
+</table>
+<div>页索引文本框：ShowPageIndexBox = true</div>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.TextBox})
+<div>页索引下拉框：ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList</div>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList})
+<div>自动提交页索引文本框：ShowPageIndexBox = true,ShowGoButton = false</div>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.TextBox,ShowGoButton = false})
+<div>自动提交页索引下拉框：ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false</div>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false})
+
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

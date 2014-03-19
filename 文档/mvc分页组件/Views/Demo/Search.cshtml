@@ -1,0 +1,48 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "搜索结果分页";
+}
+
+<h2>搜索结果分页示例</h2>
+<div class="description">该示例演示使用GET方法提交查询表单，将搜索条件附加到url中，因此实现分页过程中的搜索功能。
+    <div class="emph"><strong>注意：</strong>为了使每次点击搜索按钮时都跳回第一页，BeginForm扩展方法中第三个参数用new RouteValueDictionary{{"id",""}}将页索引路由值指定为空值，否则若当前为第五页，则点击搜索按钮重新搜索后当前页仍然为第五页。</div>
+</div>
+@using (Html.BeginForm("Search", "Demo",new RouteValueDictionary{{"id",""}},FormMethod.Get))
+{
+    <span>搜索关键字：</span><input type="text" name="kword" value="@Request.QueryString["kword"]" style="width:120px"/><input type="submit" value="搜索(S)" accesskey="S"/>
+    <span>（请输入“吴起”或“延安”进行测试）</span>
+}
+             <table width="100%">
+                 <tr>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Title)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.PubDate)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Author)
+                     </th>
+                     <th>
+                         @Html.DisplayNameFor(model => model.Source)
+                     </th>
+                 </tr>
+
+                 @foreach (var item in Model) {
+                     <tr>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Title)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.PubDate)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Author)
+                         </td>
+                         <td>
+                             @Html.DisplayFor(modelItem => item.Source)
+                         </td>
+                     </tr>
+                 }
+             </table>
+    @Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id"})

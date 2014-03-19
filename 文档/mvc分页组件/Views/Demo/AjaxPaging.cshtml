@@ -1,0 +1,12 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "Ajax分页";
+}
+
+
+<h2>Ajax分页</h2>
+<div class="description">该示例演示如何使用MvcPager最基本的Ajax分页模式。</div>
+<div id="articles">
+@Html.Partial("_ArticleList",Model)
+    </div>
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div id="side-bar">
+    <div>
+        <p class="sideBarTitle">Url路由分页</p>
+        <ul>
+            <li><a href="/Demo/Basic" title="Url路由分页">&rsaquo; Url路由分页</a></li>
+            <li><a href="/Demo/QueryString" title="Url参数分页">&rsaquo; Url参数分页</a></li>
+            <li><a href="/Demo/UrlParams/?year=2013&amp;author=杨涛&amp;city=%E5%BB%B6%E5%AE%89" title="保持Url参数">&rsaquo; 保持Url参数</a></li>
+            <li><a href="/Demo/CustomRouting/" title="自定义路由">&rsaquo; 自定义路由</a></li>
+            <li><a href="/Demo/Search/" title="搜索结果分页">&rsaquo; 搜索结果分页</a></li>
+        </ul>
+        <p class="sideBarTitle">Ajax分页</p>
+        <ul>
+            <li><a href="/Demo/AjaxPaging/" title="Ajax分页">&rsaquo; Ajax分页</a></li>
+            <li><a href="/Demo/AjaxEvents/" title="Ajax事件">&rsaquo; Ajax事件</a></li>
+            <li><a href="/Demo/AjaxInitData/#id=3" title="Ajax初始化数据">&rsaquo; Ajax初始化数据</a></li>
+            <li><a href="/Demo/AjaxPartialLoading/" title="Ajax局部加载">&rsaquo; Ajax局部加载</a></li>
+            <li><a href="/Demo/AjaxLoading/" title="Ajax大数据加载">&rsaquo; Ajax大数据加载</a></li>
+            <li><a href="/Demo/MultipleAjaxPagers/" title="多个Ajax Pager">&rsaquo; 多个Ajax Pager</a></li>
+            <li><a href="/Demo/AjaxSearchPost/" title="AjaxForm搜索（Post）">&rsaquo; AjaxForm搜索（Post）</a></li>
+            <li><a href="/Demo/AjaxSearchGet/" title="AjaxForm搜索（Get）">&rsaquo; AjaxForm搜索（Get）</a></li>
+            <li><a href="/Demo/AjaxSearchHtmlPost/" title="HtmlForm搜索（Post）">&rsaquo; HtmlForm搜索（Post）</a></li>
+            <li><a href="/Demo/AjaxSearchHtmlGet/" title="HtmlForm搜索（Get）">&rsaquo; HtmlForm搜索（Get）</a></li>
+            <li><a href="/Demo/AjaxDegradation/" title="Ajax优雅降级">&rsaquo; Ajax优雅降级</a></li>
+        </ul>
+        <p class="sideBarTitle">设置外观样式</p>
+        <ul>
+            <li><a href="/Demo/ApplyCSS/" title="应用CSS样式">&rsaquo; 应用CSS样式</a></li>
+            <li><a href="/Demo/CustomInfo/" title="自定义信息">&rsaquo; 自定义信息</a></li>
+            <li><a href="/Demo/PageIndexBox/" title="输入或选择页索引">&rsaquo; 输入或选择页索引</a></li>
+        </ul>
+        <p class="sideBarTitle">分页数据相关</p>
+        <ul>
+            <li><a href="/Demo/ContentPaging/25/" title="文章内容分页">&rsaquo; 文章内容分页</a></li>
+            <li><a href="/Demo/DataRows/" title="DataRow集合分页">&rsaquo; DataRow集合分页</a></li>
+            <li><a href="/Demo/IPagedList/" title="实现IPagedList接口">&rsaquo; 实现IPagedList接口</a></li>
+            <li><a href="/Demo/Delete/" title="删除分页数据">&rsaquo; 删除分页数据</a></li>
+        </ul>
+        <p class="sideBarTitle">其它</p>
+        <ul>
+            <li><a href="/Demo/StoredProcedure/" title="使用存储过程">&rsaquo; 使用存储过程</a></li>
+            <li><a href="/Demo/CombinedMode/" title="混合分页模式">&rsaquo; 混合分页模式</a></li>
+            <li><a href="/Demo/MultipleMvcPagers/" title="多个MvcPager">&rsaquo; 多个MvcPager</a></li>
+            <li><a href="/Demo/FirstPageUrl/" title="首页Url SEO">&rsaquo; 首页Url SEO</a></li>
+            <li><a href="/Demo/PageSize/5" title="动态设置PageSize">&rsaquo; 动态设置PageSize</a></li>
+            </ul>
+    </div>
+</div>
+
+<div id="main">
+    @RenderBody()
+</div>
+@section Scripts{
+    @RenderSection("Scripts",false)
+}

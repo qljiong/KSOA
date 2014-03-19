@@ -1,0 +1,21 @@
+﻿@model CustomViewModel
+@{
+    ViewBag.Title = "多个AJax数据分页";
+}
+<h2>多个AJax数据分页</h2>
+
+<div class="description">本示例演示如何在同一个页面上使用多个MvcPager为不同的数据实现Ajax分页。</div>
+<div id="users">
+<table width="100%"><tr><th>编号</th><th>会员名</th><th>住址</th></tr>
+    @foreach (var itm in Model.Users)
+    {
+        <tr><td>@itm.Item1</td><td>@itm.Item2</td><td>@itm.Item3</td></tr>
+    }
+</table>
+    @Ajax.Pager(Model.Users,new PagerOptions{ShowPageIndexBox = true, PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},new MvcAjaxOptions{UpdateTargetId="users",EnablePartialLoading = true},null)
+    </div>
+<div id="articles">
+@{Html.RenderPartial("_ArticleTable",Model.Articles);}
+@Ajax.Pager(Model.Articles, new PagerOptions { PageIndexParameterName = "id", ShowPageIndexBox = true, PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},new MvcAjaxOptions{UpdateTargetId="articles",EnablePartialLoading = true},null)
+</div>
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

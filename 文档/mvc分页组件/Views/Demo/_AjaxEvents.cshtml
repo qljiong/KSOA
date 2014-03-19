@@ -1,0 +1,35 @@
+﻿@model PagedList<Article>
+    <table width="100%">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PubDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PubDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Source)
+                </td>
+            </tr>
+        }
+    </table>
+    @Ajax.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},new MvcAjaxOptions{UpdateTargetId = "articles",OnBegin = "alert('onbegin事件引发')",OnSuccess = "handleSuccess",OnComplete = "function(xhr,status){alert('oncomplete事件引发，Http响应代码：'+xhr.status+'，响应内容：'+xhr.statusText+'，状态代码：'+status)}",OnFailure = "handleFailure"})

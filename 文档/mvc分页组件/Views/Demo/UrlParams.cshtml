@@ -1,0 +1,47 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "保持Url参数";
+}
+
+<h2>分页后保持Url参数</h2>
+<div class="description">该示例演示MvcPager在分页过程中原样保持Url参数的功能。
+<div class="emph">当前Url参数值：
+    Year=@Request.QueryString["year"] &nbsp; Author=@Request.QueryString["author"] &nbsp; City=@Request.QueryString["city"]
+</div></div>
+  <table width="100%">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PubDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Source)
+                </th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PubDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source)
+                    </td>
+                </tr>
+            }
+
+        </table>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList})
+
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

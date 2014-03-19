@@ -1,0 +1,43 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "使用存储过程";
+}
+
+<h2>使用存储过程</h2>
+<div class="description">本示例演示如何使用SQL Server存储过程获取数据配合PagedList来实现分页。</div>
+<table width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PubDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+        </tr>
+    }
+</table>
+    @Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false})
+
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

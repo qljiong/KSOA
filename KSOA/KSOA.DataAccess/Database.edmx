@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KSOA.DataAccess.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Admin_CPcompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admin_Department">
           <Key>
             <PropertyRef Name="ID" />
@@ -19,13 +28,15 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileDateTime" Type="datetime" Nullable="false" />
+          <Property Name="CPid" Type="int" Nullable="false" />
+          <Property Name="SourceLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileDateTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UserNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Province" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="OrderTime" Type="datetime" Nullable="false" />
+          <Property Name="OrderTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="BusinessName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PayAmount" Type="decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="AddTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_ExcelResourceForMonth">
@@ -33,15 +44,17 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPid" Type="int" Nullable="false" />
+          <Property Name="SourceLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RowNumber" Type="int" Nullable="false" />
-          <Property Name="StatisticsTime" Type="datetime" Nullable="false" />
+          <Property Name="StatisticsTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="SingleOpusName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NotBaoyuePlayNum" Type="int" Nullable="false" />
           <Property Name="BaoyuePlayNum" Type="int" Nullable="false" />
           <Property Name="PayBillPlayNum" Type="int" Nullable="false" />
           <Property Name="FreePlayNum" Type="int" Nullable="false" />
           <Property Name="NotBaoyuePayBillPlayNum" Type="int" Nullable="false" />
-          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="AddTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_KSCustomer">
@@ -273,6 +286,7 @@
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="KSOADataAccessStoreContainer">
+          <EntitySet Name="Admin_CPcompany" EntityType="Self.Admin_CPcompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Department" EntityType="Self.Admin_Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="Self.Admin_ExcelResourceForComplain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="Self.Admin_ExcelResourceForMonth" Schema="dbo" store:Type="Tables" />
@@ -336,6 +350,7 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
     <edmx:ConceptualModels>
       <Schema Namespace="KSOA.DataAccess" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="KSOAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin_CPcompany" EntityType="KSOA.DataAccess.Admin_CPcompany" />
           <EntitySet Name="Admin_Department" EntityType="KSOA.DataAccess.Admin_Department" />
           <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="KSOA.DataAccess.Admin_ExcelResourceForComplain" />
           <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="KSOA.DataAccess.Admin_ExcelResourceForMonth" />
@@ -354,636 +369,205 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <EntitySet Name="UI_ExcelImportByPlatform" EntityType="KSOA.DataAccess.UI_ExcelImportByPlatform" />
           <EntitySet Name="Work_Schedule" EntityType="KSOA.DataAccess.Work_Schedule" />
         </EntityContainer>
+        <EntityType Name="Admin_CPcompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admin_Department">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>部门表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="DpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>部门名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Admin_ExcelResourceForComplain">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>源数据表,投诉表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="FileDateTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>投诉归档日期</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="UserNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>用户号码</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Province" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>省份</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OrderTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>订购日期</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>订购业务名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="PayAmount" Type="Decimal" Nullable="false" Precision="38" Scale="0">
-            <Documentation>
-              <Summary>支付费用</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目增加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPid" Type="Int32" Nullable="false" />
+          <Property Name="SourceLevel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileDateTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Province" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayAmount" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_ExcelResourceForMonth">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>Excel源数据表(包月)ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="RowNumber" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>行号</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="StatisticsTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>统计日期</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="SingleOpusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>单部名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="NotBaoyuePlayNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>非包月点播次数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="BaoyuePlayNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>包月点播次数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="PayBillPlayNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>付费点播次数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="FreePlayNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>免费点播次数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="NotBaoyuePayBillPlayNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>非包月付费点播次数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPid" Type="Int32" Nullable="false" />
+          <Property Name="SourceLevel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RowNumber" Type="Int32" Nullable="false" />
+          <Property Name="StatisticsTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="SingleOpusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NotBaoyuePlayNum" Type="Int32" Nullable="false" />
+          <Property Name="BaoyuePlayNum" Type="Int32" Nullable="false" />
+          <Property Name="PayBillPlayNum" Type="Int32" Nullable="false" />
+          <Property Name="FreePlayNum" Type="Int32" Nullable="false" />
+          <Property Name="NotBaoyuePayBillPlayNum" Type="Int32" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_KSCustomer">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>用户表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>外键关联Admin_Role表的ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="RealName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>真实姓名</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>用户名(昵称)</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
-            <Documentation>
-              <Summary>性别;X:女,Y:男,Z:未知</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Age" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>年龄</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CusPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>用户密码（需MD5混淆过的）</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>用户邮箱（可做登陆用），设置唯一约束</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CusPhoneNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>用户手机（可做登陆用），设置唯一约束</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="QQ" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false">
-            <Documentation>
-              <Summary>用户qq</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RealName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="CusPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusPhoneNum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QQ" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Admin_OperatLog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>系统操作日志表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OperatorID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>操作人ID,关联用户表的用户ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OperatorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>操作人名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Module" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>操作的模块名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OperationContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>操作详细描述</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpIp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false">
-            <Documentation>
-              <Summary>操作人的Ip</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperatorID" Type="Int32" Nullable="false" />
+          <Property Name="OperatorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Module" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OperationContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpIp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Admin_Platform">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>平台表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="PType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>平台类型;CP,渠道,SDK,合作渠道</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="PName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>平台名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Admin_Role">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>角色表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>角色名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Input" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>录入的权限</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="See" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>查看的权限</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Import" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>导入的权限</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Export" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>导出的权限</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="RoleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>角色权限描述</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Input" Type="Boolean" Nullable="false" />
+          <Property Name="See" Type="Boolean" Nullable="false" />
+          <Property Name="Import" Type="Boolean" Nullable="false" />
+          <Property Name="Export" Type="Boolean" Nullable="false" />
+          <Property Name="RoleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Admin_SysErrorLog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PageUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>错误页面URL</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ErrorMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>错误提示信息</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="PageUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorMsg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Admin_SysMenu">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity">
-            <Documentation>
-              <Summary>系统菜单表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ParentID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>菜单级别ID;0:一级菜单,其它自关联当前表ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>菜单名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="MenuUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>菜单URL</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OrderIndex" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>菜单排序ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AdminRoleID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>关联AdminRole表的ID,外键</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsEnable" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否启用;0:未启用,1:已启用</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentID" Type="Int32" Nullable="false" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrderIndex" Type="Int32" Nullable="false" />
+          <Property Name="AdminRoleID" Type="Int32" Nullable="false" />
+          <Property Name="IsEnable" Type="Boolean" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Bank_CommercialOpus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OpusID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>作品ID,关联Bank_Opus的id</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品使用公司名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CpAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品CP地址</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ChannelAddres" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品渠道地址</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="OpusID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CpAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelAddres" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
         </EntityType>
         <EntityType Name="Bank_Opus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OpType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
-            <Documentation>
-              <Summary>作品类型;B:buy(作品购买),S:sell(销售)</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作者</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpBeginTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>发布,上架时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="OpType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OpTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OpAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OpBeginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Bank_OriginalGroup">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OpusCopyright" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>版权信息</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="CreationInfo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>创作信息</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpusName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpusAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作者</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="SalePrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
-            <Documentation>
-              <Summary>销售金额</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AccreditPlatform" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>授权平台</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AccreditCompany" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>授权公司</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AccreditTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>授权日期</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AccreditType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>授权类型</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Awards" Type="String" MaxLength="Max" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>获奖情况</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="OpusMascot" Type="String" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>原创形象相关信息</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="OpusCopyright" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreationInfo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OpusName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="OpusAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalePrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AccreditPlatform" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccreditCompany" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccreditTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AccreditType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Awards" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpusMascot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Work_Note">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
-            <Documentation>
-              <Summary>工作报告类型;D:日报,W:周报,M:月报</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WriterID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>填写人ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WriterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>工作报告填写人</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>日报标题</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WConetent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>工作报告内容</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WTaster" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>日报审阅人ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false">
-            <Documentation>
-              <Summary>填写人IP</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="WType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="WriterID" Type="Int32" Nullable="false" />
+          <Property Name="WriterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WConetent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WTaster" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Work_Notice">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>公告标题</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="NContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>公告内容</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="NCustomerID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>发布人ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="NCustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>发布人名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="Nlevel" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>公告级别,1,2,3,4;1的级别最大</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="NIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false">
-            <Documentation>
-              <Summary>发布人IP</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="NTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NCustomerID" Type="Int32" Nullable="false" />
+          <Property Name="NCustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nlevel" Type="Int32" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="NIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UI_ExcelImportByChannel">
           <Key>
@@ -1002,66 +586,18 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
             <PropertyRef Name="IsDelete" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>导入操作人ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExSpreadType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
-            <Documentation>
-              <Summary>推广平台;Q:渠道,S:SDK,C:CP(内容提供商)</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>日期:导入表单里的时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExOpusName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExCollectNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>作品对应的集数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExChargeCollectNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>作品对应集数计费条数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
-            <Documentation>
-              <Summary>作品单价</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
-            <Documentation>
-              <Summary>结算金额</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExAccountCollectNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>结算条数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="HistoryPercent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>渠道结算金额比例设置调整记录</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="ExSpreadType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ExTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExOpusName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExCollectNum" Type="Int32" Nullable="false" />
+          <Property Name="ExChargeCollectNum" Type="Int32" Nullable="false" />
+          <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ExAccountCollectNum" Type="Int32" Nullable="false" />
+          <Property Name="HistoryPercent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UI_ExcelImportByPlatform">
           <Key>
@@ -1080,66 +616,18 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
             <PropertyRef Name="IsDelete" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>导入操作人ID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false">
-            <Documentation>
-              <Summary>导入类别;W:WAP,S:SDK,Q:渠道</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>导入表单里的时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExCpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>CP(内容提供商)名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExOpusName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>作品名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExCooperation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>对应合作渠道推广商</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExCollectNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>作品对应集数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExSingleCollectNum" Type="Int32" Nullable="false">
-            <Documentation>
-              <Summary>单集计费条数</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
-            <Documentation>
-              <Summary>作品单价</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0">
-            <Documentation>
-              <Summary>结算金额</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="ExType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ExTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExCpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExOpusName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExCooperation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExCollectNum" Type="Int32" Nullable="false" />
+          <Property Name="ExSingleCollectNum" Type="Int32" Nullable="false" />
+          <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Work_Schedule">
           <Key>
@@ -1150,33 +638,27 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
             <PropertyRef Name="IsDelete" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true">
-            <Documentation>
-              <Summary>项目名称</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="ItemLaunchTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>项目发起时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3">
-            <Documentation>
-              <Summary>条目添加时间</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="IsDelete" Type="Boolean" Nullable="false">
-            <Documentation>
-              <Summary>是否已删除；0：未删除，1：已删除</Summary>
-            </Documentation>
-          </Property>
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLaunchTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KSOADataAccessStoreContainer" CdmEntityContainer="KSOAEntities">
+          <EntitySetMapping Name="Admin_CPcompany">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_CPcompany">
+              <MappingFragment StoreEntitySet="Admin_CPcompany">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="CPname" ColumnName="CPname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Admin_Department">
             <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_Department">
               <MappingFragment StoreEntitySet="Admin_Department">
@@ -1198,6 +680,8 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
                 <ScalarProperty Name="Province" ColumnName="Province" />
                 <ScalarProperty Name="UserNumber" ColumnName="UserNumber" />
                 <ScalarProperty Name="FileDateTime" ColumnName="FileDateTime" />
+                <ScalarProperty Name="SourceLevel" ColumnName="SourceLevel" />
+                <ScalarProperty Name="CPid" ColumnName="CPid" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1215,6 +699,8 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
                 <ScalarProperty Name="SingleOpusName" ColumnName="SingleOpusName" />
                 <ScalarProperty Name="StatisticsTime" ColumnName="StatisticsTime" />
                 <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="SourceLevel" ColumnName="SourceLevel" />
+                <ScalarProperty Name="CPid" ColumnName="CPid" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

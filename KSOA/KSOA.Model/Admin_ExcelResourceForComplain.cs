@@ -19,6 +19,25 @@ namespace KSOA.Model
         private decimal _payamount;
         private DateTime _addtime = DateTime.Now;
         private bool _isdelete = false;
+        private int _cpid;
+        private string _sourcelevel;
+
+        /// <summary>
+        /// 来源公司,从属于哪个公司(CP),外键关联Admin_CPcompany表的ID
+        /// </summary>
+        public int CPid
+        {
+            set { _cpid = value; }
+            get { return _cpid; }
+        }
+        /// <summary>
+        /// 一线,二线划分
+        /// </summary>
+        public string SourceLevel
+        {
+            set { _sourcelevel = value; }
+            get { return _sourcelevel; }
+        }
         /// <summary>
         /// 源数据表,投诉表ID
         /// </summary>

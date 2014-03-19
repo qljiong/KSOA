@@ -1,0 +1,11 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "Ajax初始化数据";
+}
+
+<h2>Ajax初始化数据</h2>
+<div class="description">该示例演示Ajax分页模式下，MvcPager根据当前url中的页索引hash值在页面加载时，通过Ajax自动加载当前页数据的功能。</div>
+<div id="articles">
+@Html.Partial("_ArticleList",Model)
+    </div>
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

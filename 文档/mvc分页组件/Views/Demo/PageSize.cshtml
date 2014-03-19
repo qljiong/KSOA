@@ -1,0 +1,47 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "用路由参数控制PageSize";
+}
+
+<h2>用路由参数控制PageSize</h2>
+<div class="description">该示例演示如何通过Url参数来控制每页显示的记录数，请点击下面的链接查看效果，同时注意Url中的参数变化：
+<div><a href="/Demo/PageSize/5">每页显示五条数据（PageSize=5）</a>&nbsp;<a href="/Demo/PageSize/10">每页显示十条数据（PageSize=10）</a>&nbsp;<a href="/Demo/PageSize/15">每页显示十五条数据（PageSize=15）</a></div>
+    </div>
+<table width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PubDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+        </tr>
+    }
+</table>
+
+    @Html.Pager(Model, new PagerOptions {PageIndexParameterName = "pageindex",ShowPageIndexBox = true, PageIndexBoxType = PageIndexBoxType.DropDownList, ShowGoButton = false}, "PageSize")
+
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

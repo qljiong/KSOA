@@ -1,0 +1,11 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "Ajax正在加载效果";
+}
+<h2>Ajax正在加载效果</h2>
+<div class="description">该示例演示如何通过设置MvcAjaxOptions的LoadingElementId属性和使用OnBegin及OnComplate事件处理程序来实现Ajax加载数据时的特效。</div>
+<div id="loadingDiv" style="display:none"><img src="/Images/loading.gif"/><h3>正在加载数据，请稍候...</h3></div>
+<div id="articles">
+    @Html.Partial("_AjaxLoading",Model)
+</div>
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

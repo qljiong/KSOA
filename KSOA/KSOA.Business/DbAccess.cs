@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using KSOA.DataAccess;
+using System.IO;
 
 namespace KSOA.Business
 {
@@ -27,7 +28,7 @@ namespace KSOA.Business
                 _db = db;
             } 
          
-            //_db.SavingChanges += new EventHandler(_db_SavingChanges);
+            _db.SavingChanges += new EventHandler(_db_SavingChanges);
         }
 
 
@@ -37,11 +38,33 @@ namespace KSOA.Business
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //private void _db_SavingChanges(object sender, EventArgs e)
-        //{
-        //    string sql = _db.ToString();
-        //}
+        private void _db_SavingChanges(object sender, EventArgs e)
+        {
+            string sql = _db.ToString();
+            //ToOrderExceptionLog(sql);
+        }
 
+        private void ToOrderExceptionLog(string strMsg)
+        {
+            String saveUri = "F:\\调试日志";
+            if (Directory.Exists(saveUri))
+            {
+                String saveFileName = @saveUri + "\\" + DateTime.Now.ToLongDateString() + ".txt ";
+                FileInfo nfile = new FileInfo(saveFileName);
+                if (!nfile.Exists) { FileStream crtorchage = System.IO.File.Create(saveFileName); crtorchage.Flush(); crtorchage.Close(); }
+                StreamWriter wt = new StreamWriter(saveFileName, true);//以可以追加文本的方式打开nfile流  
+                wt.WriteLine(strMsg); wt.Flush(); wt.Close();
+            }
+            else
+            {
+                Directory.CreateDirectory(saveUri);
+                String saveFileName = @saveUri + "\\" + DateTime.Now.ToLongDateString() + ".txt ";
+                FileStream crtorchage = System.IO.File.Create(saveFileName);
+                crtorchage.Flush(); crtorchage.Close();
+                StreamWriter wt = new StreamWriter(saveFileName);//不可追加文本  
+                wt.WriteLine(strMsg); wt.Flush(); wt.Close();
+            }
+        }
 
         #region IDisposable 成员
 

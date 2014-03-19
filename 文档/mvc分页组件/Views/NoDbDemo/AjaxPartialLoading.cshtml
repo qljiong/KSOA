@@ -1,0 +1,45 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "Ajax局部加载";
+}
+
+<h2>Ajax局部加载</h2>
+<div class="description">本示例演示MvcPager 2.0中新增的Ajax局部加载功能。2.0以前版本的MvcPager在使用Ajax分页功能时，要加载的分页数据必须位于单独的用户控件（ascx文件）或PartialView中，
+    在Ajax请求时只加载此用户控件或PartialView中的内容，MvcPager 2.0版的Ajax局部加载功能可以无需使用用户控件或PartialView，Ajax请求获取当前页面后只更新指定UpdateTargetId属性值对应部分的内容。</div>
+<div id="articles">
+<table width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PubDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+        </tr>
+    }
+</table>
+@Ajax.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},new MvcAjaxOptions{UpdateTargetId = "articles",EnablePartialLoading = true})
+</div>
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

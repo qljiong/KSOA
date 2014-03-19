@@ -1,0 +1,56 @@
+﻿@model PagedList<Article>
+@{
+    ViewBag.Title = "自定义路由";
+}
+
+
+<h2>自定义路由</h2>
+<div class="description">该示例演示如何为MvcPager应用自定义路由，本示例使用了三个MvcPager，分别使用三个不同的路由Paging、OptionalPaging和Default，路由定义请参看源代码中App_Start文件夹下RouteConfig.cs文件。
+    点击两个MvcPager在分页时生成不同的Url，请分别点击三个MvcPager中的分页链接，注意查看浏览器地址栏中的Url变化。
+    <span class="emph">请注意：因为前两个MvcPager的PagerOptions.FirstPageRouteName相同，所以它们生成的第一页的url是完全相同的,第三个MvcPager无论第一页还是其它页都匹配相同的Default路由，因此无需设置PagerOptions.FirstPageRouteName，但因该路由参数中没有pageIndex参数，所以分页参数被附加在url中通过?pageIndex=2这样的方式来传递。</span>
+</div>
+
+<table width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PubDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+        </tr>
+    }
+</table>
+<div>使用路由Paging，Url格式：{controller}/{action}/page_{pageindex}</div>
+    @Html.Pager(Model, new PagerOptions { ShowPageIndexBox = true, PageIndexBoxType = PageIndexBoxType.DropDownList, ShowGoButton = false, FirstPageRouteName = "Default" }, "Paging")
+<hr/>
+<div>使用路由OptionalPaging，Url格式：{controller}/{action}/pageindex-{pageindex}</div>
+@Html.Pager(Model, new PagerOptions { ShowPageIndexBox = true, PageIndexBoxType = PageIndexBoxType.DropDownList, ShowGoButton = false, FirstPageRouteName = "Default" }, "OptionalPaging", null)
+<hr/>
+<div>使用路由Default，Url格式：{controller}/{action}/{id}</div>
+@Html.Pager(Model,new PagerOptions{ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},"Default",null)
+
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

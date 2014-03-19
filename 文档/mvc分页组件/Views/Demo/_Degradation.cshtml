@@ -1,0 +1,37 @@
+﻿@model PagedList<Article>
+    <table width="100%">
+        <tr><th>编号</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PubDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+        </tr>
+        
+            @{ int i = 0;}
+        @foreach (var item in Model) {
+            <tr><td>@(Model.StartRecordIndex+i++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PubDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Source)
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Ajax.Pager(Model,new PagerOptions{PageIndexParameterName = "id"},new MvcAjaxOptions{UpdateTargetId = "articles"})

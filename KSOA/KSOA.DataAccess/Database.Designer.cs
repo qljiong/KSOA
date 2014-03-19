@@ -68,6 +68,22 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<Admin_CPcompany> Admin_CPcompany
+        {
+            get
+            {
+                if ((_Admin_CPcompany == null))
+                {
+                    _Admin_CPcompany = base.CreateObjectSet<Admin_CPcompany>("Admin_CPcompany");
+                }
+                return _Admin_CPcompany;
+            }
+        }
+        private ObjectSet<Admin_CPcompany> _Admin_CPcompany;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<Admin_Department> Admin_Department
         {
             get
@@ -342,6 +358,14 @@ namespace KSOA.DataAccess
         #region AddTo 方法
     
         /// <summary>
+        /// 用于向 Admin_CPcompany EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToAdmin_CPcompany(Admin_CPcompany admin_CPcompany)
+        {
+            base.AddObject("Admin_CPcompany", admin_CPcompany);
+        }
+    
+        /// <summary>
         /// 用于向 Admin_Department EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
         public void AddToAdmin_Department(Admin_Department admin_Department)
@@ -488,6 +512,141 @@ namespace KSOA.DataAccess
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="KSOA.DataAccess", Name="Admin_CPcompany")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Admin_CPcompany : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 Admin_CPcompany 对象。
+        /// </summary>
+        /// <param name="id">ID 属性的初始值。</param>
+        /// <param name="cPname">CPname 属性的初始值。</param>
+        /// <param name="addTime">AddTime 属性的初始值。</param>
+        /// <param name="isDelete">IsDelete 属性的初始值。</param>
+        public static Admin_CPcompany CreateAdmin_CPcompany(global::System.Int32 id, global::System.String cPname, global::System.DateTime addTime, global::System.Boolean isDelete)
+        {
+            Admin_CPcompany admin_CPcompany = new Admin_CPcompany();
+            admin_CPcompany.ID = id;
+            admin_CPcompany.CPname = cPname;
+            admin_CPcompany.AddTime = addTime;
+            admin_CPcompany.IsDelete = isDelete;
+            return admin_CPcompany;
+        }
+
+        #endregion
+
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CPname
+        {
+            get
+            {
+                return _CPname;
+            }
+            set
+            {
+                OnCPnameChanging(value);
+                ReportPropertyChanging("CPname");
+                _CPname = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CPname");
+                OnCPnameChanged();
+            }
+        }
+        private global::System.String _CPname;
+        partial void OnCPnameChanging(global::System.String value);
+        partial void OnCPnameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime AddTime
+        {
+            get
+            {
+                return _AddTime;
+            }
+            set
+            {
+                OnAddTimeChanging(value);
+                ReportPropertyChanging("AddTime");
+                _AddTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddTime");
+                OnAddTimeChanged();
+            }
+        }
+        private global::System.DateTime _AddTime;
+        partial void OnAddTimeChanging(global::System.DateTime value);
+        partial void OnAddTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsDelete
+        {
+            get
+            {
+                return _IsDelete;
+            }
+            set
+            {
+                OnIsDeleteChanging(value);
+                ReportPropertyChanging("IsDelete");
+                _IsDelete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsDelete");
+                OnIsDeleteChanged();
+            }
+        }
+        private global::System.Boolean _IsDelete;
+        partial void OnIsDeleteChanging(global::System.Boolean value);
+        partial void OnIsDeleteChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="KSOA.DataAccess", Name="Admin_Department")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -517,7 +676,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 部门表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -544,7 +703,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 部门名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -568,7 +727,7 @@ namespace KSOA.DataAccess
         partial void OnDpNameChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -592,7 +751,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -634,6 +793,8 @@ namespace KSOA.DataAccess
         /// 创建新的 Admin_ExcelResourceForComplain 对象。
         /// </summary>
         /// <param name="id">ID 属性的初始值。</param>
+        /// <param name="cPid">CPid 属性的初始值。</param>
+        /// <param name="sourceLevel">SourceLevel 属性的初始值。</param>
         /// <param name="fileDateTime">FileDateTime 属性的初始值。</param>
         /// <param name="userNumber">UserNumber 属性的初始值。</param>
         /// <param name="province">Province 属性的初始值。</param>
@@ -642,10 +803,12 @@ namespace KSOA.DataAccess
         /// <param name="payAmount">PayAmount 属性的初始值。</param>
         /// <param name="addTime">AddTime 属性的初始值。</param>
         /// <param name="isDelete">IsDelete 属性的初始值。</param>
-        public static Admin_ExcelResourceForComplain CreateAdmin_ExcelResourceForComplain(global::System.Int32 id, global::System.DateTime fileDateTime, global::System.String userNumber, global::System.String province, global::System.DateTime orderTime, global::System.String businessName, global::System.Decimal payAmount, global::System.DateTime addTime, global::System.Boolean isDelete)
+        public static Admin_ExcelResourceForComplain CreateAdmin_ExcelResourceForComplain(global::System.Int32 id, global::System.Int32 cPid, global::System.String sourceLevel, global::System.DateTime fileDateTime, global::System.String userNumber, global::System.String province, global::System.DateTime orderTime, global::System.String businessName, global::System.Decimal payAmount, global::System.DateTime addTime, global::System.Boolean isDelete)
         {
             Admin_ExcelResourceForComplain admin_ExcelResourceForComplain = new Admin_ExcelResourceForComplain();
             admin_ExcelResourceForComplain.ID = id;
+            admin_ExcelResourceForComplain.CPid = cPid;
+            admin_ExcelResourceForComplain.SourceLevel = sourceLevel;
             admin_ExcelResourceForComplain.FileDateTime = fileDateTime;
             admin_ExcelResourceForComplain.UserNumber = userNumber;
             admin_ExcelResourceForComplain.Province = province;
@@ -662,7 +825,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 源数据表,投诉表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -689,7 +852,55 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 投诉归档日期
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CPid
+        {
+            get
+            {
+                return _CPid;
+            }
+            set
+            {
+                OnCPidChanging(value);
+                ReportPropertyChanging("CPid");
+                _CPid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CPid");
+                OnCPidChanged();
+            }
+        }
+        private global::System.Int32 _CPid;
+        partial void OnCPidChanging(global::System.Int32 value);
+        partial void OnCPidChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SourceLevel
+        {
+            get
+            {
+                return _SourceLevel;
+            }
+            set
+            {
+                OnSourceLevelChanging(value);
+                ReportPropertyChanging("SourceLevel");
+                _SourceLevel = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SourceLevel");
+                OnSourceLevelChanged();
+            }
+        }
+        private global::System.String _SourceLevel;
+        partial void OnSourceLevelChanging(global::System.String value);
+        partial void OnSourceLevelChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -713,7 +924,7 @@ namespace KSOA.DataAccess
         partial void OnFileDateTimeChanged();
     
         /// <summary>
-        /// 用户号码
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -737,7 +948,7 @@ namespace KSOA.DataAccess
         partial void OnUserNumberChanged();
     
         /// <summary>
-        /// 省份
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -761,7 +972,7 @@ namespace KSOA.DataAccess
         partial void OnProvinceChanged();
     
         /// <summary>
-        /// 订购日期
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -785,7 +996,7 @@ namespace KSOA.DataAccess
         partial void OnOrderTimeChanged();
     
         /// <summary>
-        /// 订购业务名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -809,7 +1020,7 @@ namespace KSOA.DataAccess
         partial void OnBusinessNameChanged();
     
         /// <summary>
-        /// 支付费用
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -833,7 +1044,7 @@ namespace KSOA.DataAccess
         partial void OnPayAmountChanged();
     
         /// <summary>
-        /// 条目增加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -857,7 +1068,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -899,6 +1110,8 @@ namespace KSOA.DataAccess
         /// 创建新的 Admin_ExcelResourceForMonth 对象。
         /// </summary>
         /// <param name="id">ID 属性的初始值。</param>
+        /// <param name="cPid">CPid 属性的初始值。</param>
+        /// <param name="sourceLevel">SourceLevel 属性的初始值。</param>
         /// <param name="rowNumber">RowNumber 属性的初始值。</param>
         /// <param name="statisticsTime">StatisticsTime 属性的初始值。</param>
         /// <param name="singleOpusName">SingleOpusName 属性的初始值。</param>
@@ -909,10 +1122,12 @@ namespace KSOA.DataAccess
         /// <param name="notBaoyuePayBillPlayNum">NotBaoyuePayBillPlayNum 属性的初始值。</param>
         /// <param name="addTime">AddTime 属性的初始值。</param>
         /// <param name="isDelete">IsDelete 属性的初始值。</param>
-        public static Admin_ExcelResourceForMonth CreateAdmin_ExcelResourceForMonth(global::System.Int32 id, global::System.Int32 rowNumber, global::System.DateTime statisticsTime, global::System.String singleOpusName, global::System.Int32 notBaoyuePlayNum, global::System.Int32 baoyuePlayNum, global::System.Int32 payBillPlayNum, global::System.Int32 freePlayNum, global::System.Int32 notBaoyuePayBillPlayNum, global::System.DateTime addTime, global::System.Boolean isDelete)
+        public static Admin_ExcelResourceForMonth CreateAdmin_ExcelResourceForMonth(global::System.Int32 id, global::System.Int32 cPid, global::System.String sourceLevel, global::System.Int32 rowNumber, global::System.DateTime statisticsTime, global::System.String singleOpusName, global::System.Int32 notBaoyuePlayNum, global::System.Int32 baoyuePlayNum, global::System.Int32 payBillPlayNum, global::System.Int32 freePlayNum, global::System.Int32 notBaoyuePayBillPlayNum, global::System.DateTime addTime, global::System.Boolean isDelete)
         {
             Admin_ExcelResourceForMonth admin_ExcelResourceForMonth = new Admin_ExcelResourceForMonth();
             admin_ExcelResourceForMonth.ID = id;
+            admin_ExcelResourceForMonth.CPid = cPid;
+            admin_ExcelResourceForMonth.SourceLevel = sourceLevel;
             admin_ExcelResourceForMonth.RowNumber = rowNumber;
             admin_ExcelResourceForMonth.StatisticsTime = statisticsTime;
             admin_ExcelResourceForMonth.SingleOpusName = singleOpusName;
@@ -931,7 +1146,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// Excel源数据表(包月)ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -958,7 +1173,55 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 行号
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CPid
+        {
+            get
+            {
+                return _CPid;
+            }
+            set
+            {
+                OnCPidChanging(value);
+                ReportPropertyChanging("CPid");
+                _CPid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CPid");
+                OnCPidChanged();
+            }
+        }
+        private global::System.Int32 _CPid;
+        partial void OnCPidChanging(global::System.Int32 value);
+        partial void OnCPidChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SourceLevel
+        {
+            get
+            {
+                return _SourceLevel;
+            }
+            set
+            {
+                OnSourceLevelChanging(value);
+                ReportPropertyChanging("SourceLevel");
+                _SourceLevel = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SourceLevel");
+                OnSourceLevelChanged();
+            }
+        }
+        private global::System.String _SourceLevel;
+        partial void OnSourceLevelChanging(global::System.String value);
+        partial void OnSourceLevelChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -982,7 +1245,7 @@ namespace KSOA.DataAccess
         partial void OnRowNumberChanged();
     
         /// <summary>
-        /// 统计日期
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1006,7 +1269,7 @@ namespace KSOA.DataAccess
         partial void OnStatisticsTimeChanged();
     
         /// <summary>
-        /// 单部名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1030,7 +1293,7 @@ namespace KSOA.DataAccess
         partial void OnSingleOpusNameChanged();
     
         /// <summary>
-        /// 非包月点播次数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1054,7 +1317,7 @@ namespace KSOA.DataAccess
         partial void OnNotBaoyuePlayNumChanged();
     
         /// <summary>
-        /// 包月点播次数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1078,7 +1341,7 @@ namespace KSOA.DataAccess
         partial void OnBaoyuePlayNumChanged();
     
         /// <summary>
-        /// 付费点播次数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1102,7 +1365,7 @@ namespace KSOA.DataAccess
         partial void OnPayBillPlayNumChanged();
     
         /// <summary>
-        /// 免费点播次数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1126,7 +1389,7 @@ namespace KSOA.DataAccess
         partial void OnFreePlayNumChanged();
     
         /// <summary>
-        /// 非包月付费点播次数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1150,7 +1413,7 @@ namespace KSOA.DataAccess
         partial void OnNotBaoyuePayBillPlayNumChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1174,7 +1437,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1250,7 +1513,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 用户表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1277,7 +1540,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 外键关联Admin_Role表的ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1301,7 +1564,7 @@ namespace KSOA.DataAccess
         partial void OnRoleIDChanged();
     
         /// <summary>
-        /// 真实姓名
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1325,7 +1588,7 @@ namespace KSOA.DataAccess
         partial void OnRealNameChanged();
     
         /// <summary>
-        /// 用户名(昵称)
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1349,7 +1612,7 @@ namespace KSOA.DataAccess
         partial void OnCusNameChanged();
     
         /// <summary>
-        /// 性别;X:女,Y:男,Z:未知
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1373,7 +1636,7 @@ namespace KSOA.DataAccess
         partial void OnGenderChanged();
     
         /// <summary>
-        /// 年龄
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1397,7 +1660,7 @@ namespace KSOA.DataAccess
         partial void OnAgeChanged();
     
         /// <summary>
-        /// 用户密码（需MD5混淆过的）
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1421,7 +1684,7 @@ namespace KSOA.DataAccess
         partial void OnCusPwdChanged();
     
         /// <summary>
-        /// 用户邮箱（可做登陆用），设置唯一约束
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1445,7 +1708,7 @@ namespace KSOA.DataAccess
         partial void OnCusEmailChanged();
     
         /// <summary>
-        /// 用户手机（可做登陆用），设置唯一约束
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1469,7 +1732,7 @@ namespace KSOA.DataAccess
         partial void OnCusPhoneNumChanged();
     
         /// <summary>
-        /// 用户qq
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1493,7 +1756,7 @@ namespace KSOA.DataAccess
         partial void OnQQChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1517,7 +1780,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1583,7 +1846,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 系统操作日志表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1610,7 +1873,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 操作人ID,关联用户表的用户ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1634,7 +1897,7 @@ namespace KSOA.DataAccess
         partial void OnOperatorIDChanged();
     
         /// <summary>
-        /// 操作人名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1658,7 +1921,7 @@ namespace KSOA.DataAccess
         partial void OnOperatorNameChanged();
     
         /// <summary>
-        /// 操作的模块名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1682,7 +1945,7 @@ namespace KSOA.DataAccess
         partial void OnModuleChanged();
     
         /// <summary>
-        /// 操作详细描述
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1706,7 +1969,7 @@ namespace KSOA.DataAccess
         partial void OnOperationContentChanged();
     
         /// <summary>
-        /// 操作人的Ip
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1730,7 +1993,7 @@ namespace KSOA.DataAccess
         partial void OnOpIpChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1792,7 +2055,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 平台表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1819,7 +2082,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 平台类型;CP,渠道,SDK,合作渠道
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1843,7 +2106,7 @@ namespace KSOA.DataAccess
         partial void OnPTypeChanged();
     
         /// <summary>
-        /// 平台名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1867,7 +2130,7 @@ namespace KSOA.DataAccess
         partial void OnPNameChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1891,7 +2154,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1959,7 +2222,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 角色表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -1986,7 +2249,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 角色名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2010,7 +2273,7 @@ namespace KSOA.DataAccess
         partial void OnRoleNameChanged();
     
         /// <summary>
-        /// 录入的权限
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2034,7 +2297,7 @@ namespace KSOA.DataAccess
         partial void OnInputChanged();
     
         /// <summary>
-        /// 查看的权限
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2058,7 +2321,7 @@ namespace KSOA.DataAccess
         partial void OnSeeChanged();
     
         /// <summary>
-        /// 导入的权限
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2082,7 +2345,7 @@ namespace KSOA.DataAccess
         partial void OnImportChanged();
     
         /// <summary>
-        /// 导出的权限
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2106,7 +2369,7 @@ namespace KSOA.DataAccess
         partial void OnExportChanged();
     
         /// <summary>
-        /// 角色权限描述
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
@@ -2130,7 +2393,7 @@ namespace KSOA.DataAccess
         partial void OnRoleNoteChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2154,7 +2417,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2241,7 +2504,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 错误页面URL
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2265,7 +2528,7 @@ namespace KSOA.DataAccess
         partial void OnPageUrlChanged();
     
         /// <summary>
-        /// 错误提示信息
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2289,7 +2552,7 @@ namespace KSOA.DataAccess
         partial void OnErrorMsgChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2359,7 +2622,7 @@ namespace KSOA.DataAccess
         #region 基元属性
     
         /// <summary>
-        /// 系统菜单表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2386,7 +2649,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 菜单级别ID;0:一级菜单,其它自关联当前表ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2410,7 +2673,7 @@ namespace KSOA.DataAccess
         partial void OnParentIDChanged();
     
         /// <summary>
-        /// 菜单名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2434,7 +2697,7 @@ namespace KSOA.DataAccess
         partial void OnMenuNameChanged();
     
         /// <summary>
-        /// 菜单URL
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2458,7 +2721,7 @@ namespace KSOA.DataAccess
         partial void OnMenuUrlChanged();
     
         /// <summary>
-        /// 菜单排序ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2482,7 +2745,7 @@ namespace KSOA.DataAccess
         partial void OnOrderIndexChanged();
     
         /// <summary>
-        /// 关联AdminRole表的ID,外键
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2506,7 +2769,7 @@ namespace KSOA.DataAccess
         partial void OnAdminRoleIDChanged();
     
         /// <summary>
-        /// 是否启用;0:未启用,1:已启用
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2530,7 +2793,7 @@ namespace KSOA.DataAccess
         partial void OnIsEnableChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2554,7 +2817,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2645,7 +2908,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 作品ID,关联Bank_Opus的id
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2669,7 +2932,7 @@ namespace KSOA.DataAccess
         partial void OnOpusIDChanged();
     
         /// <summary>
-        /// 作品使用公司名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2693,7 +2956,7 @@ namespace KSOA.DataAccess
         partial void OnCompanyNameChanged();
     
         /// <summary>
-        /// 作品CP地址
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2717,7 +2980,7 @@ namespace KSOA.DataAccess
         partial void OnCpAddressChanged();
     
         /// <summary>
-        /// 作品渠道地址
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2741,7 +3004,7 @@ namespace KSOA.DataAccess
         partial void OnChannelAddresChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2765,7 +3028,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
@@ -2858,7 +3121,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 作品类型;B:buy(作品购买),S:sell(销售)
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2882,7 +3145,7 @@ namespace KSOA.DataAccess
         partial void OnOpTypeChanged();
     
         /// <summary>
-        /// 作品名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2906,7 +3169,7 @@ namespace KSOA.DataAccess
         partial void OnOpTitleChanged();
     
         /// <summary>
-        /// 作者
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2930,7 +3193,7 @@ namespace KSOA.DataAccess
         partial void OnOpAuthorChanged();
     
         /// <summary>
-        /// 发布,上架时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2954,7 +3217,7 @@ namespace KSOA.DataAccess
         partial void OnOpBeginTimeChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -2978,7 +3241,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3081,7 +3344,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 版权信息
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3105,7 +3368,7 @@ namespace KSOA.DataAccess
         partial void OnOpusCopyrightChanged();
     
         /// <summary>
-        /// 创作信息
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3129,7 +3392,7 @@ namespace KSOA.DataAccess
         partial void OnCreationInfoChanged();
     
         /// <summary>
-        /// 作品名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3153,7 +3416,7 @@ namespace KSOA.DataAccess
         partial void OnOpusNameChanged();
     
         /// <summary>
-        /// 作者
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3177,7 +3440,7 @@ namespace KSOA.DataAccess
         partial void OnOpusAuthorChanged();
     
         /// <summary>
-        /// 销售金额
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3201,7 +3464,7 @@ namespace KSOA.DataAccess
         partial void OnSalePriceChanged();
     
         /// <summary>
-        /// 授权平台
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3225,7 +3488,7 @@ namespace KSOA.DataAccess
         partial void OnAccreditPlatformChanged();
     
         /// <summary>
-        /// 授权公司
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3249,7 +3512,7 @@ namespace KSOA.DataAccess
         partial void OnAccreditCompanyChanged();
     
         /// <summary>
-        /// 授权日期
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3273,7 +3536,7 @@ namespace KSOA.DataAccess
         partial void OnAccreditTimeChanged();
     
         /// <summary>
-        /// 授权类型
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3297,7 +3560,7 @@ namespace KSOA.DataAccess
         partial void OnAccreditTypeChanged();
     
         /// <summary>
-        /// 获奖情况
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
@@ -3321,7 +3584,7 @@ namespace KSOA.DataAccess
         partial void OnAwardsChanged();
     
         /// <summary>
-        /// 原创形象相关信息
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
@@ -3345,7 +3608,7 @@ namespace KSOA.DataAccess
         partial void OnOpusMascotChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3369,7 +3632,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3474,7 +3737,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 导入操作人ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3501,7 +3764,7 @@ namespace KSOA.DataAccess
         partial void OnCustomerIDChanged();
     
         /// <summary>
-        /// 推广平台;Q:渠道,S:SDK,C:CP(内容提供商)
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3528,7 +3791,7 @@ namespace KSOA.DataAccess
         partial void OnExSpreadTypeChanged();
     
         /// <summary>
-        /// 日期:导入表单里的时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3555,7 +3818,7 @@ namespace KSOA.DataAccess
         partial void OnExTimeChanged();
     
         /// <summary>
-        /// 作品名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3582,7 +3845,7 @@ namespace KSOA.DataAccess
         partial void OnExOpusNameChanged();
     
         /// <summary>
-        /// 作品对应的集数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3609,7 +3872,7 @@ namespace KSOA.DataAccess
         partial void OnExCollectNumChanged();
     
         /// <summary>
-        /// 作品对应集数计费条数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3636,7 +3899,7 @@ namespace KSOA.DataAccess
         partial void OnExChargeCollectNumChanged();
     
         /// <summary>
-        /// 作品单价
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3663,7 +3926,7 @@ namespace KSOA.DataAccess
         partial void OnExOpusUnitPriceChanged();
     
         /// <summary>
-        /// 结算金额
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3690,7 +3953,7 @@ namespace KSOA.DataAccess
         partial void OnExAccountPriceChanged();
     
         /// <summary>
-        /// 结算条数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3717,7 +3980,7 @@ namespace KSOA.DataAccess
         partial void OnExAccountCollectNumChanged();
     
         /// <summary>
-        /// 渠道结算金额比例设置调整记录
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3744,7 +4007,7 @@ namespace KSOA.DataAccess
         partial void OnHistoryPercentChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3771,7 +4034,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3879,7 +4142,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 导入操作人ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3906,7 +4169,7 @@ namespace KSOA.DataAccess
         partial void OnCustomerIDChanged();
     
         /// <summary>
-        /// 导入类别;W:WAP,S:SDK,Q:渠道
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3933,7 +4196,7 @@ namespace KSOA.DataAccess
         partial void OnExTypeChanged();
     
         /// <summary>
-        /// 导入表单里的时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3960,7 +4223,7 @@ namespace KSOA.DataAccess
         partial void OnExTimeChanged();
     
         /// <summary>
-        /// CP(内容提供商)名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -3987,7 +4250,7 @@ namespace KSOA.DataAccess
         partial void OnExCpNameChanged();
     
         /// <summary>
-        /// 作品名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4014,7 +4277,7 @@ namespace KSOA.DataAccess
         partial void OnExOpusNameChanged();
     
         /// <summary>
-        /// 对应合作渠道推广商
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4041,7 +4304,7 @@ namespace KSOA.DataAccess
         partial void OnExCooperationChanged();
     
         /// <summary>
-        /// 作品对应集数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4068,7 +4331,7 @@ namespace KSOA.DataAccess
         partial void OnExCollectNumChanged();
     
         /// <summary>
-        /// 单集计费条数
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4095,7 +4358,7 @@ namespace KSOA.DataAccess
         partial void OnExSingleCollectNumChanged();
     
         /// <summary>
-        /// 作品单价
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4122,7 +4385,7 @@ namespace KSOA.DataAccess
         partial void OnExOpusUnitPriceChanged();
     
         /// <summary>
-        /// 结算金额
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4149,7 +4412,7 @@ namespace KSOA.DataAccess
         partial void OnExAccountPriceChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4176,7 +4439,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4276,7 +4539,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 工作报告类型;D:日报,W:周报,M:月报
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4300,7 +4563,7 @@ namespace KSOA.DataAccess
         partial void OnWTypeChanged();
     
         /// <summary>
-        /// 填写人ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4324,7 +4587,7 @@ namespace KSOA.DataAccess
         partial void OnWriterIDChanged();
     
         /// <summary>
-        /// 工作报告填写人
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4348,7 +4611,7 @@ namespace KSOA.DataAccess
         partial void OnWriterNameChanged();
     
         /// <summary>
-        /// 日报标题
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4372,7 +4635,7 @@ namespace KSOA.DataAccess
         partial void OnWTitleChanged();
     
         /// <summary>
-        /// 工作报告内容
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4396,7 +4659,7 @@ namespace KSOA.DataAccess
         partial void OnWConetentChanged();
     
         /// <summary>
-        /// 日报审阅人ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4420,7 +4683,7 @@ namespace KSOA.DataAccess
         partial void OnWTasterChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4444,7 +4707,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4468,7 +4731,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 填写人IP
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
@@ -4563,7 +4826,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 公告标题
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4587,7 +4850,7 @@ namespace KSOA.DataAccess
         partial void OnNTitleChanged();
     
         /// <summary>
-        /// 公告内容
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4611,7 +4874,7 @@ namespace KSOA.DataAccess
         partial void OnNContentChanged();
     
         /// <summary>
-        /// 发布人ID
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4635,7 +4898,7 @@ namespace KSOA.DataAccess
         partial void OnNCustomerIDChanged();
     
         /// <summary>
-        /// 发布人名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4659,7 +4922,7 @@ namespace KSOA.DataAccess
         partial void OnNCustomerNameChanged();
     
         /// <summary>
-        /// 公告级别,1,2,3,4;1的级别最大
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4683,7 +4946,7 @@ namespace KSOA.DataAccess
         partial void OnNlevelChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4707,7 +4970,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4731,7 +4994,7 @@ namespace KSOA.DataAccess
         partial void OnIsDeleteChanged();
     
         /// <summary>
-        /// 发布人IP
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
@@ -4820,7 +5083,7 @@ namespace KSOA.DataAccess
         partial void OnIDChanged();
     
         /// <summary>
-        /// 项目名称
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4847,7 +5110,7 @@ namespace KSOA.DataAccess
         partial void OnItemNameChanged();
     
         /// <summary>
-        /// 项目发起时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4874,7 +5137,7 @@ namespace KSOA.DataAccess
         partial void OnItemLaunchTimeChanged();
     
         /// <summary>
-        /// 条目添加时间
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
@@ -4901,7 +5164,7 @@ namespace KSOA.DataAccess
         partial void OnAddTimeChanged();
     
         /// <summary>
-        /// 是否已删除；0：未删除，1：已删除
+        /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]

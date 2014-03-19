@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin_ExcelResourceForComplainLogic.cs" />
+    <Compile Include="Admin_ExcelResourceForMonthLogic.cs" />
     <Compile Include="Admin_KSCustomerLogic.cs" />
     <Compile Include="DbAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

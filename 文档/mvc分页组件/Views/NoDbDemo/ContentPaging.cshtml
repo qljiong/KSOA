@@ -1,0 +1,11 @@
+﻿@model PagedArticle
+@{
+    ViewBag.Title = "文章内容分页";
+}
+
+<h2>文章内容分页</h2>
+<div class="description">该示例演示如何用MvcPager实现长文章内容分页。文章内容分页的实现原理是：在文章录入或编辑时在需要分页的地方插入分页符(一般富文本编辑器都有此功能)，获取文章内容后通过正则表达式获取文章中所有分页符，每个分页符之间的内容即为一页，所有分页符总数即为总页数。</div>
+<h2 class="center">@Model.Title</h2>
+<div class="center">来源：@Model.Source &nbsp;&nbsp;作者：@Model.Author &nbsp;&nbsp; 发布日期：@Model.PubDate</div>
+<div class="content">@Html.Raw(Model.Content)</div>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id"}, "Default",null,new{@class="center"})

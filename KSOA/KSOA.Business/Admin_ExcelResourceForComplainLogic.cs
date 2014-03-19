@@ -20,8 +20,15 @@ namespace KSOA.Business
             foreach (var Model in ListModel)
             {
                 query = new DataAccess.Admin_ExcelResourceForComplain();
-
-
+                query.FileDateTime = Model.FileDateTime;
+                query.UserNumber = Model.UserNumber;
+                query.Province = Model.Province;
+                query.OrderTime = Model.OrderTime;
+                query.BusinessName = Model.BusinessName;
+                query.PayAmount = Model.PayAmount;
+                query.CPid = Model.CPid;
+                query.SourceLevel = Model.SourceLevel;
+                query.AddTime = Model.AddTime;
                 _db.Admin_ExcelResourceForComplain.AddObject(query);
             }
             int result= _db.SaveChanges();

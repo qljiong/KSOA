@@ -1253,5 +1253,16 @@ namespace KSOA.Common
             }
         }
         #endregion
+
+        #region 转换20140101格式的字符串为日期
+        public static DateTime ConvertStrToDate(string strTime)
+        {
+            char[] tempTime = strTime.ToCharArray();//拆分时间
+            int tYear = Convert.ToInt32(string.Format("{0}{1}{2}{3}", tempTime[0], tempTime[1], tempTime[2], tempTime[3]));
+            int tMonth = Convert.ToInt32(string.Format("{0}{1}", tempTime[4], tempTime[5]));
+            int tDay = Convert.ToInt32(string.Format("{0}{1}", tempTime[6], tempTime[7]));
+            return new DateTime(tYear, tMonth, tDay);
+        }
+        #endregion
     }
 }

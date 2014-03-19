@@ -1,0 +1,44 @@
+﻿@model PagedList<Article>
+
+@{
+    ViewBag.Title = "Url路由分页";
+}
+
+<h2>Url路由分页</h2>
+<div class="description">该示例演示最基本的MvcPager路由分页功能。</div>
+        <table width="100%">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PubDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Source)
+                </th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PubDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source)
+                    </td>
+                </tr>
+            }
+        </table>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false})
+
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}

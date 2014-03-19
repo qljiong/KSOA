@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Admin_Department.cs" />
     <Compile Include="Admin_ExcelResourceForComplain.cs" />
+    <Compile Include="Admin_ExcelResourceForMonth.cs" />
     <Compile Include="Admin_KSCustomer.cs" />
     <Compile Include="Admin_OperatLog.cs" />
     <Compile Include="Admin_Platform.cs" />

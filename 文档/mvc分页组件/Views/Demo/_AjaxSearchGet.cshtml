@@ -1,0 +1,40 @@
+﻿@model PagedList<Article>
+
+<div>当前查询条件：标题：<span class="emph">@Request.QueryString["title"]</span>&nbsp;&nbsp;作者：<span class="emph">@Request.QueryString["author"]</span>&nbsp;&nbsp;来源：<span class="emph">@Request.QueryString["source"]</span></div>
+<table width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PubDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+        </tr>
+    }
+</table>
+
+<div><div style="float:left;width:50%">共 @Model.TotalPageCount 页 @Model.TotalItemCount 条记录，当前为第 @Model.CurrentPageIndex 页</div>
+@Ajax.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},new MvcAjaxOptions{UpdateTargetId="articles",DataFormId = "searchForm"},new{style="float:right"})
+</div>

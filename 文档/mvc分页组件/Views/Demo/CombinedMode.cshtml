@@ -1,0 +1,47 @@
+﻿@model PagedList<Article>
+
+@{
+    ViewBag.Title = "混合分页模式";
+}
+
+<h2>混合分页模式</h2>
+<div class="description">MvcPager 2.0中新增的Ajax局部加载功能使得在标准Url分页模式与Ajax分页模式之间切换更简单容易，并可实现两种分页模式共存。
+    本示例中第一个MvcPager为标准Url分页模式，第二个MvcPager使用Ajax分页模式，两种分页模式都可以实现为指定的内容进行分页且保持两个MvcPager同步。</div>
+<div id="articles">
+        <table width="100%">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PubDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Source)
+                </th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PubDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source)
+                    </td>
+                </tr>
+            }
+        </table>
+@Html.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false})
+@Ajax.Pager(Model,new PagerOptions{PageIndexParameterName = "id",ShowPageIndexBox = true,PageIndexBoxType = PageIndexBoxType.DropDownList,ShowGoButton = false},new MvcAjaxOptions{EnablePartialLoading = true,UpdateTargetId="articles"})
+</div>
+@section Scripts{@{Html.RegisterMvcPagerScriptResource();}}
