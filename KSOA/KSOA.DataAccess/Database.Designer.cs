@@ -148,6 +148,22 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<Admin_NotBaoyuePayBillPlayCount> Admin_NotBaoyuePayBillPlayCount
+        {
+            get
+            {
+                if ((_Admin_NotBaoyuePayBillPlayCount == null))
+                {
+                    _Admin_NotBaoyuePayBillPlayCount = base.CreateObjectSet<Admin_NotBaoyuePayBillPlayCount>("Admin_NotBaoyuePayBillPlayCount");
+                }
+                return _Admin_NotBaoyuePayBillPlayCount;
+            }
+        }
+        private ObjectSet<Admin_NotBaoyuePayBillPlayCount> _Admin_NotBaoyuePayBillPlayCount;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<Admin_OperatLog> Admin_OperatLog
         {
             get
@@ -395,6 +411,14 @@ namespace KSOA.DataAccess
         public void AddToAdmin_KSCustomer(Admin_KSCustomer admin_KSCustomer)
         {
             base.AddObject("Admin_KSCustomer", admin_KSCustomer);
+        }
+    
+        /// <summary>
+        /// 用于向 Admin_NotBaoyuePayBillPlayCount EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToAdmin_NotBaoyuePayBillPlayCount(Admin_NotBaoyuePayBillPlayCount admin_NotBaoyuePayBillPlayCount)
+        {
+            base.AddObject("Admin_NotBaoyuePayBillPlayCount", admin_NotBaoyuePayBillPlayCount);
         }
     
         /// <summary>
@@ -1802,6 +1826,271 @@ namespace KSOA.DataAccess
         private global::System.DateTime _AddTime;
         partial void OnAddTimeChanging(global::System.DateTime value);
         partial void OnAddTimeChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="KSOA.DataAccess", Name="Admin_NotBaoyuePayBillPlayCount")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Admin_NotBaoyuePayBillPlayCount : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 Admin_NotBaoyuePayBillPlayCount 对象。
+        /// </summary>
+        /// <param name="id">ID 属性的初始值。</param>
+        /// <param name="cpName">CpName 属性的初始值。</param>
+        /// <param name="cpID">CpID 属性的初始值。</param>
+        /// <param name="province">Province 属性的初始值。</param>
+        /// <param name="leaveNum">LeaveNum 属性的初始值。</param>
+        /// <param name="addNum">AddNum 属性的初始值。</param>
+        /// <param name="numTotal">NumTotal 属性的初始值。</param>
+        /// <param name="addTime">AddTime 属性的初始值。</param>
+        /// <param name="isDelete">IsDelete 属性的初始值。</param>
+        public static Admin_NotBaoyuePayBillPlayCount CreateAdmin_NotBaoyuePayBillPlayCount(global::System.Int32 id, global::System.String cpName, global::System.Int32 cpID, global::System.String province, global::System.Int32 leaveNum, global::System.Int32 addNum, global::System.Int32 numTotal, global::System.DateTime addTime, global::System.Boolean isDelete)
+        {
+            Admin_NotBaoyuePayBillPlayCount admin_NotBaoyuePayBillPlayCount = new Admin_NotBaoyuePayBillPlayCount();
+            admin_NotBaoyuePayBillPlayCount.ID = id;
+            admin_NotBaoyuePayBillPlayCount.CpName = cpName;
+            admin_NotBaoyuePayBillPlayCount.CpID = cpID;
+            admin_NotBaoyuePayBillPlayCount.Province = province;
+            admin_NotBaoyuePayBillPlayCount.LeaveNum = leaveNum;
+            admin_NotBaoyuePayBillPlayCount.AddNum = addNum;
+            admin_NotBaoyuePayBillPlayCount.NumTotal = numTotal;
+            admin_NotBaoyuePayBillPlayCount.AddTime = addTime;
+            admin_NotBaoyuePayBillPlayCount.IsDelete = isDelete;
+            return admin_NotBaoyuePayBillPlayCount;
+        }
+
+        #endregion
+
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ID;
+        partial void OnIDChanging(global::System.Int32 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CpName
+        {
+            get
+            {
+                return _CpName;
+            }
+            set
+            {
+                OnCpNameChanging(value);
+                ReportPropertyChanging("CpName");
+                _CpName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CpName");
+                OnCpNameChanged();
+            }
+        }
+        private global::System.String _CpName;
+        partial void OnCpNameChanging(global::System.String value);
+        partial void OnCpNameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CpID
+        {
+            get
+            {
+                return _CpID;
+            }
+            set
+            {
+                OnCpIDChanging(value);
+                ReportPropertyChanging("CpID");
+                _CpID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CpID");
+                OnCpIDChanged();
+            }
+        }
+        private global::System.Int32 _CpID;
+        partial void OnCpIDChanging(global::System.Int32 value);
+        partial void OnCpIDChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Province
+        {
+            get
+            {
+                return _Province;
+            }
+            set
+            {
+                OnProvinceChanging(value);
+                ReportPropertyChanging("Province");
+                _Province = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Province");
+                OnProvinceChanged();
+            }
+        }
+        private global::System.String _Province;
+        partial void OnProvinceChanging(global::System.String value);
+        partial void OnProvinceChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 LeaveNum
+        {
+            get
+            {
+                return _LeaveNum;
+            }
+            set
+            {
+                OnLeaveNumChanging(value);
+                ReportPropertyChanging("LeaveNum");
+                _LeaveNum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LeaveNum");
+                OnLeaveNumChanged();
+            }
+        }
+        private global::System.Int32 _LeaveNum;
+        partial void OnLeaveNumChanging(global::System.Int32 value);
+        partial void OnLeaveNumChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AddNum
+        {
+            get
+            {
+                return _AddNum;
+            }
+            set
+            {
+                OnAddNumChanging(value);
+                ReportPropertyChanging("AddNum");
+                _AddNum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddNum");
+                OnAddNumChanged();
+            }
+        }
+        private global::System.Int32 _AddNum;
+        partial void OnAddNumChanging(global::System.Int32 value);
+        partial void OnAddNumChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NumTotal
+        {
+            get
+            {
+                return _NumTotal;
+            }
+            set
+            {
+                OnNumTotalChanging(value);
+                ReportPropertyChanging("NumTotal");
+                _NumTotal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NumTotal");
+                OnNumTotalChanged();
+            }
+        }
+        private global::System.Int32 _NumTotal;
+        partial void OnNumTotalChanging(global::System.Int32 value);
+        partial void OnNumTotalChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime AddTime
+        {
+            get
+            {
+                return _AddTime;
+            }
+            set
+            {
+                OnAddTimeChanging(value);
+                ReportPropertyChanging("AddTime");
+                _AddTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddTime");
+                OnAddTimeChanged();
+            }
+        }
+        private global::System.DateTime _AddTime;
+        partial void OnAddTimeChanging(global::System.DateTime value);
+        partial void OnAddTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsDelete
+        {
+            get
+            {
+                return _IsDelete;
+            }
+            set
+            {
+                OnIsDeleteChanging(value);
+                ReportPropertyChanging("IsDelete");
+                _IsDelete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsDelete");
+                OnIsDeleteChanged();
+            }
+        }
+        private global::System.Boolean _IsDelete;
+        partial void OnIsDeleteChanging(global::System.Boolean value);
+        partial void OnIsDeleteChanged();
 
         #endregion
 

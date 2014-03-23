@@ -11,6 +11,7 @@ using System.Data;
 using KSOA.Business;
 using KSOA.Common;
 using KSOA.Model;
+using NPOI.HPSF;
 
 namespace KSOAWeb.Controllers
 {
@@ -78,6 +79,13 @@ namespace KSOAWeb.Controllers
         public ActionResult ImportExcelByComplain()
         {
             ViewBag.message = "请选择要上传的Excel文件！";
+            List<Admin_CPcompany> cpList = new Admin_CPcompanyLogic().GetCpList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var item in cpList)
+            {
+                items.Add(new SelectListItem { Selected = false, Text = item.CPname, Value = item.ID.ToString() });
+            }
+            ViewBag.CpNameList = items;
             return View();
         }
 
@@ -90,6 +98,7 @@ namespace KSOAWeb.Controllers
         {
             HttpFileCollectionBase files = Request.Files;
             HttpPostedFileBase file = files["InputExcel"];
+            int cp = Convert.ToInt32(form["cpNameList"]);
             if (file != null && file.ContentLength > 0)
             {
                 string fileName = file.FileName;
@@ -107,7 +116,7 @@ namespace KSOAWeb.Controllers
                         //重命名
                         fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
                         file.SaveAs(path + fileName);
-                        ReadExcelAndWriteToTable(fileName, KSOAEnum.ImportExcelType.投诉源数据);
+                        ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.投诉源数据);
                         ViewBag.message = "上传成功！";
                     }
                     catch (Exception e)
@@ -124,7 +133,7 @@ namespace KSOAWeb.Controllers
             {
                 ViewBag.message = "上传的文件是空文件！";
             }
-            return View("ImportExcelByComplain");
+            return RedirectToAction("ImportExcelByComplain");
         }
 
         /// <summary>
@@ -133,6 +142,13 @@ namespace KSOAWeb.Controllers
         /// <returns></returns>
         public ActionResult ImportExcelByMonth()
         {
+            List<Admin_CPcompany> cpList = new Admin_CPcompanyLogic().GetCpList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var item in cpList)
+            {
+                items.Add(new SelectListItem { Selected = false, Text = item.CPname, Value = item.ID.ToString() });
+            }
+            ViewBag.CpNameList = items;
             return View();
         }
 
@@ -145,6 +161,8 @@ namespace KSOAWeb.Controllers
         {
             HttpFileCollectionBase files = Request.Files;
             HttpPostedFileBase file = files["InputExcel"];
+            int cp = Convert.ToInt32(form["cpNameList"]);
+
             if (file != null && file.ContentLength > 0)
             {
                 string fileName = file.FileName;
@@ -162,7 +180,7 @@ namespace KSOAWeb.Controllers
                         //重命名
                         fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
                         file.SaveAs(path + fileName);
-                        ReadExcelAndWriteToTable(fileName, KSOAEnum.ImportExcelType.包月源数据);
+                        ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.包月源数据);
                         ViewBag.message = "上传成功！";
                     }
                     catch (Exception e)
@@ -179,14 +197,14 @@ namespace KSOAWeb.Controllers
             {
                 ViewBag.message = "上传的文件是空文件！";
             }
-            return View("ImportExcelByMonth");
+            return RedirectToAction("ImportExcelByMonth");
         }
 
         /// <summary>
         /// 读取上传的Excel源文件,写入到数据库对应表
         /// </summary>
         /// <param name="excelName"></param>
-        public bool ReadExcelAndWriteToTable(string excelName, KSOAEnum.ImportExcelType type)
+        public bool ReadExcelAndWriteToTable(string excelName, int CP, KSOAEnum.ImportExcelType type)
         {
             HSSFWorkbook hssfworkbook;
             string path = "";
@@ -203,209 +221,284 @@ namespace KSOAWeb.Controllers
             {
                 hssfworkbook = new HSSFWorkbook(file);
             }
-            bool result = ConvertEcelToTable(hssfworkbook, type);
+            bool result = ConvertEcelToTable(hssfworkbook, CP, type);
             return result;
         }
 
-        public bool ConvertEcelToTable(HSSFWorkbook hss, KSOA.Common.KSOAEnum.ImportExcelType type)
+        public bool ConvertEcelToTable(HSSFWorkbook hss, int CP, KSOA.Common.KSOAEnum.ImportExcelType type)
         {
             #region 投诉源数据
             if ((int)type == (int)KSOAEnum.ImportExcelType.投诉源数据)
             {
-                ISheet sheet = hss.GetSheetAt(0);
-                System.Collections.IEnumerator rows = sheet.GetRowEnumerator();
-
+                ISheet sheet = null;
                 List<Admin_ExcelResourceForComplain> listModel = new List<Admin_ExcelResourceForComplain>();
-                rows.MoveNext();//跳过首行标题
-                while (rows.MoveNext())
+                for (int i = 0; i < hss.Workbook.NumSheets; i++)//循环sheet
                 {
-                    IRow row = (HSSFRow)rows.Current;
-                    Admin_ExcelResourceForComplain dr = new Admin_ExcelResourceForComplain();
+                    sheet = hss.GetSheetAt(i);
+                    System.Collections.IEnumerator rows = sheet.GetRowEnumerator();
 
-                    #region FileDateTime投诉归档日期
-                    ICell FileDateTime = row.GetCell(0);
-                    if (FileDateTime == null)
+                    rows.MoveNext();//跳过首行标题
+                    while (rows.MoveNext())
                     {
-                        dr.FileDateTime = new DateTime(1900, 1, 1);
+                        IRow row = (HSSFRow)rows.Current;
+                        Admin_ExcelResourceForComplain dr = new Admin_ExcelResourceForComplain();
+
+                        #region FileDateTime投诉归档日期
+                        ICell FileDateTime = row.GetCell(0);
+                        if (FileDateTime == null)
+                        {
+                            dr.FileDateTime = new DateTime(1900, 1, 1);
+                        }
+                        else
+                        {
+                            dr.FileDateTime = Utils.ConvertStrToDate(FileDateTime.ToString());
+                        }
+                        #endregion
+                        #region UserNumber用户号码
+                        ICell UserNumber = row.GetCell(1);
+                        if (UserNumber == null)
+                        {
+                            dr.UserNumber = "00000000000";
+                        }
+                        else
+                        {
+                            dr.UserNumber = UserNumber.ToString();
+                        }
+                        #endregion
+                        #region Province省份
+                        ICell Province = row.GetCell(2);
+                        if (Province == null)
+                        {
+                            dr.Province = "";
+                        }
+                        else
+                        {
+                            dr.Province = Province.ToString();
+                        }
+                        #endregion
+                        #region OrderTime订购日期
+                        ICell OrderTime = row.GetCell(3);
+                        if (OrderTime == null)
+                        {
+                            dr.OrderTime = new DateTime(1900, 1, 1);
+                        }
+                        else
+                        {
+                            dr.OrderTime = Utils.ConvertStrToDate(OrderTime.ToString());
+                        }
+                        #endregion
+                        #region BusinessName订购业务名称
+                        ICell BusinessName = row.GetCell(4);
+                        if (BusinessName == null)
+                        {
+                            dr.BusinessName = "";
+                        }
+                        else
+                        {
+                            dr.BusinessName = BusinessName.ToString();
+                        }
+                        #endregion
+                        #region PayAmount支付费用
+                        ICell PayAmount = row.GetCell(5);
+                        if (BusinessName == null)
+                        {
+                            dr.PayAmount = 0.0M;
+                        }
+                        else
+                        {
+                            dr.PayAmount = Convert.ToDecimal(PayAmount.ToString());
+                        }
+                        #endregion
+                        dr.CPid = CP;
+                        dr.SourceLevel = hss.Workbook.GetSheetName(i).Trim();//sheetname
+                        listModel.Add(dr);
                     }
-                    else
-                    {
-                        dr.FileDateTime = Utils.ConvertStrToDate(FileDateTime.ToString());
-                    }
-                    #endregion
-                    #region UserNumber用户号码
-                    ICell UserNumber = row.GetCell(1);
-                    if (UserNumber == null)
-                    {
-                        dr.UserNumber = "00000000000";
-                    }
-                    else
-                    {
-                        dr.UserNumber = UserNumber.ToString();
-                    }
-                    #endregion
-                    #region Province省份
-                    ICell Province = row.GetCell(2);
-                    if (Province == null)
-                    {
-                        dr.Province = "";
-                    }
-                    else
-                    {
-                        dr.Province = Province.ToString();
-                    }
-                    #endregion
-                    #region OrderTime订购日期
-                    ICell OrderTime = row.GetCell(3);
-                    if (OrderTime == null)
-                    {
-                        dr.OrderTime = new DateTime(1900, 1, 1);
-                    }
-                    else
-                    {
-                        dr.OrderTime = Utils.ConvertStrToDate(OrderTime.ToString());
-                    }
-                    #endregion
-                    #region BusinessName订购业务名称
-                    ICell BusinessName = row.GetCell(4);
-                    if (BusinessName == null)
-                    {
-                        dr.BusinessName = "";
-                    }
-                    else
-                    {
-                        dr.BusinessName = BusinessName.ToString();
-                    }
-                    #endregion
-                    #region PayAmount支付费用
-                    ICell PayAmount = row.GetCell(5);
-                    if (BusinessName == null)
-                    {
-                        dr.PayAmount = 0.0M;
-                    }
-                    else
-                    {
-                        dr.PayAmount = Convert.ToDecimal(PayAmount.ToString());
-                    }
-                    #endregion
-                    dr.CPid = 0;
-                    dr.SourceLevel = "一线";
-                    listModel.Add(dr);
                 }
                 return new Admin_ExcelResourceForComplainLogic().SaveImportDatas(listModel); ;
-            } 
+            }
             #endregion
 
+            #region 包月源数据
             if ((int)type == (int)KSOAEnum.ImportExcelType.包月源数据)
             {
-                ISheet sheet = hss.GetSheetAt(0);
-                System.Collections.IEnumerator rows = sheet.GetRowEnumerator();
-
+                ISheet sheet = null;
                 List<Admin_ExcelResourceForMonth> listModel = new List<Admin_ExcelResourceForMonth>();
-                rows.MoveNext();//跳过首行标题
-                while (rows.MoveNext())
+                for (int i = 0; i < hss.Workbook.NumSheets; i++)//循环sheet
                 {
-                    IRow row = (HSSFRow)rows.Current;
-                    Admin_ExcelResourceForMonth dr = new Admin_ExcelResourceForMonth();
+                    sheet = hss.GetSheetAt(i);
+                    System.Collections.IEnumerator rows = sheet.GetRowEnumerator();
+                    rows.MoveNext();//跳过首行标题
+                    while (rows.MoveNext())
+                    {
+                        IRow row = (HSSFRow)rows.Current;
+                        Admin_ExcelResourceForMonth dr = new Admin_ExcelResourceForMonth();
 
-                    #region RowNumber行号
-                    ICell RowNumber = row.GetCell(0);
-                    if (RowNumber == null)
-                    {
-                        dr.RowNumber = -1;//未标示行号
-                    }
-                    else
-                    {
-                        dr.RowNumber = Convert.ToInt32(RowNumber.ToString());
-                    }
-                    #endregion
-                    #region StatisticsTime统计日期
-                    ICell StatisticsTime = row.GetCell(1);
-                    if (StatisticsTime == null)
-                    {
-                        dr.StatisticsTime = new DateTime(1900, 1, 1);
-                    }
-                    else
-                    {
-                        dr.StatisticsTime = Utils.ConvertStrToDate(StatisticsTime.ToString());
-                    }
-                    #endregion
-                    #region SingleOpusName单部名称
-                    ICell SingleOpusName = row.GetCell(2);
-                    if (SingleOpusName == null)
-                    {
-                        dr.SingleOpusName = "";
-                    }
-                    else
-                    {
-                        dr.SingleOpusName = SingleOpusName.ToString();
-                    }
-                    #endregion
-                    #region NotBaoyuePlayNum非包月点播次数
-                    ICell NotBaoyuePlayNum = row.GetCell(3);
-                    if (NotBaoyuePlayNum == null)
-                    {
-                        dr.NotBaoyuePlayNum = 0;
-                    }
-                    else
-                    {
-                        dr.NotBaoyuePlayNum = Convert.ToInt32(NotBaoyuePlayNum.ToString());
-                    }
-                    #endregion
-                    #region BaoyuePlayNum包月点播次数
-                    ICell BaoyuePlayNum = row.GetCell(4);
-                    if (BaoyuePlayNum == null)
-                    {
-                        dr.BaoyuePlayNum = 0;
-                    }
-                    else
-                    {
-                        dr.BaoyuePlayNum =Convert.ToInt32(BaoyuePlayNum.ToString());
-                    }
-                    #endregion
-                    #region PayBillPlayNum付费点播次数
-                    ICell PayBillPlayNum = row.GetCell(5);
-                    if (PayBillPlayNum == null)
-                    {
-                        dr.PayBillPlayNum = 0;
-                    }
-                    else
-                    {
-                        dr.PayBillPlayNum = Convert.ToInt32(PayBillPlayNum.ToString());
-                    }
-                    #endregion
+                        #region RowNumber行号
+                        ICell RowNumber = row.GetCell(0);
+                        if (RowNumber == null)
+                        {
+                            dr.RowNumber = -1;//未标示行号
+                        }
+                        else
+                        {
+                            dr.RowNumber = Convert.ToInt32(RowNumber.ToString());
+                        }
+                        #endregion
+                        #region StatisticsTime统计日期
+                        ICell StatisticsTime = row.GetCell(1);
+                        if (StatisticsTime == null)
+                        {
+                            dr.StatisticsTime = new DateTime(1900, 1, 1);
+                        }
+                        else
+                        {
+                            dr.StatisticsTime = Utils.ConvertStrToDate(StatisticsTime.ToString());
+                        }
+                        #endregion
+                        #region SingleOpusName单部名称
+                        ICell SingleOpusName = row.GetCell(2);
+                        if (SingleOpusName == null)
+                        {
+                            dr.SingleOpusName = "";
+                        }
+                        else
+                        {
+                            dr.SingleOpusName = SingleOpusName.ToString();
+                        }
+                        #endregion
+                        #region NotBaoyuePlayNum非包月点播次数
+                        ICell NotBaoyuePlayNum = row.GetCell(3);
+                        if (NotBaoyuePlayNum == null)
+                        {
+                            dr.NotBaoyuePlayNum = 0;
+                        }
+                        else
+                        {
+                            dr.NotBaoyuePlayNum = Convert.ToInt32(NotBaoyuePlayNum.ToString());
+                        }
+                        #endregion
+                        #region BaoyuePlayNum包月点播次数
+                        ICell BaoyuePlayNum = row.GetCell(4);
+                        if (BaoyuePlayNum == null)
+                        {
+                            dr.BaoyuePlayNum = 0;
+                        }
+                        else
+                        {
+                            dr.BaoyuePlayNum = Convert.ToInt32(BaoyuePlayNum.ToString());
+                        }
+                        #endregion
+                        #region PayBillPlayNum付费点播次数
+                        ICell PayBillPlayNum = row.GetCell(5);
+                        if (PayBillPlayNum == null)
+                        {
+                            dr.PayBillPlayNum = 0;
+                        }
+                        else
+                        {
+                            dr.PayBillPlayNum = Convert.ToInt32(PayBillPlayNum.ToString());
+                        }
+                        #endregion
+                        #region FreePlayNum免费点播次数
+                        ICell FreePlayNum = row.GetCell(5);
+                        if (FreePlayNum == null)
+                        {
+                            dr.FreePlayNum = 0;
+                        }
+                        else
+                        {
+                            dr.FreePlayNum = Convert.ToInt32(FreePlayNum.ToString());
+                        }
+                        #endregion
+                        #region NotBaoyuePayBillPlayNum非包月付费点播次数
+                        ICell NotBaoyuePayBillPlayNum = row.GetCell(5);
+                        if (FreePlayNum == null)
+                        {
+                            dr.NotBaoyuePayBillPlayNum = 0;
+                        }
+                        else
+                        {
+                            dr.NotBaoyuePayBillPlayNum = Convert.ToInt32(NotBaoyuePayBillPlayNum.ToString());
+                        }
+                        #endregion
 
-                    #region FreePlayNum免费点播次数
-                    ICell FreePlayNum = row.GetCell(5);
-                    if (FreePlayNum == null)
-                    {
-                        dr.FreePlayNum = 0;
+                        dr.CPid = CP;
+                        dr.SourceLevel = hss.Workbook.GetSheetName(i).Trim();
+                        listModel.Add(dr);
                     }
-                    else
-                    {
-                        dr.FreePlayNum = Convert.ToInt32(FreePlayNum.ToString());
-                    }
-                    #endregion
-
-                    #region NotBaoyuePayBillPlayNum非包月付费点播次数
-                    ICell NotBaoyuePayBillPlayNum = row.GetCell(5);
-                    if (FreePlayNum == null)
-                    {
-                        dr.NotBaoyuePayBillPlayNum = 0;
-                    }
-                    else
-                    {
-                        dr.NotBaoyuePayBillPlayNum = Convert.ToInt32(NotBaoyuePayBillPlayNum.ToString());
-                    }
-                    #endregion
-
-                    dr.CPid = 0;
-                    dr.SourceLevel = "一线";
-                    listModel.Add(dr);
                 }
                 return new Admin_ExcelResourceForMonthLogic().SaveImportDatas(listModel); ;
             }
+            #endregion
             return false;
+        }
+        #endregion
+
+        #region 导出Excel文件相关
+        void InitializeWorkbook(HSSFWorkbook hssfworkbook)
+        {
+            ////create a entry of DocumentSummaryInformation
+            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+            dsi.Company = "旷盛";
+            hssfworkbook.DocumentSummaryInformation = dsi;
+
+            ////create a entry of SummaryInformation
+            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+            si.Subject = "KSOA";
+            hssfworkbook.SummaryInformation = si;
+        }
+        void GenerateData(HSSFWorkbook hssfworkbook, List<ComplainAnalysisList> dataList)
+        {
+            int tabNum = 1;
+            foreach (var item in dataList)
+            {
+                ISheet sheet1 = hssfworkbook.CreateSheet(item.CpName + tabNum);
+                tabNum++;
+                IRow titleRow = sheet1.CreateRow(0);
+                titleRow.CreateCell(0).SetCellValue("线级");
+                titleRow.CreateCell(1).SetCellValue("CP");
+                titleRow.CreateCell(2).SetCellValue("省份");
+                titleRow.CreateCell(3).SetCellValue("单省分非包月付费用户数");
+                titleRow.CreateCell(4).SetCellValue("2.27新增");
+                titleRow.CreateCell(5).SetCellValue("2.28新增");
+                titleRow.CreateCell(6).SetCellValue("遗留");
+                titleRow.CreateCell(7).SetCellValue("新增万投比");
+                for (int i = 1; i <= item.caList.Count; i++)
+                {
+                    IRow row = sheet1.CreateRow(i);
+                    row.CreateCell(0).SetCellValue(item.SourceLevel);
+                    row.CreateCell(1).SetCellValue(item.CpName);
+                    row.CreateCell(2).SetCellValue(item.caList[i-1].privnce);
+                    row.CreateCell(3).SetCellValue(item.caList[i-1].notBaoyuePayUserNum);
+                    row.CreateCell(4).SetCellValue(item.caList[i-1].AddNum);
+                    row.CreateCell(5).SetCellValue(item.caList[i-1].AddNum);
+                    row.CreateCell(6).SetCellValue(item.caList[i-1].LeaveNum);
+                    row.CreateCell(7).SetCellValue(item.caList[i-1].proportion);
+                }
+            }
+        }
+        MemoryStream GetExcelStream(HSSFWorkbook hssfworkbook)
+        {
+            //Write the stream data of workbook to the root directory
+            MemoryStream file = new MemoryStream();
+            hssfworkbook.Write(file);
+            return file;
+        }
+        public ActionResult ExportExcelToDownLoad(string excelName="测试")
+        {
+            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
+
+            string filename = excelName + ".xls";
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", filename));
+            Response.Clear();
+
+            HSSFWorkbook hssfworkbook = new HSSFWorkbook();
+            InitializeWorkbook(hssfworkbook);
+            GenerateData(hssfworkbook, dataList);
+            GetExcelStream(hssfworkbook).WriteTo(Response.OutputStream);
+            Response.End();
+            return new EmptyResult();
         }
         #endregion
     }

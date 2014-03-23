@@ -14,9 +14,19 @@ namespace KSOAWeb.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.name = new Admin_KSCustomerLogic().test();
             return View();
         }
 
+        [HttpGet]
+        public ActionResult ExplorerComplainInfo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ExplorerComplainInfo(FormCollection form)
+        {
+            return View();
+        }
     }
 }

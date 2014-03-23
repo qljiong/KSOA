@@ -456,9 +456,12 @@
     <Content Include="Views\Admin\Managerpwd.cshtml" />
     <Content Include="Views\Admin\ImportExcelByComplain.cshtml" />
     <Content Include="Views\Admin\ImportExcelByMonth.cshtml" />
+    <Content Include="Views\Home\ExplorerComplainInfo.cshtml" />
+    <Content Include="Views\Admin\ExportExcelToDownLoad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DownLoadHistory\" />
     <Folder Include="Models\" />
     <Folder Include="UploadFile\Complain\" />
     <Folder Include="UploadFile\Month\" />

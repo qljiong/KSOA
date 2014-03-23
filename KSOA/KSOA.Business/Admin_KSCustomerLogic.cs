@@ -7,12 +7,6 @@ namespace KSOA.Business
 {
     public class Admin_KSCustomerLogic : DbAccess
     {
-        public string test()
-        {
-            var result = _db.Admin_KSCustomer.Where(s => s.ID == 1).FirstOrDefault();
-            return result == null ? "未定义" : result.CusName;
-        }
-
         /// <summary>
         /// 登陆验证
         /// </summary>

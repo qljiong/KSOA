@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin_CPcompanyLogic.cs" />
     <Compile Include="Admin_ExcelResourceForComplainLogic.cs" />
     <Compile Include="Admin_ExcelResourceForMonthLogic.cs" />
     <Compile Include="Admin_KSCustomerLogic.cs" />
+    <Compile Include="Admin_NotBaoyuePayBillPlayCountLogic.cs" />
     <Compile Include="DbAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

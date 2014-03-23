@@ -74,6 +74,20 @@
           <Property Name="IsDelete" Type="bit" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Admin_NotBaoyuePayBillPlayCount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CpName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CpID" Type="int" Nullable="false" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LeaveNum" Type="int" Nullable="false" />
+          <Property Name="AddNum" Type="int" Nullable="false" />
+          <Property Name="NumTotal" Type="int" Nullable="false" />
+          <Property Name="AddTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admin_OperatLog">
           <Key>
             <PropertyRef Name="ID" />
@@ -291,6 +305,7 @@
           <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="Self.Admin_ExcelResourceForComplain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="Self.Admin_ExcelResourceForMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_KSCustomer" EntityType="Self.Admin_KSCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_NotBaoyuePayBillPlayCount" EntityType="Self.Admin_NotBaoyuePayBillPlayCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_OperatLog" EntityType="Self.Admin_OperatLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Platform" EntityType="Self.Admin_Platform" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Role" EntityType="Self.Admin_Role" Schema="dbo" store:Type="Tables" />
@@ -355,6 +370,7 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="KSOA.DataAccess.Admin_ExcelResourceForComplain" />
           <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="KSOA.DataAccess.Admin_ExcelResourceForMonth" />
           <EntitySet Name="Admin_KSCustomer" EntityType="KSOA.DataAccess.Admin_KSCustomer" />
+          <EntitySet Name="Admin_NotBaoyuePayBillPlayCount" EntityType="KSOA.DataAccess.Admin_NotBaoyuePayBillPlayCount" />
           <EntitySet Name="Admin_OperatLog" EntityType="KSOA.DataAccess.Admin_OperatLog" />
           <EntitySet Name="Admin_Platform" EntityType="KSOA.DataAccess.Admin_Platform" />
           <EntitySet Name="Admin_Role" EntityType="KSOA.DataAccess.Admin_Role" />
@@ -437,6 +453,20 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <Property Name="QQ" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Admin_NotBaoyuePayBillPlayCount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CpID" Type="Int32" Nullable="false" />
+          <Property Name="Province" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeaveNum" Type="Int32" Nullable="false" />
+          <Property Name="AddNum" Type="Int32" Nullable="false" />
+          <Property Name="NumTotal" Type="Int32" Nullable="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_OperatLog">
           <Key>
@@ -719,6 +749,21 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
                 <ScalarProperty Name="CusName" ColumnName="CusName" />
                 <ScalarProperty Name="RealName" ColumnName="RealName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_NotBaoyuePayBillPlayCount">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_NotBaoyuePayBillPlayCount">
+              <MappingFragment StoreEntitySet="Admin_NotBaoyuePayBillPlayCount">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="NumTotal" ColumnName="NumTotal" />
+                <ScalarProperty Name="AddNum" ColumnName="AddNum" />
+                <ScalarProperty Name="LeaveNum" ColumnName="LeaveNum" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="CpID" ColumnName="CpID" />
+                <ScalarProperty Name="CpName" ColumnName="CpName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
