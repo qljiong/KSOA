@@ -15,14 +15,43 @@ using NPOI.HPSF;
 
 namespace KSOAWeb.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BasePageController
     {
-        //
-        // GET: /Admin/
-
+        /// <summary>
+        /// 框架页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            Admin_KSCustomer user = (Admin_KSCustomer)Session["member"];
+            return View(user);
+        }
+
+        /// <summary>
+        /// 管理页初始显示页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Center()
+        {
+            Admin_KSCustomer user = (Admin_KSCustomer)Session["member"];
+            ViewBag.userName = user.CusName;
+            siteconfig model = CacheHelper.Get<siteconfig>(DTKeys.CACHE_SITE_CONFIG);
+            if (model == null)
+            {
+                CacheHelper.Insert(DTKeys.CACHE_SITE_CONFIG, loadConfig(Utils.GetXmlMapPath("Configpath")), Utils.GetXmlMapPath("Configpath"));
+                model = CacheHelper.Get<siteconfig>(DTKeys.CACHE_SITE_CONFIG);
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// 获取系统配置信息
+        /// </summary>
+        /// <param name="configFilePath"></param>
+        /// <returns></returns>
+        public siteconfig loadConfig(string configFilePath)
+        {
+            return (siteconfig)SerializationHelper.Load(typeof(siteconfig), configFilePath);
         }
 
         #region 登陆相关
@@ -40,35 +69,74 @@ namespace KSOAWeb.Controllers
         public ActionResult Login(FormCollection from)
         {
             string userName = from["txtUserName"] ?? "";
-            string userPwd = from["txtUserName"] ?? "";
+            string userPwd = from["txtUserPwd"] ?? "";
 
             if (userName.Equals("") || userPwd.Equals(""))
             {
                 ViewBag.MsgTip = "请输入用户名或密码";
                 return View();
             }
-            int result = new Admin_KSCustomerLogic().CheckLogin(userName, userPwd);
-            if (result == 0)
+            Admin_KSCustomer result = new Admin_KSCustomerLogic().CheckLogin(userName, userPwd);
+            if (result == null)
             {
-                ViewBag.MsgTip = "请输入用户名或密码";
+                ViewBag.MsgTip = "用户名或密码错误";
                 return View();
             }
-            //登陆成功
-            if (result == 1)
+            else
             {
                 //保存登陆信息到Session
-
+                Session["member"] = result;
                 return RedirectToAction("Index");
             }
-            ViewBag.MsgTip = "登陆异常,请重试!";
-            return View();
         }
         #endregion
 
+        #region 修改密码
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Managerpwd()
         {
-            return View();
+            Admin_KSCustomer cus = (Admin_KSCustomer)Session["member"];
+            if (cus != null)
+            {
+                ViewBag.msg = Session["mpdMsg"] ?? "";
+                Session.Remove("mpdMsg");
+                return View(cus);
+            }
+            return RedirectToAction("Login");
         }
+
+        [HttpPost]
+        public ActionResult Managerpwd(FormCollection form)
+        {
+            Admin_KSCustomer cus = new Admin_KSCustomer();
+            cus.CusName = form["txtUserName"];
+            cus.CusPwd = form["txtUserPwd"];
+            cus.Oldcuspwd = form["txtoldpwd"];
+            cus.RealName = form["txtRealName"] ?? "";
+            cus.CusPhoneNum = form["txtTelephone"];
+            cus.CusEmail = form["txtEmail"];
+            //验证旧密码是否正确
+            Admin_KSCustomer result = new Admin_KSCustomerLogic().CheckLogin(cus.CusName, cus.Oldcuspwd);
+            if (result != null)
+            {
+                if (new Admin_KSCustomerLogic().UpdateCusInfo(cus))
+                {
+                    Session["mpdMsg"] = "更新成功";
+                    return RedirectToAction("Managerpwd");
+                }
+                else
+                {
+                    Session["mpdMsg"] = "更新失败";
+                    return RedirectToAction("Managerpwd");
+                }
+            }
+            Session["mpdMsg"] = "旧登录密码错误";
+            return RedirectToAction("Managerpwd");
+        }
+        #endregion
 
         #region Excel导入相关
         /// <summary>
@@ -459,8 +527,8 @@ namespace KSOAWeb.Controllers
                 titleRow.CreateCell(1).SetCellValue("CP");
                 titleRow.CreateCell(2).SetCellValue("省份");
                 titleRow.CreateCell(3).SetCellValue("单省分非包月付费用户数");
-                titleRow.CreateCell(4).SetCellValue("2.27新增");
-                titleRow.CreateCell(5).SetCellValue("2.28新增");
+                titleRow.CreateCell(4).SetCellValue("昨日新增");
+                titleRow.CreateCell(5).SetCellValue("今日新增");
                 titleRow.CreateCell(6).SetCellValue("遗留");
                 titleRow.CreateCell(7).SetCellValue("新增万投比");
                 for (int i = 1; i <= item.caList.Count; i++)
@@ -468,12 +536,12 @@ namespace KSOAWeb.Controllers
                     IRow row = sheet1.CreateRow(i);
                     row.CreateCell(0).SetCellValue(item.SourceLevel);
                     row.CreateCell(1).SetCellValue(item.CpName);
-                    row.CreateCell(2).SetCellValue(item.caList[i-1].privnce);
-                    row.CreateCell(3).SetCellValue(item.caList[i-1].notBaoyuePayUserNum);
-                    row.CreateCell(4).SetCellValue(item.caList[i-1].AddNum);
-                    row.CreateCell(5).SetCellValue(item.caList[i-1].AddNum);
-                    row.CreateCell(6).SetCellValue(item.caList[i-1].LeaveNum);
-                    row.CreateCell(7).SetCellValue(item.caList[i-1].proportion);
+                    row.CreateCell(2).SetCellValue(item.caList[i - 1].privnce);
+                    row.CreateCell(3).SetCellValue(item.caList[i - 1].notBaoyuePayUserNum);
+                    row.CreateCell(4).SetCellValue(item.caList[i - 1].yesterdayAddNum);
+                    row.CreateCell(5).SetCellValue(item.caList[i - 1].AddNum);
+                    row.CreateCell(6).SetCellValue(item.caList[i - 1].LeaveNum);
+                    row.CreateCell(7).SetCellValue(item.caList[i - 1].proportion);
                 }
             }
         }
@@ -484,7 +552,7 @@ namespace KSOAWeb.Controllers
             hssfworkbook.Write(file);
             return file;
         }
-        public ActionResult ExportExcelToDownLoad(string excelName="测试")
+        public ActionResult ExportExcelToDownLoad(string excelName = "测试")
         {
             List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
 
@@ -500,6 +568,89 @@ namespace KSOAWeb.Controllers
             Response.End();
             return new EmptyResult();
         }
+        #endregion
+
+        #region CP管理
+        /// <summary>
+        /// 新增CP
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddCP()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 新增CP
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddCP(FormCollection form)
+        {
+            string cpname = form["CPName"] ?? "";
+            if (cpname == "")
+            {
+                ViewBag.msg = "CP名称不能为空";
+                return View();
+            }
+            else
+            {
+                Admin_CPcompany acp = new Admin_CPcompany();
+                acp.CPname = cpname;
+                if (new Admin_CPcompanyLogic().AddCP(acp))
+                {
+                    ViewBag.msg = "CP添加成功";
+                }
+                else
+                {
+                    ViewBag.msg = "CP添加失败";
+                }
+                return View();
+            }
+
+        }
+
+        /// <summary>
+        /// 供应商列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CPlist(FormCollection form)
+        {
+            this.pageSize = GetPageSize(15); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            ViewBag.DataSource = new Admin_CPcompanyLogic().GetCpList(this.pageSize, this.page, out this.totalCount);
+
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../admin/CPlist", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View();
+        }
+        #endregion
+
+        #region 分页功能
+        protected int totalCount;
+        protected int page;
+        protected int pageSize;
+
+        protected int group_id;
+        protected string keywords = string.Empty;
+
+        #region 返回用户每页数量=========================
+        private int GetPageSize(int _default_size)
+        {
+            int _pagesize;
+            if (int.TryParse(Utils.GetCookie("user_list_page_size"), out _pagesize))
+            {
+                if (_pagesize > 0)
+                {
+                    return _pagesize;
+                }
+            }
+            return _default_size;
+        }
+        #endregion
+
         #endregion
     }
 }

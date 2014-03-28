@@ -51,11 +51,11 @@ function jsprint(msgtitle, url, msgcss, callback) {
     var str = "<div id=\"msgprint\" class=\"" + cssname + "\">" + msgtitle + "</div>";
     $("body").append(str);
     $("#msgprint").show();
-	var itemiframe = "#framecenter .l-tab-content .l-tab-content-item";
+    var itemiframe = "#framecenter .l-tab-content .l-tab-content-item";
     var curriframe = "";
     $(itemiframe).each(function () {
         if ($(this).css("display") != "none") {
-			curriframe = $(itemiframe).index($(this));
+            curriframe = $(itemiframe).index($(this));
             return false;
         }
     });
@@ -77,15 +77,14 @@ function jsprint(msgtitle, url, msgcss, callback) {
 }
 
 //全选取消按钮函数，调用样式如：
-function checkAll(chkobj){
-	if($(chkobj).find("span b").text()=="全选")
-	{
-	    $(chkobj).find("span b").text("取消");
-		$(".checkall input").attr("checked", true);
-	}else{
-    $(chkobj).find("span b").text("全选");
-		$(".checkall input").attr("checked", false);
-	}
+function checkAll(chkobj) {
+    if ($(chkobj).find("span b").text() == "全选") {
+        $(chkobj).find("span b").text("取消");
+        $(".checkall input").attr("checked", true);
+    } else {
+        $(chkobj).find("span b").text("全选");
+        $(".checkall input").attr("checked", false);
+    }
 }
 
 //执行回传函数
@@ -100,7 +99,10 @@ function ExePostBack(objId, objmsg) {
     }
     $.ligerDialog.confirm(msg, "提示信息", function (result) {
         if (result) {
-            __doPostBack(objId, '');
+            //执行回调函数
+            $.each($(".checkall input:checked"), function (index,value) {
+                console.log(this);
+            });
         }
     });
     return false;
@@ -139,7 +141,7 @@ function checkNumber(e) {
 function Upload(action, repath, uppath, iswater, isthumbnail, filepath) {
     var sendUrl = "../../tools/upload_ajax.ashx?action=" + action + "&ReFilePath=" + repath + "&UpFilePath=" + uppath;
     //判断是否打水印
-    if(arguments.length == 4){
+    if (arguments.length == 4) {
         sendUrl = "../../tools/upload_ajax.ashx?action=" + action + "&ReFilePath=" + repath + "&UpFilePath=" + uppath + "&IsWater=" + iswater;
     }
     //判断是否生成宿略图
@@ -152,25 +154,25 @@ function Upload(action, repath, uppath, iswater, isthumbnail, filepath) {
     }
     //开始提交
     $("#form1").ajaxSubmit({
-        beforeSubmit: function(formData, jqForm, options){
+        beforeSubmit: function (formData, jqForm, options) {
             //隐藏上传按钮
-            $("#"+repath).nextAll(".files").eq(0).hide();
+            $("#" + repath).nextAll(".files").eq(0).hide();
             //显示LOADING图片
-            $("#"+repath).nextAll(".uploading").eq(0).show();
+            $("#" + repath).nextAll(".uploading").eq(0).show();
         },
-        success: function(data, textStatus) {
+        success: function (data, textStatus) {
             if (data.msg == 1) {
-                $("#"+repath).val(data.msgbox);
+                $("#" + repath).val(data.msgbox);
             } else {
                 alert(data.msgbox);
             }
-            $("#"+repath).nextAll(".files").eq(0).show();
-            $("#"+repath).nextAll(".uploading").eq(0).hide();
+            $("#" + repath).nextAll(".files").eq(0).show();
+            $("#" + repath).nextAll(".uploading").eq(0).hide();
         },
-        error: function(data, status, e) {
+        error: function (data, status, e) {
             alert("上传失败，错误信息：" + e);
-            $("#"+repath).nextAll(".files").eq(0).show();
-            $("#"+repath).nextAll(".uploading").eq(0).hide();
+            $("#" + repath).nextAll(".files").eq(0).show();
+            $("#" + repath).nextAll(".uploading").eq(0).hide();
         },
         url: sendUrl,
         type: "post",

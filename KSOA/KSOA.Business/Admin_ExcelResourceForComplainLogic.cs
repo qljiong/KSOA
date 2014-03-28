@@ -87,6 +87,7 @@ namespace KSOA.Business
                                  g.Key,
                                  AddCount = g.Count()
                              };
+
                 //2.遗留
                 var leavePop = from p in cpComplain
                                join s in allCp on p.CPid equals s.CPid
@@ -97,6 +98,17 @@ namespace KSOA.Business
                                    g.Key,
                                    AddCount = g.Count()
                                };
+                //新增日期的昨天记录
+                BeginTime = BeginTime.AddDays(-1);
+                var yesterdayAddPop = from p in cpComplain
+                                      join s in allCp on p.CPid equals s.CPid
+                                      where p.OrderTime > BeginTime
+                                      group p by p.Province into g
+                                      select new
+                                      {
+                                          g.Key,
+                                          AddCount = g.Count()
+                                      };
                 //按按cp分类的实体
                 ComplainAnalysisList cpModel = new ComplainAnalysisList();
                 //3.添加结果到分析结果实体
@@ -108,16 +120,25 @@ namespace KSOA.Business
                     cpModel.SourceLevel = item.SourceLevel;
 
                     caModel.privnce = area.Key;
-                    caModel.notBaoyuePayUserNum = notBaoyue.Where(s => s.CpID == item.CPid && s.Province == area.Key).FirstOrDefault() != null ? notBaoyue.Where(s => s.CpID == item.CPid && s.Province == area.Key).FirstOrDefault().NumTotal : 1;
+                    caModel.notBaoyuePayUserNum = notBaoyue.Where(s => s.CpID == item.CPid && s.Province == area.Key).FirstOrDefault() != null ? notBaoyue.Where(s => s.CpID == item.CPid && s.Province == area.Key).FirstOrDefault().NumTotal : 0;
+                    caModel.yesterdayAddNum = yesterdayAddPop.Where(s => s.Key == area.Key).FirstOrDefault() != null ? yesterdayAddPop.Where(s => s.Key == area.Key).FirstOrDefault().AddCount : 0;
                     caModel.AddNum = AddPop.Where(s => s.Key == area.Key).FirstOrDefault() != null ? AddPop.Where(s => s.Key == area.Key).FirstOrDefault().AddCount : 0;
                     caModel.LeaveNum = leavePop.Where(s => s.Key == area.Key).FirstOrDefault() != null ? leavePop.Where(s => s.Key == area.Key).FirstOrDefault().AddCount : 0;
-                    caModel.proportion = caModel.AddNum / caModel.notBaoyuePayUserNum * 10000;
+                    if (caModel.notBaoyuePayUserNum == 0)
+                    {
+                        caModel.proportion = 0;
+                    }
+                    else
+                    {
+                        caModel.proportion = caModel.AddNum / caModel.notBaoyuePayUserNum * 10000;
+                    }
+
                     cpModel.caList.Add(caModel);
                 }
                 //添加到列表
                 cpList.Add(cpModel);
             }
-            cpList=cpList.OrderBy(s => s.SourceLevel).ToList();
+            cpList = cpList.OrderBy(s => s.SourceLevel).ToList();
             return cpList;
         }
     }

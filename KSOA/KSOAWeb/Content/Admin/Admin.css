@@ -241,17 +241,17 @@ a.files, a.files input{ outline:none;/*ff*/hide-focus:expression(this.hideFocus=
 	
 /*管理中心样式2014-5-17新增
 =============================================*/
-.nav_icon{ padding-left:18px; background:url(../Image/Admin/../images/memeber.gif) no-repeat left 5px; font-family:"微软雅黑",Arial; }
+.nav_icon{ padding-left:18px; background:url(../Image/Admin/memeber.gif) no-repeat left 5px; font-family:"微软雅黑",Arial; }
 	.nav_icon i{ font-style:normal; font-weight:bold; color:#0e608e; }
 .nlist1{ line-height:45px; font-family:"微软雅黑"; }
 	.nlist1 ul{ padding:0 0 0 20px;}
 	.nlist1 ul li{ float:left; margin-right:10px; width:32%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 .nlist2{ line-height:30px; border:1px solid #e1e1e1; font-family:"微软雅黑"; }
-	.nlist2 h2{ margin:0px; padding:0 0 0 40px; background:url(../Image/Admin/../images/icon_site.gif) no-repeat 20px center; font-size:12px; font-weight:bold; color:#0e608e; line-height:28px; height:28px; }
+	.nlist2 h2{ margin:0px; padding:0 0 0 40px; background:url(../Image/Admin/icon_site.gif) no-repeat 20px center; font-size:12px; font-weight:bold; color:#0e608e; line-height:28px; height:28px; }
 	.nlist2 ul{ padding:0 0 0 20px; }
 	.nlist2 ul li{ float:left; margin-right:10px; width:32%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 .sub_nav_list{ float:left; width:398px; font-family:"微软雅黑"; overflow:hidden; }
-	.sub_nav_list h3{ float:left; margin:0 15px 0 0; padding:10px 6px; border:1px solid #ebebeb; width:15px; height:143px; line-height:22px; text-align:center; font-weight:normal; font-size:12px; color:#0e608e; background:url(../Image/Admin/../images/li_bg.gif) repeat-x left 65px;}
+	.sub_nav_list h3{ float:left; margin:0 15px 0 0; padding:10px 6px; border:1px solid #ebebeb; width:15px; height:143px; line-height:22px; text-align:center; font-weight:normal; font-size:12px; color:#0e608e; background:url(../Image/Admin/li_bg.gif) repeat-x left 65px;}
 	.sub_nav_list ul{ float:left; width:344px; }
 	.sub_nav_list ul li{ display:inline; float:left; margin-right:20px; height:95px; }
 	.sub_nav_list ul li a{ display:block; width:54px; height:58px; padding:5px; border:1px solid #ebebeb; line-height:24px; text-align:center; }
@@ -259,8 +259,8 @@ a.files, a.files input{ outline:none;/*ff*/hide-focus:expression(this.hideFocus=
 	.sub_nav_list ul li img{ text-align:center;}
 .note_list{ margin-left:398px; border:1px solid #ebebeb; font-family:"微软雅黑"; font-size:12px; height:163px; overflow:hidden; }
 	.note_list h3{ margin:0; padding:0 10px; line-height:30px; font-size:12px; padding-left:25px; }
-	.note_list h3.site{ background:url(../Image/Admin/../images/icon_site.gif) no-repeat 5px center; }
-	.note_list h3.msg{ background:url(../Image/Admin/../images/icon_msg.gif) no-repeat 5px center; }
+	.note_list h3.site{ background:url(../Image/Admin/icon_site.gif) no-repeat 5px center; }
+	.note_list h3.msg{ background:url(../Image/Admin/icon_msg.gif) no-repeat 5px center; }
 	.note_list ul{ padding:0 10px; }
 	.note_list ul li{ color:#005eac; line-height:18px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 /*管理中心样式2014-6-4新增

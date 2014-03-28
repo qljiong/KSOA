@@ -7,7 +7,7 @@ using KSOA.Business;
 
 namespace KSOAWeb.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BasePageController
     {
         //
         // GET: /Home/

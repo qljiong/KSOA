@@ -35,6 +35,10 @@ namespace KSOA.Model
         /// </summary>
         public int notBaoyuePayUserNum { get; set; }
         /// <summary>
+        /// 昨日的新增
+        /// </summary>
+        public int yesterdayAddNum { get; set; }
+        /// <summary>
         /// 新增
         /// </summary>
         public int AddNum { get; set; }

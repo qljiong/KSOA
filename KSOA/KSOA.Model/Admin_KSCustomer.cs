@@ -20,6 +20,7 @@ namespace KSOA.Model
 		private string _cusemail;
 		private string _cusphonenum;
 		private string _qq="";
+        private string _oldcuspwd;
 		private bool _isdelete= false;
 		private DateTime _addtime= DateTime.Now;
 		/// <summary>
@@ -77,6 +78,14 @@ namespace KSOA.Model
 		{
 			set{ _cuspwd=value;}
 			get{return _cuspwd;}
+		}
+        /// <summary>
+		/// 用户旧密码（更新用户信息时使用）
+		/// </summary>
+        public string Oldcuspwd
+		{
+            set { _oldcuspwd = value; }
+            get { return _oldcuspwd; }
 		}
 		/// <summary>
 		/// 用户邮箱（可做登陆用），设置唯一约束

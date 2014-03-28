@@ -1,4 +1,6 @@
-﻿@{
+﻿@using KSOA.Model;
+@model Admin_KSCustomer
+@{
     Layout = null;
 }
 
@@ -34,26 +36,6 @@
                 $(this).removeClass("l-link-over");
             });
 
-            //设置频道菜单
-            $("#global_channel_tree").ligerTree({
-                url: '../tools/admin_ajax.ashx?action=sys_channel_load',
-                checkbox: false,
-                nodeWidth: 112,
-                //attribute: ['nodename', 'url'],
-                onSelect: function (node) {
-                    if (!node.data.url) return;
-                    var tabid = $(node.target).attr("tabid");
-                    if (!tabid) {
-                        tabid = new Date().getTime();
-                        $(node.target).attr("tabid", tabid)
-                    }
-                    f_addTab(tabid, node.data.text, node.data.url);
-                }
-            });
-
-            //加载插件菜单
-            loadPluginsNav();
-
             //快捷菜单
             var menu = $.ligerMenu({
                 width: 120, items:
@@ -72,48 +54,23 @@
 
             tab = $("#framecenter").ligerGetTabManager();
             accordion = $("#global_left_nav").ligerGetAccordionManager();
-            tree = $("#global_channel_tree").ligerGetTreeManager();
+            //tree = $("#global_channel_tree").ligerGetTreeManager();
             //tree.expandAll(); //默认展开所有节点
             $("#pageloading_bg,#pageloading").hide();
         });
 
-        //频道菜单异步加载函数，结合ligerMenu.js使用
-        function loadChannelTree() {
-            if (tree != null) {
-                tree.clear();
-                tree.loadData(null, "../tools/admin_ajax.ashx?action=sys_channel_load");
-            }
-        }
-
-        //加载插件管理菜单
-        function loadPluginsNav() {
-            $.ajax({
-                type: "POST",
-                url: "../tools/admin_ajax.ashx?action=plugins_nav_load&time=" + Math.random(),
-                timeout: 20000,
-                beforeSend: function (XMLHttpRequest) {
-                    $("#global_plugins").html("<div style=\"line-height:30px; text-align:center;\">正在加载，请稍候...</div>");
-                },
-                success: function (data, textStatus) {
-                    $("#global_plugins").html(data);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    $("#global_plugins").html("<div style=\"line-height:30px; text-align:center;\">加载插件菜单出错！</div>");
-                }
-            });
-        }
 
         //快捷菜单回调函数
         function itemclick(item) {
             switch (item.text) {
                 case "管理首页":
-                    f_addTab('home', '管理中心', 'center.aspx');
+                    f_addTab('home', '管理中心', '../admin/center');
                     break;
                 case "快捷导航":
                     //调用函数
                     break;
                 case "修改密码":
-                    f_addTab('manager_pwd', '修改密码', 'manager/manager_pwd.aspx');
+                    f_addTab('manager_pwd', '修改密码', '../admin/managerpwd');
                     break;
                 default:
                     //关闭窗口
@@ -173,131 +130,65 @@
             <div position="top" class="header">
                 <div class="header_box">
                     <div class="header_right">
-                        <span><b><%=admin_info.user_name %>（<%=new DTcms.BLL.manager_role().GetTitle(admin_info.role_id) %>）</b>您好，欢迎光临</span>
+                        <span><b>@Model.CusName (超级管理员)</b>您好，欢迎光临</span>
                         <br /><a href="javascript:f_addTab('home','管理中心','center.aspx')">管理中心</a> |
-                        <asp:LinkButton ID="lbtnExit" onclick="lbtnExit_Click">安全退出</asp:LinkButton>
+                        <asp:linkbutton id="lbtnExit" onclick="lbtnExit_Click">安全退出</asp:linkbutton>
                     </div>
                     <a class="logo">KSOA Logo</a>
                 </div>
             </div>
             <!--左边-->
             <div position="left" title="管理菜单" id="global_left_nav">
-                <div title="频道管理" iconcss="menu-icon-model" class="l-scroll">
-                    <ul id="global_channel_tree" style="margin-top:3px;">
-                        <!--
-                        <li isexpand="false"><span>资讯动态</span>
-                            <ul>
-                                <li url="http://bbs.it134.cn"><span>内容管理</span></li>
-                                <li url="demos/base/drag.htm"><span>栏目类别</span></li>
-                            </ul>
-                        </li>
-                         -->
+                <div title="业务平台" iconcss="menu-icon-model" class="l-scroll">
+                    <ul class="nlist" style="margin-top:3px;">
+                        <li><a href="javascript:f_addTab('ImportExcelByComplain','导入投诉源数据','../admin/ImportExcelByComplain')">导入投诉源数据</a></li>
+                        <li><a href="javascript:f_addTab('ImportExcelByMonth','导入包月源数据','../admin/ImportExcelByMonth')">导入包月源数据</a></li>
                     </ul>
                 </div>
-                <%if (siteConfig.memberstatus == 1)
-                { %>
-                <div title="会员管理" iconcss="menu-icon-member">
+
+                <div title="产品平台" iconcss="menu-icon-member">
                     <ul class="nlist">
-                        <%if (IsAdminLevel("users", DTEnums.ActionEnum.View.ToString()))
-                        {%>
+
                         <li><a href="javascript:f_addTab('user_list','会员信息管理','users/user_list.aspx')">会员信息管理</a></li>
-                        <%}
-                        if (IsAdminLevel("user_groups", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('user_groups','会员组别管理','users/group_list.aspx')">会员组别管理</a></li>
-                        <%}
-                        if (IsAdminLevel("user_message", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('user_message','会员短信管理','users/message_list.aspx')">会员短信管理</a></li>
-                        <%}
-                        if (IsAdminLevel("amount_log", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('amount_log','会员消费记录','users/amount_log.aspx')">会员消费记录</a></li>
-                        <%}
-                        if (IsAdminLevel("point_log", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('point_log','会员积分记录','users/point_log.aspx')">会员积分记录</a></li>
-                        <%}
-                        if (IsAdminLevel("mail_template", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('mail_template','邮件模板管理','users/mail_template_list.aspx')">邮件模板管理</a></li>
-                        <%}
-                        if (IsAdminLevel("app_oauth", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('app_oauth','OAuth平台设置','users/oauth_list.aspx')">OAuth平台设置</a></li>
-                        <%}
-                        if (IsAdminLevel("user_config", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a class="l-link" href="javascript:f_addTab('user_config','会员参数配置','users/user_config.aspx')">会员参数配置</a></li>
-                        <%} %>
+
                     </ul>
                 </div>
-                <div title="销售管理" iconcss="menu-icon-order">
+                <div title="日常工作" iconcss="menu-icon-order">
                     <ul class="nlist">
-                        <%if (IsAdminLevel("orders", DTEnums.ActionEnum.View.ToString()))
-                        {%>
+
                         <li><a href="javascript:f_addTab('orders','商品订单列表','orders/order_list.aspx')">商品订单列表</a></li>
-                        <%}
-                        if (IsAdminLevel("user_config", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('order_payment','支付方式设置','orders/payment_list.aspx')">支付方式设置</a></li>
-                        <%}
-                        if (IsAdminLevel("user_config", DTEnums.ActionEnum.View.ToString()))
-                        { %>
+
                         <li><a href="javascript:f_addTab('distribution','配送方式设置','orders/distribution_list.aspx')">配送方式设置</a></li>
-                        <%} %>
+
                     </ul>
                 </div>
-                <%} %>
-                <%if (IsAdminLevel("sys_plugin", DTEnums.ActionEnum.View.ToString()))
-                { %>
-                <div title="插件管理" iconcss="menu-icon-plugins">
-                    <ul id="global_plugins" class="nlist">
-                        <!--
-                        <li><a class="l-link" href="javascript:f_addTab('listpage21','广告管理','demos/case/listpage21.htm')">广告管理</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage22','新闻采集','demos/case/listpage22.htm')">新闻采集</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage23','问卷调查','demos/case/listpage23.htm')">问卷调查</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage24','自定义表单','demos/case/listpage24.htm')">自定义表单</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage25','在线留言','demos/case/listpage25.htm')">在线留言</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage26','友情链接','demos/case/listpage25.htm')">友情链接</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage27','Tag标签','demos/case/listpage25.htm')">Tag标签</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('listpage28','整合接口','demos/case/listpage25.htm')">整合接口</a></li>
-                        -->
-                    </ul>
-                </div>
-                <%} %>
-                <div title="控制面板" iconcss="menu-icon-setting">
+                <div title="系统设置" iconcss="menu-icon-setting">
                     <ul class="nlist">
-                        <%if (IsAdminLevel("sys_config", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('sys_config','系统参数设置','settings/sys_config.aspx')">系统参数设置</a></li>
-                        <%} if (IsAdminLevel("sys_model", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('sys_model','系统模型配置','settings/sys_model_list.aspx')">系统模型配置</a></li>
-                        <%} if (IsAdminLevel("sys_channel", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('sys_channel','系统频道设置','settings/sys_channel_list.aspx')">系统频道设置</a></li>
-                        <%} if (IsAdminLevel("sys_plugin", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('plugin_list','系统插件管理','settings/plugin_list.aspx')">系统插件管理</a></li>
-                        <%} if (IsAdminLevel("sys_templet", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('templet_list','系统模板管理','settings/templet_list.aspx')">系统模板管理</a></li>
-                        <%} if (IsAdminLevel("sys_log", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('manager_log','系统日志管理','manager/manager_log.aspx')">系统日志管理</a></li>
-                        <%} %>
-                        <li><a class="l-link" href="javascript:f_addTab('comment_list','内容评论管理','comment/list.aspx')">内容评论管理</a></li>
-                        <%if (IsAdminLevel("sys_manager", DTEnums.ActionEnum.View.ToString()))
-                        { %>
-                        <li><a class="l-link" href="javascript:f_addTab('sys_manager','管理员管理','manager/manager_list.aspx')">管理员管理</a></li>
-                        <%}%>
+                        <li><a class="l-link" href="javascript:f_addTab('sys_manager','管理员管理','../admin/Managerpwd')">管理员管理</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('sys_CPmanager','新增CP','../admin/AddCP')">新增CP</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('sys_CPmanagerList','管理CP','../admin/CPlist')">管理CP</a></li>
                     </ul>
                 </div>
             </div>
             <div position="center" id="framecenter" toolsid="tab-tools-nav">
                 <div tabid="home" title="管理中心" iconcss="tab-icon-home" style="height:300px">
-                    <iframe frameborder="0" name="sysMain" src="center.aspx"></iframe>
+                    <iframe frameborder="0" name="sysMain" src="~/admin/center"></iframe>
                 </div>
             </div>
             <div position="bottom" class="footer">
