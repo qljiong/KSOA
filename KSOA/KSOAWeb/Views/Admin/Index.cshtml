@@ -119,6 +119,22 @@
                 }]
             });
         }
+        //安全退出
+        function lbtnExit()
+        {
+            //ajax检查用户名是否存在
+            $.ajax({
+                dataType: 'json',
+                url: "../admin/SafeExit",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    if (data.result == 1) {
+                        location.href = "../admin/login";
+                    }
+                }
+            });
+        }
     </script>
 </head>
 <body style="padding:0px;">
@@ -132,7 +148,7 @@
                     <div class="header_right">
                         <span><b>@Model.CusName (超级管理员)</b>您好，欢迎光临</span>
                         <br /><a href="javascript:f_addTab('home','管理中心','center.aspx')">管理中心</a> |
-                        <asp:linkbutton id="lbtnExit" onclick="lbtnExit_Click">安全退出</asp:linkbutton>
+                        <a href="javascript:void(0);" onclick="lbtnExit()">安全退出</a>
                     </div>
                     <a class="logo">KSOA Logo</a>
                 </div>

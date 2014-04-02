@@ -25,6 +25,32 @@
                 }
             });
         });
+        //检查用户名是否存在
+        function checkname()
+        {
+            var tresult = false;
+            //ajax检查用户名是否存在
+            $.ajax({
+                dataType: 'json',
+                url: "../admin/CheckCusName",
+                cache: false,
+                async: false,
+                data: {
+                    'cusName':$("input[name='CusName']").val()
+                },
+                success: function (data) {
+                    if (data.result == 1) {
+                        tresult = false;
+                        $("#tipmsg").text("用户名已存在!");
+                    }
+                    else {
+                        tresult = true;
+                        $("#tipmsg").text("");
+                    }
+                }
+            });
+            return tresult;
+        }
     </script>
 </head>
 <body>
@@ -78,11 +104,11 @@
                         </tr>
                         <tr>
                             <th></th>
-                            <td><input type="submit" id="btnSubmit" value="提交保存" class="btnSubmit" /></td>
+                            <td><input type="submit" id="btnSubmit" value="提交保存" class="btnSubmit" onclick="return checkname();" /></td>
                         </tr>
                         <tr>
                             <th></th>
-                            <td><label>@(ViewBag.msg ?? "")</label></td>
+                            <td><label id="tipmsg">@(ViewBag.msg ?? "")</label></td>
                         </tr>
                     </tbody>
                 </table>

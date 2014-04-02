@@ -85,6 +85,17 @@ namespace KSOA.Business
         }
 
         /// <summary>
+        /// 通过用户名获取用户信息
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        public Admin_KSCustomer GetCusbyCusName(string Name)
+        {
+            var query = _db.Admin_KSCustomer.Where(s => s.IsDelete == false && s.CusName == Name).Select(s => new Admin_KSCustomer { ID = s.ID, RealName = s.RealName, CusName = s.CusName, Gender = s.Gender, Age = s.Age ?? 0, CusPwd = s.CusPwd, CusEmail = s.CusEmail, CusPhoneNum = s.CusPhoneNum, QQ = s.QQ, AddTime = s.AddTime, IsDelete = s.IsDelete }).FirstOrDefault();
+            return query;
+        }
+
+        /// <summary>
         /// 根据用户ID假删除用户
         /// </summary>
         /// <param name="id"></param>

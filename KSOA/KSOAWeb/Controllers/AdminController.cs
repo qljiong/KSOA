@@ -26,7 +26,24 @@ namespace KSOAWeb.Controllers
             Admin_KSCustomer user = (Admin_KSCustomer)Session["member"];
             return View(user);
         }
+        /// <summary>
+        /// 安全退出
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult SafeExit()
+        {
+            Session.Remove("member");
+            //删除cookie
+            HttpCookie cookie = Request.Cookies["keeplogin"];
 
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddYears(-1);
+                Response.Cookies.Add(cookie);
+            }
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// 管理页初始显示页
         /// </summary>
@@ -86,6 +103,11 @@ namespace KSOAWeb.Controllers
             {
                 //保存登陆信息到Session
                 Session["member"] = result;
+                HttpCookie cookie = new HttpCookie("keeplogin");
+                cookie.Expires = DateTime.Now.AddHours(4);
+                //保存到Cookie
+                cookie.Value = userName;
+                Response.Cookies.Add(cookie);
                 return RedirectToAction("Index");
             }
         }
@@ -732,6 +754,24 @@ namespace KSOAWeb.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 检查用户名是否存在
+        /// </summary>
+        /// <param name="CusName"></param>
+        /// <returns></returns>
+        public JsonResult CheckCusName()
+        {
+            String CusName = Request["cusName"];
+            var aks = new Admin_KSCustomerLogic().GetCusbyCusName(CusName);
+            if (aks == null)
+            {
+                return Json(new { result = 0 }, JsonRequestBehavior.AllowGet);//不存在
+            }
+            else
+            {
+                return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);//存在
+            }
+        }
         public ActionResult PopList()
         {
             this.pageSize = GetPageSize(15); //每页数量
