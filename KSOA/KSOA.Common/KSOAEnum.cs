@@ -15,5 +15,11 @@ namespace KSOA.Common
             投诉源数据=1,
             包月源数据
         }
+
+        public enum Role
+        {
+            超级管理=1,
+            普通员工
+        }
     }
 }

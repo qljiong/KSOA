@@ -11,7 +11,7 @@ namespace KSOA.Model
 		{}
 		#region Model
 		private int _id;
-		private string _roleid;
+		private int _roleid;
 		private string _realname="";
 		private string _cusname;
 		private string _gender="z";
@@ -34,7 +34,7 @@ namespace KSOA.Model
 		/// <summary>
 		/// 外键关联Admin_Role表的ID
 		/// </summary>
-		public string RoleID
+		public int RoleID
 		{
 			set{ _roleid=value;}
 			get{return _roleid;}

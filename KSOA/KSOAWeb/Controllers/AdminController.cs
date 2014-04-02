@@ -610,6 +610,57 @@ namespace KSOAWeb.Controllers
         }
 
         /// <summary>
+        /// 编辑CP信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult EditCp(int id)
+        {
+            Admin_CPcompany acp = new Admin_CPcompanyLogic().GetCPbyID(id);
+            return View(acp);
+        }
+
+        /// <summary>
+        /// 更新CP信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult EditCp(FormCollection form)
+        {
+            int id = int.Parse(form["cpid"]);
+            string cpname = form["cpname"];
+            if (new Admin_CPcompanyLogic().UpdateCPbyID(id, cpname))
+            {
+                ViewBag.msg = "CP更新成功";
+            }
+            else
+            {
+                ViewBag.msg = "CP更新失败";
+            }
+            Admin_CPcompany mm = new Admin_CPcompany();
+            return View(mm);
+        }
+
+        /// <summary>
+        /// 删除Cp
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult DelCP()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            new Admin_CPcompanyLogic().DelCP(arr2);
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 供应商列表
         /// </summary>
         /// <returns></returns>
@@ -650,6 +701,93 @@ namespace KSOAWeb.Controllers
             return _default_size;
         }
         #endregion
+
+        #endregion
+
+        #region 人员管理
+        public ActionResult AddPop()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddPop(FormCollection form)
+        {
+            Admin_KSCustomer aks = new Admin_KSCustomer();
+            aks.RealName = form["RealName"];
+            aks.CusName = form["CusName"];
+            aks.Gender = "Y";
+            aks.Age = Convert.ToInt32(form["Age"] == "" ? "0" : form["Age"]);
+            aks.CusPwd = form["CusPwd"];
+            aks.CusEmail = form["CusEmail"] ?? "";
+            aks.CusPhoneNum = form["CusPhoneNum"] ?? "";
+            aks.QQ = form["QQ"] ?? "";
+            if (new Admin_KSCustomerLogic().AddCusInfo(aks))
+            {
+                ViewBag.msg = "添加成功!";
+            }
+            else
+            {
+                ViewBag.msg = "添加失败!";
+            }
+            return View();
+        }
+
+        public ActionResult PopList()
+        {
+            this.pageSize = GetPageSize(15); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            List<Admin_KSCustomer> acplist = new Admin_KSCustomerLogic().GetPopList(this.pageSize, this.page, out this.totalCount);
+
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../admin/PopList", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View(acplist);
+        }
+
+        [HttpPost]
+        public ActionResult PopEdit(FormCollection form)
+        {
+            int id = Convert.ToInt32(form["aksID"]);
+            Admin_KSCustomer aks = new Admin_KSCustomer();
+            aks.RealName = form["RealName"];
+            aks.CusName = form["CusName"];
+            aks.Gender = form["Gender"];
+            aks.Age = Convert.ToInt32(form["Age"]);
+            aks.CusPwd = form["CusPwd"];
+            aks.CusEmail = form["CusEmail"];
+            aks.CusPhoneNum = form["CusPhoneNum"];
+            aks.QQ = form["QQ"];
+            if (new Admin_KSCustomerLogic().EditCusInfo(aks, id))
+            {
+                Session["peMsg"] = "修改成功!";
+            }
+            else
+            {
+                Session["peMsg"] = "修改失败!";
+            }
+            return RedirectPermanent("../PopEdit/" + id);
+        }
+        public ActionResult PopEdit(int id)
+        {
+            Admin_KSCustomer aks = new Admin_KSCustomerLogic().GetCusbyID(id);
+            ViewBag.msg = Session["peMsg"] ?? "";
+            Session.Remove("peMsg");
+            return View(aks);
+        }
+        public JsonResult PopDel()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            bool result = new Admin_KSCustomerLogic().DelCusByID(arr2);
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
     }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using KSOA.Model;
+@model List<Admin_KSCustomer>
+@{
     Layout = null;
 }
 
@@ -15,16 +17,16 @@
     <script src="~/Scripts/messages_cn.js"></script>
     <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
     <script src="~/Scripts/Admin/function.js"></script>
-    <title>CPlist</title>
+    <title>PopList</title>
 </head>
 <body class="mainbody">
     <form id="form1">
         <div class="tools_box">
             <div class="tools_bar">
-                <a href="../admin/addcp" class="tools_btn"><span><b class="add">添加渠道</b></span></a>
+                <a href="../admin/addpop" class="tools_btn"><span><b class="add">添加人员</b></span></a>
                 <a href="javascript:void(0);" onclick="checkAll(this);" class="tools_btn"><span><b class="all">全选</b></span></a>
                 <a href="javascript:void(0);" id="btnDelete" class="tools_btn"
-                   onclick="return ExePostBack('btnDelete', '', 'cp');"><span><b class="delete">批量删除</b></span></a>
+                   onclick="return ExePostBack('btnDelete','','pop');"><span><b class="delete">批量删除</b></span></a>
             </div>
         </div>
 
@@ -32,26 +34,52 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="msgtable">
             <tr>
                 <th width="10%">选择</th>
-                <th width="80%">CP名称</th>
+                <th width="10%">用户名</th>
+                <th width="10%">真实姓名</th>
+                <th width="10%">性别</th>
+                <th width="10%">年龄</th>
+                <th width="10%">密码</th>
+                <th width="10%">邮箱</th>
+                <th width="10%">电话</th>
+                <th width="10%">QQ</th>
                 <th width="10%">操作</th>
             </tr>
-            @if (ViewBag.DataSource != null)
+            @if (Model != null)
             {
-                foreach (var item in ViewBag.DataSource)
+                foreach (var item in Model)
                 {
                     <tr>
                         <td align="center">
-                            <span class ="checkall">
+                            <span class="checkall">
                                 <input type="checkbox" id="@item.ID" />
                             </span>
                         </td>
-                        <td width="50" align="center">
-                            <a href="../admin/EditCp/@item.ID">
-                                @item.CPname
-                            </a>
+                        <td  align="center">
+                            @item.CusName
+                        </td>
+                        <td  align="center">
+                            @item.RealName
+                        </td>
+                        <td  align="center">
+                            @item.Gender
+                        </td>
+                        <td  align="center">
+                            @item.Age
+                        </td>
+                        <td  align="center">
+                            @item.CusPwd
+                        </td>
+                        <td  align="center">
+                            @item.CusEmail
+                        </td>
+                        <td  align="center">
+                            @item.CusPhoneNum
+                        </td>
+                        <td  align="center">
+                            @item.QQ
                         </td>
                         <td align="center">
-                            <a href="../admin/editcp/@item.ID">修改</a>
+                            <a href="../admin/PopEdit/@item.ID">修改</a>
                         </td>
                     </tr>
                 }

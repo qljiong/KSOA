@@ -1506,27 +1506,17 @@ namespace KSOA.DataAccess
         /// <param name="roleID">RoleID 属性的初始值。</param>
         /// <param name="realName">RealName 属性的初始值。</param>
         /// <param name="cusName">CusName 属性的初始值。</param>
-        /// <param name="gender">Gender 属性的初始值。</param>
-        /// <param name="age">Age 属性的初始值。</param>
         /// <param name="cusPwd">CusPwd 属性的初始值。</param>
-        /// <param name="cusEmail">CusEmail 属性的初始值。</param>
-        /// <param name="cusPhoneNum">CusPhoneNum 属性的初始值。</param>
-        /// <param name="qQ">QQ 属性的初始值。</param>
         /// <param name="isDelete">IsDelete 属性的初始值。</param>
         /// <param name="addTime">AddTime 属性的初始值。</param>
-        public static Admin_KSCustomer CreateAdmin_KSCustomer(global::System.Int32 id, global::System.String roleID, global::System.String realName, global::System.String cusName, global::System.String gender, global::System.Int32 age, global::System.String cusPwd, global::System.String cusEmail, global::System.String cusPhoneNum, global::System.String qQ, global::System.Boolean isDelete, global::System.DateTime addTime)
+        public static Admin_KSCustomer CreateAdmin_KSCustomer(global::System.Int32 id, global::System.Int32 roleID, global::System.String realName, global::System.String cusName, global::System.String cusPwd, global::System.Boolean isDelete, global::System.DateTime addTime)
         {
             Admin_KSCustomer admin_KSCustomer = new Admin_KSCustomer();
             admin_KSCustomer.ID = id;
             admin_KSCustomer.RoleID = roleID;
             admin_KSCustomer.RealName = realName;
             admin_KSCustomer.CusName = cusName;
-            admin_KSCustomer.Gender = gender;
-            admin_KSCustomer.Age = age;
             admin_KSCustomer.CusPwd = cusPwd;
-            admin_KSCustomer.CusEmail = cusEmail;
-            admin_KSCustomer.CusPhoneNum = cusPhoneNum;
-            admin_KSCustomer.QQ = qQ;
             admin_KSCustomer.IsDelete = isDelete;
             admin_KSCustomer.AddTime = addTime;
             return admin_KSCustomer;
@@ -1568,7 +1558,7 @@ namespace KSOA.DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String RoleID
+        public global::System.Int32 RoleID
         {
             get
             {
@@ -1578,13 +1568,13 @@ namespace KSOA.DataAccess
             {
                 OnRoleIDChanging(value);
                 ReportPropertyChanging("RoleID");
-                _RoleID = StructuralObject.SetValidValue(value, false);
+                _RoleID = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("RoleID");
                 OnRoleIDChanged();
             }
         }
-        private global::System.String _RoleID;
-        partial void OnRoleIDChanging(global::System.String value);
+        private global::System.Int32 _RoleID;
+        partial void OnRoleIDChanging(global::System.Int32 value);
         partial void OnRoleIDChanged();
     
         /// <summary>
@@ -1640,54 +1630,6 @@ namespace KSOA.DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Gender
-        {
-            get
-            {
-                return _Gender;
-            }
-            set
-            {
-                OnGenderChanging(value);
-                ReportPropertyChanging("Gender");
-                _Gender = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Gender");
-                OnGenderChanged();
-            }
-        }
-        private global::System.String _Gender;
-        partial void OnGenderChanging(global::System.String value);
-        partial void OnGenderChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Age
-        {
-            get
-            {
-                return _Age;
-            }
-            set
-            {
-                OnAgeChanging(value);
-                ReportPropertyChanging("Age");
-                _Age = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Age");
-                OnAgeChanged();
-            }
-        }
-        private global::System.Int32 _Age;
-        partial void OnAgeChanging(global::System.Int32 value);
-        partial void OnAgeChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String CusPwd
         {
             get
@@ -1710,7 +1652,55 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Gender
+        {
+            get
+            {
+                return _Gender;
+            }
+            set
+            {
+                OnGenderChanging(value);
+                ReportPropertyChanging("Gender");
+                _Gender = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Gender");
+                OnGenderChanged();
+            }
+        }
+        private global::System.String _Gender;
+        partial void OnGenderChanging(global::System.String value);
+        partial void OnGenderChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Age
+        {
+            get
+            {
+                return _Age;
+            }
+            set
+            {
+                OnAgeChanging(value);
+                ReportPropertyChanging("Age");
+                _Age = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Age");
+                OnAgeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Age;
+        partial void OnAgeChanging(Nullable<global::System.Int32> value);
+        partial void OnAgeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String CusEmail
         {
@@ -1722,7 +1712,7 @@ namespace KSOA.DataAccess
             {
                 OnCusEmailChanging(value);
                 ReportPropertyChanging("CusEmail");
-                _CusEmail = StructuralObject.SetValidValue(value, false);
+                _CusEmail = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("CusEmail");
                 OnCusEmailChanged();
             }
@@ -1734,7 +1724,7 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String CusPhoneNum
         {
@@ -1746,7 +1736,7 @@ namespace KSOA.DataAccess
             {
                 OnCusPhoneNumChanging(value);
                 ReportPropertyChanging("CusPhoneNum");
-                _CusPhoneNum = StructuralObject.SetValidValue(value, false);
+                _CusPhoneNum = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("CusPhoneNum");
                 OnCusPhoneNumChanged();
             }
@@ -1758,7 +1748,7 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String QQ
         {
@@ -1770,7 +1760,7 @@ namespace KSOA.DataAccess
             {
                 OnQQChanging(value);
                 ReportPropertyChanging("QQ");
-                _QQ = StructuralObject.SetValidValue(value, false);
+                _QQ = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("QQ");
                 OnQQChanged();
             }

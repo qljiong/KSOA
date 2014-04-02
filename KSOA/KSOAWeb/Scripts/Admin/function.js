@@ -88,7 +88,7 @@ function checkAll(chkobj) {
 }
 
 //执行回传函数
-function ExePostBack(objId, objmsg) {
+function ExePostBack(objId, objmsg,urltype) {
     if ($(".checkall input:checked").size() < 1) {
         $.ligerDialog.warn("对不起，请选中您要操作的记录！");
         return false;
@@ -98,10 +98,39 @@ function ExePostBack(objId, objmsg) {
         msg = objmsg;
     }
     $.ligerDialog.confirm(msg, "提示信息", function (result) {
+        var arrayObj = new Array();　//创建一个数组
         if (result) {
             //执行回调函数
-            $.each($(".checkall input:checked"), function (index,value) {
-                console.log(this);
+            $.each($(".checkall input:checked"), function (index, value) {
+                arrayObj.push($(this).attr("id"));
+            });
+           var opurl = "";
+            if (urltype == "pop")//人员管理
+            {
+                opurl = "../admin/PopDel";
+            }
+            if (urltype == "cp")//渠道管理
+            {
+                opurl = "../admin/DelCP";
+            }
+            //ajax删除
+            $.ajax({
+                dataType: 'json',
+                url: opurl,
+                cache: false,
+                async: false,
+                data: {
+                    'ids': arrayObj
+                },
+                success: function (data) {
+                    if (data.result == 1) {
+                        //刷新页面
+                        location.reload()
+                    }
+                    else {
+                        $.ligerDialog.warn("对不起，删除失败了！");
+                    }
+                }
             });
         }
     });

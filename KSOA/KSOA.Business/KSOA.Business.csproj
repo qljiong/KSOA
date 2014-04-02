@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KSOA.Common\KSOA.Common.csproj">
+      <Project>{f98be8dc-8fc6-472f-bdd3-7e802921618e}</Project>
+      <Name>KSOA.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KSOA.DataAccess\KSOA.DataAccess.csproj">
       <Project>{5b8d60bc-187d-4969-bf2d-64812f8772b4}</Project>
       <Name>KSOA.DataAccess</Name>
