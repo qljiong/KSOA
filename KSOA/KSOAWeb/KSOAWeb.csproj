@@ -439,7 +439,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
-    <Content Include="Views\Admin\ImportExcel.cshtml" />
     <Content Include="Scripts\ui\skins\Aqua\images\common\Thumbs.db" />
     <Content Include="Scripts\ui\skins\Aqua\images\dialog\ie6\Thumbs.db" />
     <Content Include="Scripts\ui\skins\Aqua\images\dialog\Thumbs.db" />
