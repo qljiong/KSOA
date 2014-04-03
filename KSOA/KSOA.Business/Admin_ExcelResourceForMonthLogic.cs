@@ -42,5 +42,51 @@ namespace KSOA.Business
                 return false;
             }
         }
+
+        /// <summary>
+        /// 获取包月数据列表
+        /// </summary>
+        /// <returns></returns>
+        public List<Admin_ExcelResourceForMonth> GetMonthList(int PageSize, int PageIndex, out int totalCount, int cpid, DateTime findTime)
+        {
+            var query = from s in _db.Admin_ExcelResourceForMonth
+                        join p in _db.Admin_CPcompany on s.CPid equals p.ID
+                        where s.IsDelete == false && s.CPid == cpid
+                        orderby s.StatisticsTime
+                        select new Admin_ExcelResourceForMonth
+                            {
+                                RowNumber = s.RowNumber,
+                                Cpname = p.CPname,
+                                StatisticsTime = s.StatisticsTime,
+                                SingleOpusName = s.SingleOpusName,
+                                NotBaoyuePlayNum = s.NotBaoyuePlayNum,
+                                BaoyuePlayNum = s.BaoyuePlayNum,
+                                PayBillPlayNum = s.PayBillPlayNum,
+                                FreePlayNum = s.FreePlayNum,
+                                NotBaoyuePayBillPlayNum = s.NotBaoyuePayBillPlayNum,
+                                CPid = s.CPid,
+                                SourceLevel = s.SourceLevel,
+                                AddTime = s.AddTime
+                            };
+            totalCount = query.Count();
+            var list = new List<Admin_ExcelResourceForMonth>();
+            if (PageIndex < 0 || PageSize < 0)
+            {
+                return null;
+            }
+            if (PageIndex == 1 && PageSize > totalCount)
+            {
+                list = query.ToList();
+            }
+            else if (PageIndex == 1 && PageSize > 0)
+            {
+                list = query.Take(PageSize).ToList();
+            }
+            else
+            {
+                list = query.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+            }
+            return list;
+        }
     }
 }

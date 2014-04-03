@@ -467,6 +467,8 @@
     <Content Include="Views\Admin\AddPop.cshtml" />
     <Content Include="Views\Admin\PopList.cshtml" />
     <Content Include="Views\Admin\PopEdit.cshtml" />
+    <Content Include="Views\Admin\ComplainManage.cshtml" />
+    <Content Include="Views\Admin\MonthManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

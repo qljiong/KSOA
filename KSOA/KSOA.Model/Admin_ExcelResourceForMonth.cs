@@ -12,6 +12,7 @@ namespace KSOA.Model
         #region Model
         private int _id;
         private int _cpid;
+        private string _cpname;
         private string _sourcelevel;
         private int _rownumber;
         private DateTime _statisticstime;
@@ -38,6 +39,14 @@ namespace KSOA.Model
         {
             set { _cpid = value; }
             get { return _cpid; }
+        }
+        /// <summary>
+        /// 供应商名称
+        /// </summary>
+        public string Cpname
+        {
+            get { return _cpname; }
+            set { _cpname = value; }
         }
         /// <summary>
         /// 一线,二线划分

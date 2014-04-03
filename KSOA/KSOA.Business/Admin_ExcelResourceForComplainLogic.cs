@@ -47,7 +47,7 @@ namespace KSOA.Business
         /// </summary>
         /// <param name="BeginTime"></param>
         /// <param name="EndTime"></param>
-        public List<ComplainAnalysisList> GetAnalysisByComplain(DateTime BeginTime, DateTime EndTime)
+        public List<ComplainAnalysisList> GetAnalysisByComplain(int PageSize, int PageIndex, out int totalCount, DateTime BeginTime, DateTime EndTime)
         {
             //统计非包月用户数
             //取出所有数据
@@ -138,8 +138,27 @@ namespace KSOA.Business
                 //添加到列表
                 cpList.Add(cpModel);
             }
-            cpList = cpList.OrderBy(s => s.SourceLevel).ToList();
-            return cpList;
+           var query = cpList.OrderBy(s => s.SourceLevel);
+
+            totalCount = query.Count();
+            var list = new List<ComplainAnalysisList>();
+            if (PageIndex < 0 || PageSize < 0)
+            {
+                return null;
+            }
+            if (PageIndex == 1 && PageSize > totalCount)
+            {
+                list = query.ToList();
+            }
+            else if (PageIndex == 1 && PageSize > 0)
+            {
+                list = query.Take(PageSize).ToList();
+            }
+            else
+            {
+                list = query.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+            }
+            return list;
         }
     }
 }

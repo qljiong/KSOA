@@ -17,6 +17,7 @@ namespace KSOAWeb.Controllers
 {
     public class AdminController : BasePageController
     {
+        #region 框架页相关
         /// <summary>
         /// 框架页
         /// </summary>
@@ -70,6 +71,7 @@ namespace KSOAWeb.Controllers
         {
             return (siteconfig)SerializationHelper.Load(typeof(siteconfig), configFilePath);
         }
+        #endregion
 
         #region 登陆相关
         //get:/admin/Login
@@ -234,6 +236,7 @@ namespace KSOAWeb.Controllers
         /// <returns></returns>
         public ActionResult ImportExcelByMonth()
         {
+            ViewBag.msg = "请选择要上传的Excel文件！";
             List<Admin_CPcompany> cpList = new Admin_CPcompanyLogic().GetCpList();
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in cpList)
@@ -579,7 +582,7 @@ namespace KSOAWeb.Controllers
         }
         public ActionResult ExportExcelToDownLoad(string excelName = "测试")
         {
-            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
+            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount,new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
 
             string filename = excelName + ".xls";
             Response.ContentType = "application/vnd.ms-excel";
@@ -832,6 +835,36 @@ namespace KSOAWeb.Controllers
             return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region 投诉管理
+        public ActionResult ComplainManage()
+        {
+            this.pageSize = GetPageSize(15); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount,new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View(dataList);
+        }
+        #endregion
+
+        #region 包月管理
+        public ActionResult MonthManage()
+        {
+            this.pageSize = GetPageSize(25); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            List<Admin_ExcelResourceForMonth> dataList = new Admin_ExcelResourceForMonthLogic().GetMonthList(this.pageSize, this.page, out this.totalCount,1, new DateTime(2014, 2, 25));
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../admin/MonthManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View(dataList);
+        }
         #endregion
     }
 }
