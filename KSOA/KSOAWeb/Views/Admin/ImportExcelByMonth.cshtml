@@ -11,6 +11,7 @@
     <link href="~/Scripts/ui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
     <link href="~/Content/Admin/Admin.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.3.2.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/messages_cn.js"></script>
     <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
@@ -26,16 +27,32 @@
                 }
             });
         });
-        function showloading() {
-            $(".showloading").show();
+        function tsubmit() {
+            //开始提交
+            $("#ImportExcelByMonth").ajaxSubmit({
+                beforeSubmit: function (formData, jqForm, options) {
+                    //显示LOADING图片
+                    $(".uploading").show();
+                },
+                success: function (data, textStatus) {
+                    $(".uploading").hide();
+                    $("#tipmsg").text(data.resultmsg);
+                },
+                error: function (data, status, e) {
+                    $(".uploading").hide();
+                    $("#tipmsg").text(data.resultmsg);
+                },
+                url: "/KSOAWeb/Admin/ImportExcelByMonth",
+                type: "post",
+                dataType: "json",
+                timeout: 600000
+            });
         }
     </script>
 
 </head>
 <body>
-
-    @using (Html.BeginForm("ImportExcelByMonth", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
+    <form id="ImportExcelByMonth" action="/KSOAWeb/Admin/ImportExcelByMonth" enctype="multipart/form-data" method="post">
         <div id="contentTab">
             <ul class="tab_nav">
                 <li class="selected"><a onclick="tabs('#contentTab',0);" href="javascript:;">包月源数据导入</a></li>
@@ -53,18 +70,18 @@
                         <tr>
                             <th></th>
                             <td>
-                                <input type="submit" value="上传" />
+                                <input type="button" value="上传" onclick="tsubmit()" />
                                 <span class="uploading">正在上传，请稍候...</span>
                             </td>
                         </tr>
                         <tr>
                             <th></th>
-                            <td><label>@(ViewBag.msg ?? "")</label></td>
+                            <td><label id="tipmsg">@(ViewBag.msg ?? "")</label></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    }
+    </form>
 </body>
 </html>

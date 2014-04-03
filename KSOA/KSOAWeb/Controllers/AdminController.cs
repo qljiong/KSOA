@@ -249,8 +249,9 @@ namespace KSOAWeb.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ImportExcelByMonth(FormCollection form)
+        public JsonResult ImportExcelByMonth(FormCollection form)
         {
+            string msg = "";
             HttpFileCollectionBase files = Request.Files;
             HttpPostedFileBase file = files["InputExcel"];
             int cp = Convert.ToInt32(form["cpNameList"]);
@@ -273,7 +274,7 @@ namespace KSOAWeb.Controllers
                         fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
                         file.SaveAs(path + fileName);
                         ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.包月源数据);
-                        ViewBag.message = "上传成功！";
+                        msg = "上传成功！";
                     }
                     catch (Exception e)
                     {
@@ -282,14 +283,14 @@ namespace KSOAWeb.Controllers
                 }
                 else
                 {
-                    ViewBag.message = "上传的文件格式不符合要求！";
+                    msg = "上传的文件格式不符合要求！";
                 }
             }
             else
             {
-                ViewBag.message = "上传的文件是空文件！";
+                msg = "上传的文件是空文件！";
             }
-            return RedirectToAction("ImportExcelByMonth");
+            return Json(new { result = 1, resultmsg = msg }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
