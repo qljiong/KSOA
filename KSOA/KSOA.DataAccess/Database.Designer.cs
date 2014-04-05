@@ -4771,7 +4771,8 @@ namespace KSOA.DataAccess
         /// <param name="wTaster">WTaster 属性的初始值。</param>
         /// <param name="isDelete">IsDelete 属性的初始值。</param>
         /// <param name="addTime">AddTime 属性的初始值。</param>
-        public static Work_Note CreateWork_Note(global::System.Int32 id, global::System.String wType, global::System.Int32 writerID, global::System.String writerName, global::System.String wTitle, global::System.String wConetent, global::System.Int32 wTaster, global::System.Boolean isDelete, global::System.DateTime addTime)
+        /// <param name="isRead">IsRead 属性的初始值。</param>
+        public static Work_Note CreateWork_Note(global::System.Int32 id, global::System.String wType, global::System.Int32 writerID, global::System.String writerName, global::System.String wTitle, global::System.String wConetent, global::System.Int32 wTaster, global::System.Boolean isDelete, global::System.DateTime addTime, global::System.Boolean isRead)
         {
             Work_Note work_Note = new Work_Note();
             work_Note.ID = id;
@@ -4783,6 +4784,7 @@ namespace KSOA.DataAccess
             work_Note.WTaster = wTaster;
             work_Note.IsDelete = isDelete;
             work_Note.AddTime = addTime;
+            work_Note.IsRead = isRead;
             return work_Note;
         }
 
@@ -5012,26 +5014,26 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String WIP
+        public global::System.Boolean IsRead
         {
             get
             {
-                return _WIP;
+                return _IsRead;
             }
             set
             {
-                OnWIPChanging(value);
-                ReportPropertyChanging("WIP");
-                _WIP = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("WIP");
-                OnWIPChanged();
+                OnIsReadChanging(value);
+                ReportPropertyChanging("IsRead");
+                _IsRead = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsRead");
+                OnIsReadChanged();
             }
         }
-        private global::System.String _WIP;
-        partial void OnWIPChanging(global::System.String value);
-        partial void OnWIPChanged();
+        private global::System.Boolean _IsRead;
+        partial void OnIsReadChanging(global::System.Boolean value);
+        partial void OnIsReadChanged();
 
         #endregion
 
@@ -5271,30 +5273,6 @@ namespace KSOA.DataAccess
         private global::System.Boolean _IsDelete;
         partial void OnIsDeleteChanging(global::System.Boolean value);
         partial void OnIsDeleteChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String NIP
-        {
-            get
-            {
-                return _NIP;
-            }
-            set
-            {
-                OnNIPChanging(value);
-                ReportPropertyChanging("NIP");
-                _NIP = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("NIP");
-                OnNIPChanged();
-            }
-        }
-        private global::System.String _NIP;
-        partial void OnNIPChanging(global::System.String value);
-        partial void OnNIPChanged();
 
         #endregion
 

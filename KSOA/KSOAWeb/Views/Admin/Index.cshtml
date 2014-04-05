@@ -120,8 +120,7 @@
             });
         }
         //安全退出
-        function lbtnExit()
-        {
+        function lbtnExit() {
             //ajax检查用户名是否存在
             $.ajax({
                 dataType: 'json',
@@ -166,31 +165,25 @@
 
                 <div title="产品平台" iconcss="menu-icon-member">
                     <ul class="nlist">
-
-                        <li><a href="javascript:f_addTab('user_list','动漫版权作品购销','users/user_list.aspx')">动漫版权作品购销</a></li>
-
-                        <li><a href="javascript:f_addTab('user_groups','作品商用','users/group_list.aspx')">作品商用</a></li>
-
-                        <li><a href="javascript:f_addTab('user_message','原创组','users/message_list.aspx')">原创组</a></li>
+                        <li><a href="javascript:f_addTab('PurchaseAndSale','动漫版权作品购销','../ProPlatform/PurchaseAndSale')">动漫版权作品购销</a></li>
+                        <li><a href="javascript:f_addTab('CommercialOpus','作品商用','../ProPlatform/CommercialOpus')">作品商用</a></li>
+                        <li><a href="javascript:f_addTab('OriginalGroup','原创组','../ProPlatform/OriginalGroup')">原创组</a></li>
                     </ul>
                 </div>
                 <div title="日常工作" iconcss="menu-icon-order">
                     <ul class="nlist">
-
-                        <li><a href="javascript:f_addTab('orders','周报','orders/order_list.aspx')">周报</a></li>
-
-                        <li><a href="javascript:f_addTab('order_payment','日报','orders/payment_list.aspx')">日报</a></li>
-
-                        <li><a href="javascript:f_addTab('distribution1','月报','orders/distribution_list.aspx')">月报</a></li>
-                        <li><a href="javascript:f_addTab('distribution2','公告','orders/distribution_list.aspx')">公告</a></li>
-                        <li><a href="javascript:f_addTab('distribution3','项目进度','orders/distribution_list.aspx')">项目进度</a></li>
+                        <li><a href="javascript:f_addTab('DailyReport','日报','../DailyWork/DailyReport')">日报</a></li>
+                        <li><a href="javascript:f_addTab('WeekReport','周报','../DailyWork/WeekReport')">周报</a></li>
+                        <li><a href="javascript:f_addTab('MonthReport','月报','../DailyWork/MonthReport')">月报</a></li>
+                        <li><a href="javascript:f_addTab('NoticeReport','公告','../DailyWork/NoticeReport')">公告</a></li>
+                        <li><a href="javascript:f_addTab('WorkSchedule','项目进度','../DailyWork/WorkSchedule')">项目进度</a></li>
                     </ul>
                 </div>
                 <div title="系统设置" iconcss="menu-icon-setting">
                     <ul class="nlist">
-                        <li><a class="l-link" href="javascript:f_addTab('sys_manager','管理员管理','../admin/Managerpwd')">管理员密码修改</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('sys_Pepmanager','人员管理','../admin/PopList')">人员管理</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('sys_CPmanagerList','平台管理','../admin/CPlist')">平台管理</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('Managerpwd','管理员管理','../admin/Managerpwd')">管理员密码修改</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('PopList','人员管理','../admin/PopList')">人员管理</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('CPlist','平台管理','../admin/CPlist')">平台管理</a></li>
                     </ul>
                 </div>
             </div>

@@ -19,7 +19,7 @@ namespace KSOA.Model
 		private int _wtaster;
 		private bool _isdelete= false;
 		private DateTime _addtime= DateTime.Now;
-		private string _wip;
+        private bool _isread;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -93,12 +93,12 @@ namespace KSOA.Model
 			get{return _addtime;}
 		}
 		/// <summary>
-		/// 填写人IP
+        /// 是否已阅;true:是,false:否
 		/// </summary>
-		public string WIP
+        public bool IsRead
 		{
-			set{ _wip=value;}
-			get{return _wip;}
+            set { _isread = value; }
+            get { return _isread; }
 		}
 		#endregion Model
 

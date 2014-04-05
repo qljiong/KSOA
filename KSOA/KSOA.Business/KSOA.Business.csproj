@@ -48,6 +48,8 @@
     <Compile Include="Admin_NotBaoyuePayBillPlayCountLogic.cs" />
     <Compile Include="DbAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Work_NoteLogic.cs" />
+    <Compile Include="Work_NoticeLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KSOA.Common\KSOA.Common.csproj">

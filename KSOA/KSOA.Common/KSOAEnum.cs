@@ -21,5 +21,21 @@ namespace KSOA.Common
             超级管理=1,
             普通员工
         }
+
+        public enum NoteType
+        {
+            /// <summary>
+            /// 日报
+            /// </summary>
+            D=1,
+            /// <summary>
+            /// 周报
+            /// </summary>
+            W,
+            /// <summary>
+            /// 月报
+            /// </summary>
+            M
+        }
     }
 }

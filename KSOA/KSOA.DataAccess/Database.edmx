@@ -72,7 +72,7 @@
           <Property Name="CusPhoneNum" Type="nvarchar" MaxLength="50" />
           <Property Name="QQ" Type="varchar" MaxLength="50" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
-          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="AddTime" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_NotBaoyuePayBillPlayCount">
           <Key>
@@ -266,8 +266,8 @@
           <Property Name="WConetent" Type="nvarchar(max)" Nullable="false" />
           <Property Name="WTaster" Type="int" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
-          <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="WIP" Type="varchar" MaxLength="50" />
+          <Property Name="AddTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Work_Notice">
           <Key>
@@ -281,7 +281,6 @@
           <Property Name="Nlevel" Type="int" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
-          <Property Name="NIP" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“KSOA.dbo.Work_Schedule”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -452,7 +451,7 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <Property Name="CusPhoneNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="QQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="Admin_NotBaoyuePayBillPlayCount">
           <Key>
@@ -582,8 +581,8 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <Property Name="WConetent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WTaster" Type="Int32" Nullable="false" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="WIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Work_Notice">
           <Key>
@@ -597,7 +596,6 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <Property Name="Nlevel" Type="Int32" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-          <Property Name="NIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UI_ExcelImportByChannel">
           <Key>
@@ -881,7 +879,7 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <EntitySetMapping Name="Work_Note">
             <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Note">
               <MappingFragment StoreEntitySet="Work_Note">
-                <ScalarProperty Name="WIP" ColumnName="WIP" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="WTaster" ColumnName="WTaster" />
@@ -897,7 +895,6 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <EntitySetMapping Name="Work_Notice">
             <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Notice">
               <MappingFragment StoreEntitySet="Work_Notice">
-                <ScalarProperty Name="NIP" ColumnName="NIP" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
                 <ScalarProperty Name="Nlevel" ColumnName="Nlevel" />
