@@ -30,7 +30,7 @@ namespace KSOA.Model
 		/// <summary>
 		/// 公告标题
 		/// </summary>
-		public string NTitle
+        public string NTitle
 		{
 			set{ _ntitle=value;}
 			get{return _ntitle;}

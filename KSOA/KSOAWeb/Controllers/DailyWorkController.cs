@@ -37,6 +37,7 @@ namespace KSOAWeb.Controllers
 
         #endregion
 
+        #region 日报部分
         /// <summary>
         /// 日报管理
         /// </summary>
@@ -98,6 +99,9 @@ namespace KSOAWeb.Controllers
             }
             return View(wn);
         }
+        #endregion
+
+        #region 周报部分
         /// <summary>
         /// 周报管理
         /// </summary>
@@ -140,6 +144,9 @@ namespace KSOAWeb.Controllers
 
             return View();
         }
+        #endregion
+
+        #region 月报部分
         /// <summary>
         /// 月报管理
         /// </summary>
@@ -182,6 +189,9 @@ namespace KSOAWeb.Controllers
 
             return View();
         }
+        #endregion
+
+        #region 公告部分
         /// <summary>
         /// 公告管理
         /// </summary>
@@ -240,20 +250,146 @@ namespace KSOAWeb.Controllers
             return View(wn);
         }
         /// <summary>
+        /// 提交编辑公告
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult EditNotice(FormCollection form)
+        {
+            int id = Convert.ToInt32(form["ntid"]);
+            if (form.Count != 0)
+            {
+                Work_Notice wn = new Work_Notice();
+                wn.NTitle = form["WTitle"];
+                wn.NContent = form["WConetent"];
+                wn.Nlevel = 1;//form["Nlevel"];
+                Admin_KSCustomer aks = (Admin_KSCustomer)Session["member"];
+                if (new Work_NoticeLogic().EditNotice(wn, aks, id))
+                {
+                    ViewBag.msg = "修改成功";
+                }
+                else
+                {
+                    ViewBag.msg = "修改失败";
+                }
+            }
+            return EditNotice(id);
+        }
+        /// <summary>
+        /// 删除notice
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Delnotice()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            new Work_NoticeLogic().Delnotice(arr2);
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 项目进度部分
+        /// <summary>
         /// 项目进度管理
         /// </summary>
         /// <returns></returns>
         public ActionResult WorkSchedule()
         {
-            return View();
+            this.pageSize = GetPageSize(15); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            List<Work_Schedule> list = new Work_ScheduleLogic().GetScheduleList(this.pageSize, this.page, out this.totalCount);
+
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../DailyWork/WorkSchedule", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View(list);
         }
         /// <summary>
         /// 添加项目进度
         /// </summary>
         /// <returns></returns>
-        public ActionResult AddWorkSchedule()
+        public ActionResult AddWorkSchedule(FormCollection form)
         {
+            if (form.Count != 0)
+            {
+                Work_Schedule wn = new Work_Schedule();
+                wn.ItemName = form["ItemName"];
+                wn.ItemLaunchTime =Convert.ToDateTime(form["ItemLaunchTime"]);
+                wn.ItemIntro = form["ItemIntro"]; 
+                Admin_KSCustomer aks = (Admin_KSCustomer)Session["member"];
+                if (new Work_ScheduleLogic().AddSchedule(wn, aks))
+                {
+                    ViewBag.msg = "添加成功";
+                }
+                else
+                {
+                    ViewBag.msg = "添加失败";
+                }
+            }
             return View();
         }
+        /// <summary>
+        /// 编辑项目进度条目
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult EditSchedule(int id)
+        {
+            Work_Schedule wn = new Work_ScheduleLogic().GetScheduleModel(id);
+            if (wn == null)
+            {
+                wn = new Work_Schedule();
+            }
+            return View(wn);
+        }
+        [HttpPost]
+        public ActionResult EditSchedule(FormCollection form)
+        {
+            int id = Convert.ToInt32(form["ScheduleID"]);
+            if (form.Count != 0)
+            {
+                Work_Schedule wn = new Work_Schedule();
+                wn.ItemName = form["ItemName"];
+                wn.ItemLaunchTime = Convert.ToDateTime(form["ItemLaunchTime"]);
+                wn.ItemIntro = form["ItemIntro"];
+                Admin_KSCustomer aks = (Admin_KSCustomer)Session["member"];
+                if (new Work_ScheduleLogic().EditSchedule(wn, aks, id))
+                {
+                    ViewBag.msg = "编辑成功";
+                }
+                else
+                {
+                    ViewBag.msg = "编辑失败";
+                }
+            }
+            return EditSchedule(id);
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult Delschedule()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            new Work_ScheduleLogic().Delschedule(arr2);
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

@@ -282,19 +282,14 @@
           <Property Name="AddTime" Type="datetime" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“KSOA.dbo.Work_Schedule”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="Work_Schedule">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="ItemName" />
-            <PropertyRef Name="ItemLaunchTime" />
-            <PropertyRef Name="AddTime" />
-            <PropertyRef Name="IsDelete" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ItemLaunchTime" Type="datetime" Nullable="false" />
+          <Property Name="ItemIntro" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
@@ -315,6 +310,7 @@
           <EntitySet Name="Bank_OriginalGroup" EntityType="Self.Bank_OriginalGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work_Note" EntityType="Self.Work_Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work_Notice" EntityType="Self.Work_Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Work_Schedule" EntityType="Self.Work_Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UI_ExcelImportByChannel" EntityType="Self.UI_ExcelImportByChannel" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [UI_ExcelImportByChannel].[ID] AS [ID], 
@@ -349,15 +345,6 @@ FROM [dbo].[UI_ExcelImportByChannel] AS [UI_ExcelImportByChannel]</DefiningQuery
 [UI_ExcelImportByPlatform].[IsDelete] AS [IsDelete]
 FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Work_Schedule" EntityType="Self.Work_Schedule" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Work_Schedule].[ID] AS [ID], 
-[Work_Schedule].[ItemName] AS [ItemName], 
-[Work_Schedule].[ItemLaunchTime] AS [ItemLaunchTime], 
-[Work_Schedule].[AddTime] AS [AddTime], 
-[Work_Schedule].[IsDelete] AS [IsDelete]
-FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -380,9 +367,9 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <EntitySet Name="Bank_OriginalGroup" EntityType="KSOA.DataAccess.Bank_OriginalGroup" />
           <EntitySet Name="Work_Note" EntityType="KSOA.DataAccess.Work_Note" />
           <EntitySet Name="Work_Notice" EntityType="KSOA.DataAccess.Work_Notice" />
+          <EntitySet Name="Work_Schedule" EntityType="KSOA.DataAccess.Work_Schedule" />
           <EntitySet Name="UI_ExcelImportByChannel" EntityType="KSOA.DataAccess.UI_ExcelImportByChannel" />
           <EntitySet Name="UI_ExcelImportByPlatform" EntityType="KSOA.DataAccess.UI_ExcelImportByPlatform" />
-          <EntitySet Name="Work_Schedule" EntityType="KSOA.DataAccess.Work_Schedule" />
         </EntityContainer>
         <EntityType Name="Admin_CPcompany">
           <Key>
@@ -597,6 +584,17 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Work_Schedule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemLaunchTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ItemIntro" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="UI_ExcelImportByChannel">
           <Key>
             <PropertyRef Name="ID" />
@@ -654,20 +652,6 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
           <Property Name="ExSingleCollectNum" Type="Int32" Nullable="false" />
           <Property Name="ExOpusUnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ExAccountPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Work_Schedule">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ItemName" />
-            <PropertyRef Name="ItemLaunchTime" />
-            <PropertyRef Name="AddTime" />
-            <PropertyRef Name="IsDelete" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemLaunchTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
@@ -906,6 +890,18 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Work_Schedule">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Schedule">
+              <MappingFragment StoreEntitySet="Work_Schedule">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="ItemIntro" ColumnName="ItemIntro" />
+                <ScalarProperty Name="ItemLaunchTime" ColumnName="ItemLaunchTime" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UI_ExcelImportByChannel">
             <EntityTypeMapping TypeName="KSOA.DataAccess.UI_ExcelImportByChannel">
               <MappingFragment StoreEntitySet="UI_ExcelImportByChannel">
@@ -940,17 +936,6 @@ FROM [dbo].[Work_Schedule] AS [Work_Schedule]</DefiningQuery>
                 <ScalarProperty Name="ExTime" ColumnName="ExTime" />
                 <ScalarProperty Name="ExType" ColumnName="ExType" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Work_Schedule">
-            <EntityTypeMapping TypeName="KSOA.DataAccess.Work_Schedule">
-              <MappingFragment StoreEntitySet="Work_Schedule">
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="ItemLaunchTime" ColumnName="ItemLaunchTime" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

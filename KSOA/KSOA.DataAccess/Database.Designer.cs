@@ -324,6 +324,22 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<Work_Schedule> Work_Schedule
+        {
+            get
+            {
+                if ((_Work_Schedule == null))
+                {
+                    _Work_Schedule = base.CreateObjectSet<Work_Schedule>("Work_Schedule");
+                }
+                return _Work_Schedule;
+            }
+        }
+        private ObjectSet<Work_Schedule> _Work_Schedule;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<UI_ExcelImportByChannel> UI_ExcelImportByChannel
         {
             get
@@ -352,22 +368,6 @@ namespace KSOA.DataAccess
             }
         }
         private ObjectSet<UI_ExcelImportByPlatform> _UI_ExcelImportByPlatform;
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        public ObjectSet<Work_Schedule> Work_Schedule
-        {
-            get
-            {
-                if ((_Work_Schedule == null))
-                {
-                    _Work_Schedule = base.CreateObjectSet<Work_Schedule>("Work_Schedule");
-                }
-                return _Work_Schedule;
-            }
-        }
-        private ObjectSet<Work_Schedule> _Work_Schedule;
 
         #endregion
 
@@ -502,6 +502,14 @@ namespace KSOA.DataAccess
         }
     
         /// <summary>
+        /// 用于向 Work_Schedule EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToWork_Schedule(Work_Schedule work_Schedule)
+        {
+            base.AddObject("Work_Schedule", work_Schedule);
+        }
+    
+        /// <summary>
         /// 用于向 UI_ExcelImportByChannel EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
         public void AddToUI_ExcelImportByChannel(UI_ExcelImportByChannel uI_ExcelImportByChannel)
@@ -515,14 +523,6 @@ namespace KSOA.DataAccess
         public void AddToUI_ExcelImportByPlatform(UI_ExcelImportByPlatform uI_ExcelImportByPlatform)
         {
             base.AddObject("UI_ExcelImportByPlatform", uI_ExcelImportByPlatform);
-        }
-    
-        /// <summary>
-        /// 用于向 Work_Schedule EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
-        /// </summary>
-        public void AddToWork_Schedule(Work_Schedule work_Schedule)
-        {
-            base.AddObject("Work_Schedule", work_Schedule);
         }
 
         #endregion
@@ -5295,14 +5295,16 @@ namespace KSOA.DataAccess
         /// <param name="id">ID 属性的初始值。</param>
         /// <param name="itemName">ItemName 属性的初始值。</param>
         /// <param name="itemLaunchTime">ItemLaunchTime 属性的初始值。</param>
+        /// <param name="itemIntro">ItemIntro 属性的初始值。</param>
         /// <param name="addTime">AddTime 属性的初始值。</param>
         /// <param name="isDelete">IsDelete 属性的初始值。</param>
-        public static Work_Schedule CreateWork_Schedule(global::System.Int32 id, global::System.String itemName, global::System.DateTime itemLaunchTime, global::System.DateTime addTime, global::System.Boolean isDelete)
+        public static Work_Schedule CreateWork_Schedule(global::System.Int32 id, global::System.String itemName, global::System.DateTime itemLaunchTime, global::System.String itemIntro, global::System.DateTime addTime, global::System.Boolean isDelete)
         {
             Work_Schedule work_Schedule = new Work_Schedule();
             work_Schedule.ID = id;
             work_Schedule.ItemName = itemName;
             work_Schedule.ItemLaunchTime = itemLaunchTime;
+            work_Schedule.ItemIntro = itemIntro;
             work_Schedule.AddTime = addTime;
             work_Schedule.IsDelete = isDelete;
             return work_Schedule;
@@ -5342,7 +5344,7 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ItemName
         {
@@ -5352,14 +5354,11 @@ namespace KSOA.DataAccess
             }
             set
             {
-                if (_ItemName != value)
-                {
-                    OnItemNameChanging(value);
-                    ReportPropertyChanging("ItemName");
-                    _ItemName = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("ItemName");
-                    OnItemNameChanged();
-                }
+                OnItemNameChanging(value);
+                ReportPropertyChanging("ItemName");
+                _ItemName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ItemName");
+                OnItemNameChanged();
             }
         }
         private global::System.String _ItemName;
@@ -5369,7 +5368,7 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.DateTime ItemLaunchTime
         {
@@ -5379,14 +5378,11 @@ namespace KSOA.DataAccess
             }
             set
             {
-                if (_ItemLaunchTime != value)
-                {
-                    OnItemLaunchTimeChanging(value);
-                    ReportPropertyChanging("ItemLaunchTime");
-                    _ItemLaunchTime = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ItemLaunchTime");
-                    OnItemLaunchTimeChanged();
-                }
+                OnItemLaunchTimeChanging(value);
+                ReportPropertyChanging("ItemLaunchTime");
+                _ItemLaunchTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ItemLaunchTime");
+                OnItemLaunchTimeChanged();
             }
         }
         private global::System.DateTime _ItemLaunchTime;
@@ -5396,7 +5392,31 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ItemIntro
+        {
+            get
+            {
+                return _ItemIntro;
+            }
+            set
+            {
+                OnItemIntroChanging(value);
+                ReportPropertyChanging("ItemIntro");
+                _ItemIntro = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ItemIntro");
+                OnItemIntroChanged();
+            }
+        }
+        private global::System.String _ItemIntro;
+        partial void OnItemIntroChanging(global::System.String value);
+        partial void OnItemIntroChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.DateTime AddTime
         {
@@ -5406,14 +5426,11 @@ namespace KSOA.DataAccess
             }
             set
             {
-                if (_AddTime != value)
-                {
-                    OnAddTimeChanging(value);
-                    ReportPropertyChanging("AddTime");
-                    _AddTime = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("AddTime");
-                    OnAddTimeChanged();
-                }
+                OnAddTimeChanging(value);
+                ReportPropertyChanging("AddTime");
+                _AddTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AddTime");
+                OnAddTimeChanged();
             }
         }
         private global::System.DateTime _AddTime;
@@ -5423,7 +5440,7 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Boolean IsDelete
         {
@@ -5433,14 +5450,11 @@ namespace KSOA.DataAccess
             }
             set
             {
-                if (_IsDelete != value)
-                {
-                    OnIsDeleteChanging(value);
-                    ReportPropertyChanging("IsDelete");
-                    _IsDelete = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("IsDelete");
-                    OnIsDeleteChanged();
-                }
+                OnIsDeleteChanging(value);
+                ReportPropertyChanging("IsDelete");
+                _IsDelete = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsDelete");
+                OnIsDeleteChanged();
             }
         }
         private global::System.Boolean _IsDelete;

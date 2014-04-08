@@ -460,6 +460,18 @@
     <Content Include="Content\Site.css" />
     <None Include="Properties\PublishProfiles\KSOAdeploy.pubxml" />
     <Content Include="Scripts\Admin\function.js" />
+    <Content Include="Scripts\DatePicker\calendar.js" />
+    <Content Include="Scripts\DatePicker\lang\en.js" />
+    <Content Include="Scripts\DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\DatePicker\WdatePicker.js" />
     <Content Include="Scripts\jquery-1.3.2.min.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.Jcrop.min.js" />
@@ -675,6 +687,8 @@
     <Content Include="Views\DailyWork\AddWeek.cshtml" />
     <Content Include="Views\DailyWork\AddNotice.cshtml" />
     <Content Include="Views\DailyWork\EditNotice.cshtml" />
+    <Content Include="Views\DailyWork\AddWorkSchedule.cshtml" />
+    <Content Include="Views\DailyWork\EditSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

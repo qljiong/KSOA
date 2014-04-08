@@ -113,6 +113,14 @@ function ExePostBack(objId, objmsg,urltype) {
             {
                 opurl = "../admin/DelCP";
             }
+            if (urltype == "notice")//公告管理
+            {
+                opurl = "../DailyWork/Delnotice";
+            }
+            if (urltype == "schedule")//工作进度管理
+            {
+                opurl = "../DailyWork/Delschedule";
+            }
             //ajax删除
             $.ajax({
                 dataType: 'json',

@@ -15,6 +15,16 @@ namespace KSOA.Model
 		private DateTime _itemlaunchtime;
 		private DateTime _addtime= DateTime.Now;
 		private bool _isdelete= false;
+        private string _itemintro;
+
+        /// <summary>
+        /// 项目简介
+        /// </summary>
+        public string ItemIntro
+        {
+            get { return _itemintro; }
+            set { _itemintro = value; }
+        }
 		/// <summary>
 		/// 
 		/// </summary>
