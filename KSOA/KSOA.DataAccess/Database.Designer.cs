@@ -3141,17 +3141,19 @@ namespace KSOA.DataAccess
         /// <param name="opusID">OpusID 属性的初始值。</param>
         /// <param name="companyName">CompanyName 属性的初始值。</param>
         /// <param name="cpAddress">CpAddress 属性的初始值。</param>
-        /// <param name="channelAddres">ChannelAddres 属性的初始值。</param>
+        /// <param name="channelAddress">ChannelAddress 属性的初始值。</param>
         /// <param name="addTime">AddTime 属性的初始值。</param>
-        public static Bank_CommercialOpus CreateBank_CommercialOpus(global::System.Int32 id, global::System.Int32 opusID, global::System.String companyName, global::System.String cpAddress, global::System.String channelAddres, global::System.DateTime addTime)
+        /// <param name="isDelete">IsDelete 属性的初始值。</param>
+        public static Bank_CommercialOpus CreateBank_CommercialOpus(global::System.Int32 id, global::System.Int32 opusID, global::System.String companyName, global::System.String cpAddress, global::System.String channelAddress, global::System.DateTime addTime, global::System.Boolean isDelete)
         {
             Bank_CommercialOpus bank_CommercialOpus = new Bank_CommercialOpus();
             bank_CommercialOpus.ID = id;
             bank_CommercialOpus.OpusID = opusID;
             bank_CommercialOpus.CompanyName = companyName;
             bank_CommercialOpus.CpAddress = cpAddress;
-            bank_CommercialOpus.ChannelAddres = channelAddres;
+            bank_CommercialOpus.ChannelAddress = channelAddress;
             bank_CommercialOpus.AddTime = addTime;
+            bank_CommercialOpus.IsDelete = isDelete;
             return bank_CommercialOpus;
         }
 
@@ -3263,24 +3265,24 @@ namespace KSOA.DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ChannelAddres
+        public global::System.String ChannelAddress
         {
             get
             {
-                return _ChannelAddres;
+                return _ChannelAddress;
             }
             set
             {
-                OnChannelAddresChanging(value);
-                ReportPropertyChanging("ChannelAddres");
-                _ChannelAddres = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("ChannelAddres");
-                OnChannelAddresChanged();
+                OnChannelAddressChanging(value);
+                ReportPropertyChanging("ChannelAddress");
+                _ChannelAddress = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ChannelAddress");
+                OnChannelAddressChanged();
             }
         }
-        private global::System.String _ChannelAddres;
-        partial void OnChannelAddresChanging(global::System.String value);
-        partial void OnChannelAddresChanged();
+        private global::System.String _ChannelAddress;
+        partial void OnChannelAddressChanging(global::System.String value);
+        partial void OnChannelAddressChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -3309,9 +3311,9 @@ namespace KSOA.DataAccess
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsDelete
+        public global::System.Boolean IsDelete
         {
             get
             {
@@ -3326,8 +3328,8 @@ namespace KSOA.DataAccess
                 OnIsDeleteChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsDelete;
-        partial void OnIsDeleteChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsDelete;
+        partial void OnIsDeleteChanging(global::System.Boolean value);
         partial void OnIsDeleteChanged();
 
         #endregion

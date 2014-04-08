@@ -689,6 +689,11 @@
     <Content Include="Views\DailyWork\EditNotice.cshtml" />
     <Content Include="Views\DailyWork\AddWorkSchedule.cshtml" />
     <Content Include="Views\DailyWork\EditSchedule.cshtml" />
+    <Content Include="Views\ProPlatform\AddOpus.cshtml" />
+    <Content Include="Views\ProPlatform\EditOpus.cshtml" />
+    <Content Include="Views\ProPlatform\SelOups.cshtml" />
+    <Content Include="Views\ProPlatform\AddCommercial.cshtml" />
+    <Content Include="Views\ProPlatform\EditCommercialOpus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

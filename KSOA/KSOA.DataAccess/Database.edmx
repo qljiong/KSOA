@@ -155,9 +155,9 @@
           <Property Name="OpusID" Type="int" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CpAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ChannelAddres" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ChannelAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="AddTime" Type="datetime" Nullable="false" />
-          <Property Name="IsDelete" Type="bit" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Bank_Opus">
           <Key>
@@ -521,9 +521,9 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
           <Property Name="OpusID" Type="Int32" Nullable="false" />
           <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CpAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ChannelAddres" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Bank_Opus">
           <Key>
@@ -819,7 +819,7 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
               <MappingFragment StoreEntitySet="Bank_CommercialOpus">
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="AddTime" ColumnName="AddTime" />
-                <ScalarProperty Name="ChannelAddres" ColumnName="ChannelAddres" />
+                <ScalarProperty Name="ChannelAddress" ColumnName="ChannelAddress" />
                 <ScalarProperty Name="CpAddress" ColumnName="CpAddress" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="OpusID" ColumnName="OpusID" />

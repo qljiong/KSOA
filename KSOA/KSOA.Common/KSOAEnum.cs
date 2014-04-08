@@ -16,12 +16,18 @@ namespace KSOA.Common
             包月源数据
         }
 
+        /// <summary>
+        /// 角色类型
+        /// </summary>
         public enum Role
         {
             超级管理=1,
             普通员工
         }
 
+        /// <summary>
+        /// 工作报告类型
+        /// </summary>
         public enum NoteType
         {
             /// <summary>
@@ -36,6 +42,25 @@ namespace KSOA.Common
             /// 月报
             /// </summary>
             M
+        }
+
+        /// <summary>
+        /// 作品购销类型
+        /// </summary>
+        public enum OpusType
+        {
+            /// <summary>
+            /// 作品购买
+            /// </summary>
+            B = 1,
+            /// <summary>
+            /// 销售
+            /// </summary>
+            S,
+            /// <summary>
+            /// 全部类型
+            /// </summary>
+            A
         }
     }
 }

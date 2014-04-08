@@ -88,7 +88,7 @@ function checkAll(chkobj) {
 }
 
 //执行回传函数
-function ExePostBack(objId, objmsg,urltype) {
+function ExePostBack(objId, objmsg, urltype) {
     if ($(".checkall input:checked").size() < 1) {
         $.ligerDialog.warn("对不起，请选中您要操作的记录！");
         return false;
@@ -104,7 +104,7 @@ function ExePostBack(objId, objmsg,urltype) {
             $.each($(".checkall input:checked"), function (index, value) {
                 arrayObj.push($(this).attr("id"));
             });
-           var opurl = "";
+            var opurl = "";
             if (urltype == "pop")//人员管理
             {
                 opurl = "../admin/PopDel";
@@ -120,6 +120,14 @@ function ExePostBack(objId, objmsg,urltype) {
             if (urltype == "schedule")//工作进度管理
             {
                 opurl = "../DailyWork/Delschedule";
+            }
+            if (urltype == "oups")//作品管理
+            {
+                opurl = "../ProPlatform/DelOpus";
+            }
+            if (urltype == "CommercialOpus")//商用管理
+            {
+                opurl = "../ProPlatform/DelCommercialOpus";
             }
             //ajax删除
             $.ajax({
