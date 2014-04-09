@@ -297,12 +297,127 @@ namespace KSOAWeb.Controllers
 
         #region 原创组部分
         /// <summary>
+        /// 添加原创组信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddOriginalGroup()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddOriginalGroup(FormCollection form)
+        {
+            if (form.Count != 0)
+            {
+                Bank_OriginalGroup wnote = new Bank_OriginalGroup();
+                wnote.OpusCopyright = form["OpusCopyright"];
+                wnote.CreationInfo = form["CreationInfo"];
+                wnote.OpusName = form["OpusName"];
+                wnote.OpusAuthor = form["OpusAuthor"];
+                wnote.SalePrice = Convert.ToDecimal(form["SalePrice"]);
+                wnote.AccreditPlatform = form["AccreditPlatform"];
+                wnote.AccreditCompany = form["AccreditCompany"];
+                wnote.AccreditTime = Convert.ToDateTime(form["AccreditTime"]);
+                wnote.AccreditType = form["AccreditType"];
+                wnote.Awards = form["Awards"];
+                wnote.OpusMascot = form["OpusMascot"];
+                wnote.AddTime = DateTime.Now;
+                Admin_KSCustomer aks = (Admin_KSCustomer)Session["member"];
+                if (new Bank_OriginalGroupLogic().AddOriginalGroup(wnote, aks))
+                {
+                    ViewBag.msg = "添加成功";
+                }
+                else
+                {
+                    ViewBag.msg = "添加失败";
+                }
+            }
+            return AddOriginalGroup();
+        }
+        /// <summary>
         /// 原创组
         /// </summary>
         /// <returns></returns>
         public ActionResult OriginalGroup()
         {
-            return View();
+            this.pageSize = GetPageSize(20); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            List<Bank_OriginalGroup> list = new Bank_OriginalGroupLogic().GetOriginalGroupList(KSOAEnum.OpusType.A, this.pageSize, this.page, out this.totalCount);
+
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../ProPlatform/OriginalGroup", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View(list);
+        }
+        /// <summary>
+        /// 编辑原创组
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult EditOriginalGroup(int id)
+        {
+            Bank_OriginalGroup wn = new Bank_OriginalGroupLogic().GetOriginalGroupModel(id);
+            if (wn == null)
+            {
+                wn = new Bank_OriginalGroup();
+            }
+            return View(wn);
+        }
+        /// <summary>
+        /// 提交编辑原创组
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult EditOriginalGroup(FormCollection form)
+        {
+            int OriginalGroupOpusID = Convert.ToInt32(form["OriginalGroupOpusID"]);
+            if (form.Count != 0)
+            {
+                Bank_OriginalGroup wnote = new Bank_OriginalGroup();
+                wnote.OpusCopyright = form["OpusCopyright"];
+                wnote.CreationInfo = form["CreationInfo"];
+                wnote.OpusName = form["OpusName"];
+                wnote.OpusAuthor = form["OpusAuthor"];
+                wnote.SalePrice =Convert.ToDecimal(form["SalePrice"]);
+                wnote.AccreditPlatform = form["AccreditPlatform"];
+                wnote.AccreditCompany = form["AccreditCompany"];
+                wnote.AccreditTime =Convert.ToDateTime(form["AccreditTime"]);
+                wnote.AccreditType = form["AccreditType"];
+                wnote.Awards = form["Awards"];
+                wnote.OpusMascot = form["OpusMascot"];
+                wnote.AddTime = DateTime.Now;
+                Admin_KSCustomer aks = (Admin_KSCustomer)Session["member"];
+                if (new Bank_OriginalGroupLogic().EditOriginalGroup(wnote, aks, OriginalGroupOpusID))
+                {
+                    ViewBag.msg = "修改成功";
+                }
+                else
+                {
+                    ViewBag.msg = "修改失败";
+                }
+            }
+            return EditOriginalGroup(OriginalGroupOpusID);
+        }
+
+        /// <summary>
+        /// 删除原创组信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult DelOriginalGroupOpus()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            new Bank_OriginalGroupLogic().DelOriginalGroup(arr2);
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

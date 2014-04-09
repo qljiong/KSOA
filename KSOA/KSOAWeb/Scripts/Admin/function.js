@@ -129,6 +129,10 @@ function ExePostBack(objId, objmsg, urltype) {
             {
                 opurl = "../ProPlatform/DelCommercialOpus";
             }
+            if (urltype == "OriginalGroup")//原创组管理
+            {
+                opurl = "../ProPlatform/DelOriginalGroupOpus";
+            }
             //ajax删除
             $.ajax({
                 dataType: 'json',

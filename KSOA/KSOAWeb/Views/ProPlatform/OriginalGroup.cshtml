@@ -1,4 +1,6 @@
-﻿@{
+﻿@using KSOA.Model;
+@model List<Bank_OriginalGroup>
+@{
     Layout = null;
 }
 
@@ -7,11 +9,107 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>OriginalGroup</title>
+    <link href="~/Scripts/ui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Content/Admin/Admin.css" rel="stylesheet" />
+    <link href="~/Content/Admin/pagination.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.3.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/messages_cn.js"></script>
+    <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
+    <script src="~/Scripts/Admin/function.js"></script>
+    <title>原创组列表</title>
 </head>
-<body>
-    <div>
-        
-    </div>
+<body class="mainbody">
+    <form id="form1">
+        <div class="tools_box">
+            <div class="tools_bar">
+                <a href="../ProPlatform/AddOriginalGroup" class="tools_btn"><span><b class="add">添加原创组信息</b></span></a>
+                <a href="javascript:void(0);" onclick="checkAll(this);" class="tools_btn"><span><b class="all">全选</b></span></a>
+                <a href="javascript:void(0);" id="btnDelete" class="tools_btn"
+                   onclick="return ExePostBack('btnDelete', '', 'OriginalGroup');"><span><b class="delete">批量删除</b></span></a>
+            </div>
+        </div>
+
+        <!--列表展示.开始-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="msgtable">
+            <tr>
+                <th>选择</th>
+                <th>版权信息</th>
+                <th>创作信息</th>
+                <th>作品名称</th>
+                <th>作者</th>
+                <th>销售金额</th>
+                <th>授权平台</th>
+                <th>授权公司</th>
+                <th>授权日期</th>
+                <th>授权类型</th>
+                <th>获奖情况</th>
+                <th>原创形象相关信息</th>
+                <th>操作</th>
+            </tr>
+            @if (Model.Count != 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td align="center">
+                            <span class="checkall">
+                                <input type="checkbox" id="@item.ID" />
+                            </span>
+                        </td>
+                        <td align="center">
+                            @item.OpusCopyright
+                        </td>
+                        <td align="center">
+                            @item.CreationInfo
+                        </td>
+                        <td align="center">
+                            @item.OpusName
+                        </td>
+                        <td align="center">
+                            @item.OpusAuthor
+                        </td>
+                        <td align="center">
+                            @item.SalePrice
+                        </td>
+                        <td align="center">
+                            @item.AccreditPlatform
+                        </td>
+                        <td align="center">
+                            @item.AccreditCompany
+                        </td>
+                        <td align="center">
+                            @item.AccreditTime
+                        </td>
+                        <td align="center">
+                            @item.AccreditType
+                        </td>
+                        <td align="center">
+                            @item.Awards
+                        </td>
+                        <td align="center">
+                            @item.OpusMascot
+                        </td>
+                        <td align="center">
+                            <a href="../ProPlatform/EditOriginalGroup/@item.ID">修改</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td align="center" colspan="13">暂无记录</td></tr>
+            }
+        </table>
+        <!--列表展示.结束-->
+
+
+        <div class="line15"></div>
+        <div class="page_box">
+            <div id="PageContent" class="flickr right">@Html.Raw(ViewBag.PageContent)</div>
+        </div>
+        <div class="line10"></div>
+    </form>
 </body>
 </html>
+

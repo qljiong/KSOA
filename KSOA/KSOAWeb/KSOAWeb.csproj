@@ -694,6 +694,8 @@
     <Content Include="Views\ProPlatform\SelOups.cshtml" />
     <Content Include="Views\ProPlatform\AddCommercial.cshtml" />
     <Content Include="Views\ProPlatform\EditCommercialOpus.cshtml" />
+    <Content Include="Views\ProPlatform\AddOriginalGroup.cshtml" />
+    <Content Include="Views\ProPlatform\EditOriginalGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
