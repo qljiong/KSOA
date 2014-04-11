@@ -209,12 +209,19 @@ namespace KSOAWeb.Controllers
                         //重命名
                         fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
                         file.SaveAs(path + fileName);
-                        ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.投诉源数据);
-                        msg = "上传成功！";
+                        if (ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.投诉源数据))
+                        {
+                            msg = "上传失败！";
+                        }
+                        else
+                        {
+                            msg = "上传成功！";
+                        }
+
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        msg = "上传失败,上传文件格式不匹配！   " + e.Message;
                     }
                 }
                 else
@@ -276,12 +283,18 @@ namespace KSOAWeb.Controllers
                         //重命名
                         fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
                         file.SaveAs(path + fileName);
-                        ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.包月源数据);
-                        msg = "上传成功！";
+                        if (ReadExcelAndWriteToTable(fileName, cp, KSOAEnum.ImportExcelType.包月源数据))
+                        {
+                            msg = "上传失败！";
+                        }
+                        else
+                        {
+                            msg = "上传成功！";
+                        }
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        msg = "上传失败,上传文件格式不匹配！   " + e.Message;
                     }
                 }
                 else
@@ -582,7 +595,7 @@ namespace KSOAWeb.Controllers
         }
         public ActionResult ExportExcelToDownLoad(string excelName = "测试")
         {
-            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount,new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
+            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
 
             string filename = excelName + ".xls";
             Response.ContentType = "application/vnd.ms-excel";
@@ -843,7 +856,7 @@ namespace KSOAWeb.Controllers
             this.pageSize = GetPageSize(15); //每页数量
             this.page = DTRequest.GetQueryInt("page", 1);
             ViewBag.txtKeywords = this.keywords;
-            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount,new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
+            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
             //绑定页码
             ViewBag.txtPageNum = this.pageSize.ToString();
             string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
@@ -858,7 +871,7 @@ namespace KSOAWeb.Controllers
             this.pageSize = GetPageSize(25); //每页数量
             this.page = DTRequest.GetQueryInt("page", 1);
             ViewBag.txtKeywords = this.keywords;
-            List<Admin_ExcelResourceForMonth> dataList = new Admin_ExcelResourceForMonthLogic().GetMonthList(this.pageSize, this.page, out this.totalCount,1, new DateTime(2014, 2, 25));
+            List<Admin_ExcelResourceForMonth> dataList = new Admin_ExcelResourceForMonthLogic().GetMonthList(this.pageSize, this.page, out this.totalCount, 1, new DateTime(2014, 2, 25));
             //绑定页码
             ViewBag.txtPageNum = this.pageSize.ToString();
             string pageUrl = Utils.CombUrlTxt("../admin/MonthManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
