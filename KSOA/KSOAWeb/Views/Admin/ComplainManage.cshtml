@@ -1,5 +1,5 @@
 ﻿@using KSOA.Model;
-@model List<ComplainAnalysisList>
+@model ExtentionComplainBag
 @{
     Layout = null;
 }
@@ -17,20 +17,42 @@
     <script src="~/Scripts/messages_cn.js"></script>
     <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
     <script src="~/Scripts/Admin/function.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
     <title>ComplainManage</title>
 </head>
 <body class="mainbody">
-    <form id="form1">
+    <form id="form1" action="../admin/ComplainManage" method="post">
         <div class="tools_box">
             <div class="tools_bar">
                 <div class="search_box">
-                    <input type="text" ID="txtKeywords" Class="txtInput" />
-                    <input type="button" ID="btnSearch" value="搜 索" Class="btnSearch" />
+                    <span>日期:</span>
+                    <input type="text" name="SelTime" readonly="readonly" value="@Model.par.seltime.ToString("yyyy-MM-dd")" class="txtInput" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'})" />
+                    <span>一、二线:</span>
+                    <select name="SelLine">
+                        @if (@Model.par.selline == "" || @Model.par.selline == "0")
+                        {
+                            <option value="0" selected="selected">全部</option>
+                            <option value="1">一线</option>
+                            <option value="2">二线</option>
+                        }
+                        else if (@Model.par.selline == "1")
+                        {
+                            <option value="0">全部</option>
+                            <option value="1" selected="selected">一线</option>
+                            <option value="2">二线</option>
+                        }
+                        else
+                        {
+                            <option value="0">全部</option>
+                            <option value="1">一线</option>
+                            <option value="2" selected="selected">二线</option>
+                        }
+                    </select>
+                    <span>CP名称:</span>
+                    <input type="text" id="SelKeywords" name="SelKeywords" class="txtInput" value="@Model.par.selkeywords" />
+                    <input type="submit" id="btnSearch" name="btnSearch" value="搜 索" class="btnSearch" />
                 </div>
                 <a href="../admin/ImportExcelByComplain" class="tools_btn"><span><b class="add">导入投诉源数据</b></span></a>
-                @*<a href="javascript:void(0);" onclick="checkAll(this);" class="tools_btn"><span><b class="all">全选</b></span></a>
-                    <a href="javascript:void(0);" id="btnDelete" class="tools_btn"
-                       onclick="return ExePostBack('btnDelete', '', 'cp');"><span><b class="delete">批量删除</b></span></a>*@
             </div>
         </div>
 
@@ -48,7 +70,7 @@
             </tr>
             @if (Model != null)
             {
-                foreach (var items in Model)
+                foreach (var items in Model.list)
                 {
                     foreach (var item in items.caList)
                     {
@@ -56,22 +78,22 @@
                             <td align="center">
                                 @items.SourceLevel
                             </td>
-                            <td  align="center">
+                            <td align="center">
                                 @items.CpName
                             </td>
-                            <td  align="center">
+                            <td align="center">
                                 @item.privnce
                             </td>
-                            <td  align="center">
+                            <td align="center">
                                 @item.notBaoyuePayUserNum
                             </td>
-                            <td  align="center">
+                            <td align="center">
                                 @item.yesterdayAddNum
                             </td>
-                            <td  align="center">
+                            <td align="center">
                                 @item.AddNum
                             </td>
-                            <td  align="center">
+                            <td align="center">
                                 @item.LeaveNum
                             </td>
                             <td align="center">

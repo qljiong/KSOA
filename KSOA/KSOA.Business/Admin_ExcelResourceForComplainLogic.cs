@@ -47,7 +47,7 @@ namespace KSOA.Business
         /// </summary>
         /// <param name="BeginTime"></param>
         /// <param name="EndTime"></param>
-        public List<ComplainAnalysisList> GetAnalysisByComplain(int PageSize, int PageIndex, out int totalCount, DateTime BeginTime, DateTime EndTime)
+        public ExtentionComplainBag GetAnalysisByComplain(int PageSize, int PageIndex, out int totalCount, ComplainParam pra)
         {
             //统计非包月用户数
             //取出所有数据
@@ -80,7 +80,7 @@ namespace KSOA.Business
                 //1.新增
                 var AddPop = from p in cpComplain
                              join s in allCp on p.CPid equals s.CPid
-                             where p.OrderTime > BeginTime
+                             where p.OrderTime > pra.seltime
                              group p by p.Province into g
                              select new
                              {
@@ -91,7 +91,7 @@ namespace KSOA.Business
                 //2.遗留
                 var leavePop = from p in cpComplain
                                join s in allCp on p.CPid equals s.CPid
-                               where p.OrderTime <= BeginTime
+                               where p.OrderTime <= pra.seltime
                                group p by p.Province into g
                                select new
                                {
@@ -99,10 +99,10 @@ namespace KSOA.Business
                                    AddCount = g.Count()
                                };
                 //新增日期的昨天记录
-                BeginTime = BeginTime.AddDays(-1);
+                DateTime praseltime = pra.seltime.AddDays(-1);
                 var yesterdayAddPop = from p in cpComplain
                                       join s in allCp on p.CPid equals s.CPid
-                                      where p.OrderTime > BeginTime
+                                      where p.OrderTime > praseltime
                                       group p by p.Province into g
                                       select new
                                       {
@@ -138,27 +138,42 @@ namespace KSOA.Business
                 //添加到列表
                 cpList.Add(cpModel);
             }
-           var query = cpList.OrderBy(s => s.SourceLevel);
+            var query = cpList.OrderBy(s => s.SourceLevel).ToList();
+
+            #region 查询条件过滤
+            //关键词
+            if (!string.IsNullOrEmpty(pra.selkeywords))//关键词非空
+            {
+                query = query.Where(s => s.CpName.Contains(pra.selkeywords)).ToList();
+            }
+            //线级
+            if (pra.selline != "0" && pra.selline != "")//线级选择非空
+            {
+                string level = pra.selline == "1" ? "一线" : "二线";
+                query = query.Where(s => s.SourceLevel.Contains(level)).ToList();
+            }
+            #endregion
 
             totalCount = query.Count();
-            var list = new List<ComplainAnalysisList>();
+            var cbag = new ExtentionComplainBag();
             if (PageIndex < 0 || PageSize < 0)
             {
                 return null;
             }
             if (PageIndex == 1 && PageSize > totalCount)
             {
-                list = query.ToList();
+                cbag.list = query.ToList();
             }
             else if (PageIndex == 1 && PageSize > 0)
             {
-                list = query.Take(PageSize).ToList();
+                cbag.list = query.Take(PageSize).ToList();
             }
             else
             {
-                list = query.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+                cbag.list = query.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
             }
-            return list;
+            cbag.par = pra;
+            return cbag;
         }
     }
 }

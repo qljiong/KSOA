@@ -55,6 +55,7 @@
     <Compile Include="Bank_Opus.cs" />
     <Compile Include="Bank_OriginalGroup.cs" />
     <Compile Include="ComplainAnalysisList.cs" />
+    <Compile Include="ExtensionClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="siteconfig.cs" />
     <Compile Include="UI_ExcelImportByChannel.cs" />

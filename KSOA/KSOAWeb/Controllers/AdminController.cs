@@ -595,7 +595,13 @@ namespace KSOAWeb.Controllers
         }
         public ActionResult ExportExcelToDownLoad(string excelName = "测试")
         {
-            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
+            ExtentionComplainBag cbag = new ExtentionComplainBag();
+            ComplainParam pra = new ComplainParam();
+            pra.seltime = DateTime.Now;
+            pra.selline = "";
+            pra.selkeywords = "";
+
+            cbag = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, pra);
 
             string filename = excelName + ".xls";
             Response.ContentType = "application/vnd.ms-excel";
@@ -604,7 +610,7 @@ namespace KSOAWeb.Controllers
 
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
             InitializeWorkbook(hssfworkbook);
-            GenerateData(hssfworkbook, dataList);
+            GenerateData(hssfworkbook, cbag.list);
             GetExcelStream(hssfworkbook).WriteTo(Response.OutputStream);
             Response.End();
             return new EmptyResult();
@@ -851,17 +857,43 @@ namespace KSOAWeb.Controllers
         #endregion
 
         #region 投诉管理
-        public ActionResult ComplainManage()
+
+        public ActionResult ComplainManage(FormCollection form)
         {
-            this.pageSize = GetPageSize(15); //每页数量
-            this.page = DTRequest.GetQueryInt("page", 1);
-            ViewBag.txtKeywords = this.keywords;
-            List<ComplainAnalysisList> dataList = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, new DateTime(2014, 2, 25), new DateTime(2014, 2, 25));
-            //绑定页码
-            ViewBag.txtPageNum = this.pageSize.ToString();
-            string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
-            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
-            return View(dataList);
+            ExtentionComplainBag cbag = new ExtentionComplainBag();
+            if (form.Count != 0)//有选择条件
+            {
+                ComplainParam pra = new ComplainParam();
+                pra.seltime = form["SelTime"] == "" ? DateTime.Now.AddDays(-1) : Convert.ToDateTime(form["SelTime"]);
+                pra.selline = form["SelLine"];
+                pra.selkeywords = form["SelKeywords"];
+                this.pageSize = GetPageSize(20); //每页数量
+                this.page = DTRequest.GetQueryInt("page", 1);
+                ViewBag.txtKeywords = this.keywords;
+                cbag = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, pra);
+                //绑定页码
+                ViewBag.txtPageNum = this.pageSize.ToString();
+                string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "seltime={0}&selline={1}&selkeywords={2}&page={3}", pra.seltime.ToString(), pra.selline, pra.selkeywords);
+                ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+                return View(cbag);
+            }
+            else
+            {
+                ComplainParam pra = new ComplainParam();
+                pra.seltime = DateTime.Now.AddDays(-1);
+                pra.selline = "";
+                pra.selkeywords = "";
+
+                this.pageSize = GetPageSize(20); //每页数量
+                this.page = DTRequest.GetQueryInt("page", 1);
+                ViewBag.txtKeywords = this.keywords;
+                cbag = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, pra);
+                //绑定页码
+                ViewBag.txtPageNum = this.pageSize.ToString();
+                string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+                ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+                return View(cbag);
+            }
         }
         #endregion
 
