@@ -47,11 +47,11 @@ namespace KSOA.Business
         /// 获取包月数据列表
         /// </summary>
         /// <returns></returns>
-        public List<Admin_ExcelResourceForMonth> GetMonthList(int PageSize, int PageIndex, out int totalCount, int cpid, DateTime findTime)
+        public ExtentionMonthBag GetMonthList(int PageSize, int PageIndex, out int totalCount, MonthParam pra)
         {
             var query = from s in _db.Admin_ExcelResourceForMonth
                         join p in _db.Admin_CPcompany on s.CPid equals p.ID
-                        where s.IsDelete == false && s.CPid == cpid
+                        where s.IsDelete == false
                         orderby s.StatisticsTime
                         select new Admin_ExcelResourceForMonth
                             {
@@ -68,25 +68,46 @@ namespace KSOA.Business
                                 SourceLevel = s.SourceLevel,
                                 AddTime = s.AddTime
                             };
+
+
+            #region 查询条件过滤
+            //cp名称
+            if (!string.IsNullOrEmpty(pra.selCPName))//关键词非空
+            {
+                query = query.Where(s => s.Cpname.Contains(pra.selCPName));
+            }
+            //作品名称
+            if (!string.IsNullOrEmpty(pra.selOpusName))
+            {
+                query = query.Where(s => s.SingleOpusName.Contains(pra.selOpusName));
+            }
+            //选择时间
+            if (pra.seltime != new DateTime(1970, 1, 1))
+            {
+                query = query.Where(s => s.StatisticsTime == pra.seltime);
+            }
+            #endregion
             totalCount = query.Count();
-            var list = new List<Admin_ExcelResourceForMonth>();
+            var cbag = new ExtentionMonthBag();
             if (PageIndex < 0 || PageSize < 0)
             {
                 return null;
             }
             if (PageIndex == 1 && PageSize > totalCount)
             {
-                list = query.ToList();
+                cbag.list = query.ToList();
             }
             else if (PageIndex == 1 && PageSize > 0)
             {
-                list = query.Take(PageSize).ToList();
+                cbag.list = query.Take(PageSize).ToList();
             }
             else
             {
-                list = query.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+                cbag.list = query.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
             }
-            return list;
+            cbag.par = pra;
+
+            return cbag;
         }
     }
 }

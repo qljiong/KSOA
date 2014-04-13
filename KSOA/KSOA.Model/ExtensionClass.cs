@@ -32,4 +32,33 @@ namespace KSOA.Model
         public List<ComplainAnalysisList> list { get; set; }
         public ComplainParam par { get; set; }
     }
+
+    /// <summary>
+    /// 包月分析查询辅助
+    /// </summary>
+    public class MonthParam
+    {
+        /// <summary>
+        /// 选定时间
+        /// </summary>
+        public DateTime seltime { get; set; }
+        /// <summary>
+        /// 作品名
+        /// </summary>
+        public string selOpusName { get; set; }
+        /// <summary>
+        /// CP名称
+        /// </summary>
+        public string selCPName { get; set; }
+
+        ///// <summary>
+        ///// CPID
+        ///// </summary>
+        //public int selCPID { get; set; }
+    }
+    public class ExtentionMonthBag
+    {
+        public List<Admin_ExcelResourceForMonth> list { get; set; }
+        public MonthParam par { get; set; }
+    }
 }

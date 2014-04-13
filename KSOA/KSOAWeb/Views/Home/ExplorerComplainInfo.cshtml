@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExplorerComplainInfo</title>
+</head>
+<body>
+    @using (Html.BeginForm("ExplorerComplainInfo", "Home", FormMethod.Post))
+    {
+        <div>
+            <input type="submit" value="导出投诉分析" id="export" name="export" />
+        </div>
+    }
+</body>
+</html>

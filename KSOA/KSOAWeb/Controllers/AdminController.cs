@@ -861,19 +861,79 @@ namespace KSOAWeb.Controllers
         public ActionResult ComplainManage(FormCollection form)
         {
             ExtentionComplainBag cbag = new ExtentionComplainBag();
-            if (form.Count != 0)//有选择条件
+            if (form.Count != 0 || Request.QueryString.Count != 0)//有选择条件
             {
                 ComplainParam pra = new ComplainParam();
-                pra.seltime = form["SelTime"] == "" ? DateTime.Now.AddDays(-1) : Convert.ToDateTime(form["SelTime"]);
-                pra.selline = form["SelLine"];
-                pra.selkeywords = form["SelKeywords"];
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["SelTime"] != "" && form["SelTime"] != null)
+                    {
+                        pra.seltime = Convert.ToDateTime(form["SelTime"]);
+                    }
+                    else
+                    {
+                        pra.seltime = DateTime.Now.AddDays(-1);
+                    }
+                }
+                else if (DTRequest.GetQueryString("seltime") != "")
+                {
+                    pra.seltime = Convert.ToDateTime(DTRequest.GetQueryString("seltime"));
+                }
+                else
+                {
+                    pra.seltime = DateTime.Now.AddDays(-1);
+                }
+
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["SelLine"] != "" && form["SelLine"] != null)
+                    {
+                        pra.selline = form["SelLine"];
+                    }
+                    else
+                    {
+                        pra.selline = "";
+                    }
+                }
+                else if (DTRequest.GetQueryString("SelLine") != "")
+                {
+                    pra.selline = DTRequest.GetQueryString("SelLine");
+                }
+                else
+                {
+                    pra.selline = "";
+                }
+
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["SelKeywords"] != "" && form["SelKeywords"] != null)
+                    {
+                        pra.selkeywords = form["SelKeywords"];
+                    }
+                    else
+                    {
+                        pra.selkeywords = "";
+                    }
+                }
+                else if (DTRequest.GetQueryString("SelKeywords") != "")
+                {
+                    pra.selkeywords = DTRequest.GetQueryString("SelKeywords");
+                }
+                else
+                {
+                    pra.selkeywords = "";
+                }
+
                 this.pageSize = GetPageSize(20); //每页数量
                 this.page = DTRequest.GetQueryInt("page", 1);
                 ViewBag.txtKeywords = this.keywords;
                 cbag = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, pra);
                 //绑定页码
                 ViewBag.txtPageNum = this.pageSize.ToString();
-                string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "seltime={0}&selline={1}&selkeywords={2}&page={3}", pra.seltime.ToString(), pra.selline, pra.selkeywords);
+                string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "seltime={0}&selline={1}&selkeywords={2}&page={3}", pra.seltime.ToString(), pra.selline, pra.selkeywords, "__id__");
                 ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
                 return View(cbag);
             }
@@ -885,12 +945,20 @@ namespace KSOAWeb.Controllers
                 pra.selkeywords = "";
 
                 this.pageSize = GetPageSize(20); //每页数量
-                this.page = DTRequest.GetQueryInt("page", 1);
+                //post请求,点击查询返回第一页
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.page = 1;
+                }
+                else
+                {
+                    this.page = DTRequest.GetQueryInt("page", 1);
+                }
                 ViewBag.txtKeywords = this.keywords;
                 cbag = new Admin_ExcelResourceForComplainLogic().GetAnalysisByComplain(this.pageSize, this.page, out this.totalCount, pra);
                 //绑定页码
                 ViewBag.txtPageNum = this.pageSize.ToString();
-                string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+                string pageUrl = Utils.CombUrlTxt("../admin/ComplainManage", "seltime={0}&selline={1}&selkeywords={2}&page={3}", pra.seltime.ToString(), pra.selline, pra.selkeywords, "__id__");
                 ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
                 return View(cbag);
             }
@@ -898,17 +966,110 @@ namespace KSOAWeb.Controllers
         #endregion
 
         #region 包月管理
-        public ActionResult MonthManage()
+        public ActionResult MonthManage(FormCollection form)
         {
-            this.pageSize = GetPageSize(25); //每页数量
-            this.page = DTRequest.GetQueryInt("page", 1);
-            ViewBag.txtKeywords = this.keywords;
-            List<Admin_ExcelResourceForMonth> dataList = new Admin_ExcelResourceForMonthLogic().GetMonthList(this.pageSize, this.page, out this.totalCount, 1, new DateTime(2014, 2, 25));
-            //绑定页码
-            ViewBag.txtPageNum = this.pageSize.ToString();
-            string pageUrl = Utils.CombUrlTxt("../admin/MonthManage", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
-            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
-            return View(dataList);
+            ExtentionMonthBag cbag = new ExtentionMonthBag();
+            if (form.Count != 0 || Request.QueryString.Count != 0)//有选择条件
+            {
+                MonthParam pra = new MonthParam();
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["SelTime"] != "" && form["SelTime"] != null)
+                    {
+                        pra.seltime = Convert.ToDateTime(form["SelTime"]);
+                    }
+                    else
+                    {
+                        pra.seltime = new DateTime(1970, 1, 1);
+                    }
+                }
+                else if (DTRequest.GetQueryString("seltime") != "")
+                {
+                    pra.seltime = Convert.ToDateTime(DTRequest.GetQueryString("seltime"));
+                }
+                else
+                {
+                    pra.seltime = new DateTime(1970, 1, 1);
+                }
+
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["selOpusName"] != "" && form["selOpusName"] != null)
+                    {
+                        pra.selOpusName = form["selOpusName"];
+                    }
+                    else
+                    {
+                        pra.selOpusName = "";
+                    }
+                }
+                else if (DTRequest.GetQueryString("selOpusName") != "")
+                {
+                    pra.selOpusName = DTRequest.GetQueryString("selOpusName");
+                }
+                else
+                {
+                    pra.selOpusName = "";
+                }
+
+                 //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["selCPName"] != "" && form["selCPName"] != null)
+                    {
+                        pra.selCPName = form["selCPName"];
+                    }
+                    else
+                    {
+                        pra.selCPName = "";
+                    }
+                }
+                else if (DTRequest.GetQueryString("selCPName") != "")
+                {
+                    pra.selCPName = DTRequest.GetQueryString("selCPName");
+                }
+                else
+                {
+                    pra.selCPName = "";
+                }
+
+                this.pageSize = GetPageSize(25); //每页数量
+                 //post请求,点击查询返回第一页
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.page = 1;
+                }
+                else
+                {
+                    this.page = DTRequest.GetQueryInt("page", 1);
+                }
+                ViewBag.txtKeywords = this.keywords;
+                cbag = new Admin_ExcelResourceForMonthLogic().GetMonthList(this.pageSize, this.page, out this.totalCount, pra);
+                //绑定页码
+                ViewBag.txtPageNum = this.pageSize.ToString();
+                string pageUrl = Utils.CombUrlTxt("../admin/MonthManage", "SelTime={0}&selOpusName={1}&selCPName={2}&page={3}", pra.seltime.ToString(), pra.selOpusName, pra.selCPName, "__id__");
+                ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+                return View(cbag);
+            }
+            else
+            {
+                MonthParam pra = new MonthParam();
+                pra.seltime = form["SelTime"] == "" || form["SelTime"] == null ? new DateTime(1970, 1, 1) : Convert.ToDateTime(form["SelTime"]);
+                pra.selOpusName = "";
+                pra.selCPName = "";
+
+                this.pageSize = GetPageSize(25); //每页数量
+                this.page = DTRequest.GetQueryInt("page", 1);
+                ViewBag.txtKeywords = this.keywords;
+                cbag = new Admin_ExcelResourceForMonthLogic().GetMonthList(this.pageSize, this.page, out this.totalCount, pra);
+                //绑定页码
+                ViewBag.txtPageNum = this.pageSize.ToString();
+                string pageUrl = Utils.CombUrlTxt("../admin/MonthManage", "SelTime={0}&selOpusName={1}&selCPName={2}&page={3}", pra.seltime.ToString(), pra.selOpusName, pra.selCPName, "__id__");
+                ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+                return View(cbag);
+            }
         }
         #endregion
     }

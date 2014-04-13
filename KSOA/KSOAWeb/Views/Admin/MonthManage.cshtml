@@ -1,5 +1,5 @@
 ﻿@using KSOA.Model;
-@model List<Admin_ExcelResourceForMonth>
+@model ExtentionMonthBag
 @{
     Layout = null;
 }
@@ -17,15 +17,75 @@
     <script src="~/Scripts/messages_cn.js"></script>
     <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
     <script src="~/Scripts/Admin/function.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
     <title>MonthManage</title>
+    <style type="text/css">
+        .shRow {
+            padding: 0;
+            margin: 0;
+            vertical-align: -3px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            $(".shRow").each(function (ind, val) {
+                var selcla = $(this).parent().attr("class");
+                var cresult = getCookie(selcla);
+                if (cresult == "hide") {
+                    $("." + selcla).hide();
+                }
+            });
+        }
+        //隐藏选中列
+        function hideSelRow() {
+            $(".shRow").each(function (ind, val) {
+                if ($(this).attr("checked") == false) {
+                    var selcla = $(this).parent().attr("class");
+                    $("." + selcla).hide();
+                    SetCookie(selcla, "hide");
+                }
+            });
+        }
+        //显示所有列
+        function showAllRow() {
+            $(".shRow").each(function (ind, val) {
+                var selcla = $(this).parent().attr("class");
+                $("." + selcla).show();
+                delCookie(selcla, "hide");
+            });
+        }
+        function SetCookie(name, value)//浏览器关闭即失效的cookie
+        {
+            document.cookie = name + "=" + escape(value) + ";expires=";
+        }
+        function getCookie(name)//取cookies函数
+        {
+            var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+            if (arr != null) return unescape(arr[2]); return null;
+        }
+        function delCookie(name)//删除cookie
+        {
+            var exp = new Date();
+            exp.setTime(exp.getTime() - 1);
+            var cval = getCookie(name);
+            if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+        }
+    </script>
 </head>
 <body class="mainbody">
-    <form id="form1">
+    <form id="form1" method="post">
         <div class="tools_box">
             <div class="tools_bar">
                 <div class="search_box">
-                    <input type="text" id="txtKeywords" class="txtInput" />
-                    <input type="button" id="btnSearch" value="搜 索" class="btnSearch" />
+                    <input type="button" onclick="showAllRow()" value="显示所有列" />
+                    <input type="button" onclick="hideSelRow()" value="隐藏未选中列" />
+                    <span>日期:</span>
+                    <input type="text" name="SelTime" readonly="readonly" value="@(Model.par.seltime == new DateTime(1970, 1, 1) ? "" : Model.par.seltime.ToString("yyyy-MM-dd"))" class="txtInput" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'})" />
+                    <span>作品名称:</span>
+                    <input type="text" id="SelOpusName" name="SelOpusName" class="txtInput" value="@Model.par.selOpusName" />
+                    <span>CP名称:</span>
+                    <input type="text" id="SelCPName" name="SelCPName" class="txtInput" value="@Model.par.selCPName" />
+                    <input type="submit" id="btnSearch" name="btnSearch" value="搜 索" class="btnSearch" />
                 </div>
                 <a href="../admin/ImportExcelByMonth" class="tools_btn"><span><b class="add">导入包月源数据</b></span></a>
             </div>
@@ -34,43 +94,59 @@
         <!--列表展示.开始-->
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="msgtable">
             <tr>
-                <th>CP名称</th>
-                <th>日期</th>
-                <th>作品名称</th>
-                <th>非包月点播次数</th>
-                <th>包月点播次数</th>
-                <th>付费点播次数</th>
-                <th>免费点播次数</th>
-                <th>非包月付费点播</th>
+                <th class="rCpName">
+                    CP名称<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rTime">
+                    日期<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rOpusName">
+                    作品名称<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rNotBaoyue">
+                    非包月点播次数<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rBaoyue">
+                    包月点播次数<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rPay">
+                    付费点播次数<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rFree">
+                    免费点播次数<input class="shRow" type="checkbox" checked="checked" />
+                </th>
+                <th class="rNotBaoyuePay">
+                    非包月付费点播<input class="shRow" type="checkbox" checked="checked" />
+                </th>
             </tr>
-            @if (Model != null)
+            @if (Model.list != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.list)
                 {
                     <tr>
-                        <td align="center">
-                            <input type="hidden" value="@item.CPid" /> 
+                        <td class="rCpName" align="center">
+                            <input type="hidden" value="@item.CPid" />
                             @item.Cpname
                         </td>
-                        <td align="center">
-                            @item.StatisticsTime
+                        <td class="rTime" align="center">
+                            @item.StatisticsTime.ToString("yyyy-MM-dd")
                         </td>
-                        <td align="center">
+                        <td class="rOpusName" align="center">
                             @item.SingleOpusName
                         </td>
-                        <td align="center">
+                        <td class="rNotBaoyue" align="center">
                             @item.NotBaoyuePlayNum
                         </td>
-                        <td align="center">
+                        <td class="rBaoyue" align="center">
                             @item.BaoyuePlayNum
                         </td>
-                        <td align="center">
+                        <td class="rPay" align="center">
                             @item.PayBillPlayNum
                         </td>
-                        <td align="center">
+                        <td class="rFree" align="center">
                             @item.FreePlayNum
                         </td>
-                        <td align="center">
+                        <td class="rNotBaoyuePay" align="center">
                             @item.NotBaoyuePayBillPlayNum
                         </td>
                     </tr>
