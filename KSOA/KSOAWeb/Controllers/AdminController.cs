@@ -1014,7 +1014,7 @@ namespace KSOAWeb.Controllers
                     pra.selOpusName = "";
                 }
 
-                 //post请求
+                //post请求
                 if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
                 {
                     if (form["selCPName"] != "" && form["selCPName"] != null)
@@ -1036,7 +1036,7 @@ namespace KSOAWeb.Controllers
                 }
 
                 this.pageSize = GetPageSize(25); //每页数量
-                 //post请求,点击查询返回第一页
+                //post请求,点击查询返回第一页
                 if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
                 {
                     this.page = 1;
@@ -1070,6 +1070,20 @@ namespace KSOAWeb.Controllers
                 ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
                 return View(cbag);
             }
+        }
+        #endregion
+
+        #region 收入统计
+        public ActionResult IncomeManage()
+        {
+            return View();
+        }
+        #endregion
+
+        #region 渠道投诉统计
+        public ActionResult ChannelComplainManage()
+        {
+            return View();
         }
         #endregion
     }

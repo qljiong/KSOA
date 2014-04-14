@@ -85,10 +85,34 @@ namespace KSOA.Business
         /// <returns></returns>
         public bool UpdateMark(int id)
         {
-            var wn = _db.Work_Note.Where(s=>s.ID==id).SingleOrDefault();
+            var wn = _db.Work_Note.Where(s => s.ID == id).SingleOrDefault();
             wn.IsRead = true;
             _db.SaveChanges();
             return false;
+        }
+
+        /// <summary>
+        /// 标记为已阅(批量)
+        /// </summary>
+        /// <returns></returns>
+        public bool DelDaily(int[] ids)
+        {
+            var result = from c in _db.Work_Note
+                         where ids.Contains<int>(c.ID)
+                         select c;
+            foreach (var item in result)
+            {
+                item.IsRead = true;
+            }
+            int re = _db.SaveChanges();
+            if (re == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

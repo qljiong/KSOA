@@ -99,6 +99,24 @@ namespace KSOAWeb.Controllers
             }
             return View(wn);
         }
+
+        /// <summary>
+        /// 删除工作报告信息
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult DelDaily()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            new Work_NoteLogic().DelDaily(arr2);
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region 周报部分

@@ -121,6 +121,10 @@ function ExePostBack(objId, objmsg, urltype) {
             {
                 opurl = "../DailyWork/Delschedule";
             }
+            if (urltype == "Daily")//工作报告管理
+            {
+                opurl = "../DailyWork/DelDaily";
+            }
             if (urltype == "oups")//作品管理
             {
                 opurl = "../ProPlatform/DelOpus";
@@ -133,6 +137,7 @@ function ExePostBack(objId, objmsg, urltype) {
             {
                 opurl = "../ProPlatform/DelOriginalGroupOpus";
             }
+            
             //ajax删除
             $.ajax({
                 dataType: 'json',
