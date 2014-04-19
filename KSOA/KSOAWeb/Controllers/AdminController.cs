@@ -1074,9 +1074,23 @@ namespace KSOAWeb.Controllers
         #endregion
 
         #region 收入统计
-        public ActionResult IncomeManage()
+        public ActionResult IncomeManage(FormCollection form)
         {
-            return View();
+            IncomeAnalysisParam pra = new IncomeAnalysisParam();
+            if (form.Count > 0)
+            {
+                if (form["SelTime"] != "" && form["SelTime"] != null)
+                {
+                    pra.selTime = Convert.ToDateTime(form["SelTime"] + "-01");
+                }
+                else
+                {
+                    pra.selTime = DateTime.Now;
+                }
+                pra.opusName = form["SelOpusName"];
+            }
+            ExtentionIncomeAnalysis result = new Admin_ExcelResourceForMonthLogic().GetIncomeAnalysis(this.pageSize, this.page, out this.totalCount, pra);
+            return View(result);
         }
         #endregion
 

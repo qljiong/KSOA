@@ -481,6 +481,7 @@
     <Content Include="Scripts\jquery.pagination.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\messages_cn.js" />
+    <Content Include="Scripts\OpCookie.js" />
     <Content Include="Scripts\swfupload\swfupload.handlers.js" />
     <Content Include="Scripts\swfupload\swfupload.js" />
     <Content Include="Scripts\swfupload\swfupload.queue.js" />

@@ -1,6 +1,7 @@
 ﻿using KSOA.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -108,6 +109,39 @@ namespace KSOA.Business
             cbag.par = pra;
 
             return cbag;
+        }
+
+        /// <summary>
+        /// 获取收入分析数据
+        /// </summary>
+        public ExtentionIncomeAnalysis GetIncomeAnalysis(int PageSize, int PageIndex, out int totalCount, IncomeAnalysisParam pra)
+        {
+            //预留分页功能参数(待需要的时候添加)
+            //1.判断查询条件
+            string addparam = "";
+            if (pra.opusName!="" && pra.opusName!=null)
+            {
+                addparam = " and SingleOpusName like '%" + pra.opusName + "%' ";
+            }
+            string strsql = "select  SingleOpusName as SingleOpusName,convert(datetime, floor(convert(float, StatisticsTime))) as AnalyTime, sum(NotBaoyuePayBillPlayNum) as SumNum from [Admin_ExcelResourceForMonth] WHERE datediff(month,StatisticsTime,'" + pra.selTime.ToString("yyyy-MM-dd") + "')=0 " + addparam + " group by floor(convert(float, StatisticsTime)),SingleOpusName";
+            DataTable dt =new KSOA.DataAccess.SQLHelper().ExecuteQuery(strsql,CommandType.Text);
+
+            totalCount = 0;
+
+            ExtentionIncomeAnalysis result = new ExtentionIncomeAnalysis();
+            List<IncomeResult> iresult = new List<IncomeResult>();
+            IncomeResult item;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                item = new IncomeResult();
+                item.SingleOpusName = dt.Rows[i]["SingleOpusName"].ToString();
+                item.SumNum = Convert.ToInt32(dt.Rows[i]["SumNum"]);
+                item.AnalyTime = dt.Rows[i]["AnalyTime"].ToString();
+                iresult.Add(item);
+            }
+            result.list = iresult;
+            result.par = pra;
+            return result;
         }
     }
 }

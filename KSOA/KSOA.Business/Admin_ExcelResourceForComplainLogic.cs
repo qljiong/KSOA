@@ -175,5 +175,14 @@ namespace KSOA.Business
             cbag.par = pra;
             return cbag;
         }
+
+        /// <summary>
+        /// 获取渠道投诉统计数据
+        /// </summary>
+        public ExtentionIncomeAnalysis GetIncomeAnalysis(int PageSize, int PageIndex, out int totalCount, IncomeAnalysisParam pra)
+        {
+            totalCount = 0;
+            return new ExtentionIncomeAnalysis();
+        }
     }
 }

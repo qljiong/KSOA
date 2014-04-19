@@ -179,18 +179,27 @@ namespace KSOA.DataAccess
         /// <param name="cmdText">查询SQL语句或存储过程</param>
         /// <param name="ct">命令类型</param>
         /// <returns></returns>
-        //public DataTable ExecuteQuery(string cmdText, CommandType ct)
-        //{
-        //    String ConnStr = GetSqlConnection();
-        //    DataTable dt = new DataTable();
-        //    SqlCommand cmd = new SqlCommand(cmdText, GetSqlConnection());
-        //    cmd.CommandType = ct;
-        //    using (SqlDataReader sdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-        //    {
-        //        dt.Load(sdr);
-        //    }
-        //    return dt;
-        //}
+        public DataTable ExecuteQuery(string cmdText, CommandType ct)
+        {
+            Open();
+            String ConnStr = GetSqlConnection();
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(cmdText, con);
+            cmd.CommandType = ct;
+            using (SqlDataReader sdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+            {
+                //while (sdr.Read())
+                //{
+                //    string SingleOpusName = sdr["SingleOpusName"].ToString();
+                //    string AnalyTime = sdr["SingleOpusName"].ToString();
+                //    int SumNum = Convert.ToInt32(sdr["SingleOpusName"]);
+
+                //}
+                dt.Load(sdr);
+            }
+            Close();
+            return dt;
+        }
 
 
 
