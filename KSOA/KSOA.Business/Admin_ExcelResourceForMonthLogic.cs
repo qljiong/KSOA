@@ -123,7 +123,7 @@ namespace KSOA.Business
             {
                 addparam = " and SingleOpusName like '%" + pra.opusName + "%' ";
             }
-            string strsql = "select  SingleOpusName as SingleOpusName,convert(datetime, floor(convert(float, StatisticsTime))) as AnalyTime, sum(NotBaoyuePayBillPlayNum) as SumNum from [Admin_ExcelResourceForMonth] WHERE datediff(month,StatisticsTime,'" + pra.selTime.ToString("yyyy-MM-dd") + "')=0 " + addparam + " group by floor(convert(float, StatisticsTime)),SingleOpusName";
+            string strsql = "select  Admin_CPcompany.CPname as CPname,SingleOpusName as SingleOpusName,convert(datetime, floor(convert(float, StatisticsTime))) as AnalyTime, sum(NotBaoyuePayBillPlayNum) as SumNum from [Admin_ExcelResourceForMonth] inner join Admin_CPcompany on Admin_ExcelResourceForMonth.cpid=Admin_CPcompany.ID WHERE datediff(month,StatisticsTime,'" + pra.selTime.ToString("yyyy-MM-dd") + "')=0 " + addparam + " group by floor(convert(float, StatisticsTime)),SingleOpusName,Admin_CPcompany.CPname order by SingleOpusName";
             DataTable dt =new KSOA.DataAccess.SQLHelper().ExecuteQuery(strsql,CommandType.Text);
 
             totalCount = 0;
@@ -137,8 +137,44 @@ namespace KSOA.Business
                 item.SingleOpusName = dt.Rows[i]["SingleOpusName"].ToString();
                 item.SumNum = Convert.ToInt32(dt.Rows[i]["SumNum"]);
                 item.AnalyTime = dt.Rows[i]["AnalyTime"].ToString();
+                item.CPname = dt.Rows[i]["CPname"].ToString();
                 iresult.Add(item);
             }
+            result.list = iresult;
+            result.par = pra;
+            return result;
+        }
+
+        /// <summary>
+        /// 获取收入分析数据汇总
+        /// </summary>
+        public ExtentionIncomeAnalysis GetIncomeAnalysiscollect(int PageSize, int PageIndex, out int totalCount, IncomeAnalysisParam pra)
+        {
+            //预留分页功能参数(待需要的时候添加)
+            //1.判断查询条件
+            string addparam = "";
+            if (pra.opusName != "" && pra.opusName != null)
+            {
+                addparam = " and SingleOpusName like '%" + pra.opusName + "%' ";
+            }
+            string strsql = "select  Admin_CPcompany.CPname as CPname,SingleOpusName as SingleOpusName,convert(datetime, floor(convert(float, StatisticsTime))) as AnalyTime, sum(NotBaoyuePayBillPlayNum) as SumNum from [Admin_ExcelResourceForMonth] inner join Admin_CPcompany on Admin_ExcelResourceForMonth.cpid=Admin_CPcompany.ID WHERE datediff(month,StatisticsTime,'" + pra.selTime.ToString("yyyy-MM-dd") + "')=0 " + addparam + " group by floor(convert(float, StatisticsTime)),SingleOpusName,Admin_CPcompany.CPname order by SingleOpusName";
+            DataTable dt = new KSOA.DataAccess.SQLHelper().ExecuteQuery(strsql, CommandType.Text);
+
+            totalCount = 0;
+
+            ExtentionIncomeAnalysis result = new ExtentionIncomeAnalysis();
+            List<IncomeResult> iresult = new List<IncomeResult>();
+            IncomeResult item;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                item = new IncomeResult();
+                item.SingleOpusName = dt.Rows[i]["SingleOpusName"].ToString();
+                item.SumNum = Convert.ToInt32(dt.Rows[i]["SumNum"]);
+                item.AnalyTime = dt.Rows[i]["AnalyTime"].ToString();
+                item.CPname = dt.Rows[i]["CPname"].ToString();
+                iresult.Add(item);
+            }
+            iresult = (from q in iresult group q by q.SingleOpusName into g select new IncomeResult { SingleOpusName = g.Key, SumNum = g.Sum(q => q.SumNum) }).ToList();
             result.list = iresult;
             result.par = pra;
             return result;

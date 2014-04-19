@@ -1092,6 +1092,29 @@ namespace KSOAWeb.Controllers
             ExtentionIncomeAnalysis result = new Admin_ExcelResourceForMonthLogic().GetIncomeAnalysis(this.pageSize, this.page, out this.totalCount, pra);
             return View(result);
         }
+        /// <summary>
+        /// 收入统计汇总
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
+        public ActionResult IncomeManagecollect(FormCollection form)
+        {
+            IncomeAnalysisParam pra = new IncomeAnalysisParam();
+            if (form.Count > 0)
+            {
+                if (form["SelTime"] != "" && form["SelTime"] != null)
+                {
+                    pra.selTime = Convert.ToDateTime(form["SelTime"] + "-01");
+                }
+                else
+                {
+                    pra.selTime = DateTime.Now;
+                }
+                pra.opusName = form["SelOpusName"];
+            }
+            ExtentionIncomeAnalysis result = new Admin_ExcelResourceForMonthLogic().GetIncomeAnalysiscollect(this.pageSize, this.page, out this.totalCount, pra);
+            return View(result);
+        }
         #endregion
 
         #region 渠道投诉统计

@@ -104,6 +104,8 @@ namespace KSOA.Model
     /// </summary>
     public class IncomeResult
     {
+        public int cpid { get; set; }
+        public string CPname { get; set; }
         /// <summary>
         /// 累计次数
         /// </summary>

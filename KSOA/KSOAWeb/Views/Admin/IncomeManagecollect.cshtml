@@ -1,0 +1,102 @@
+﻿@using KSOA.Model;
+@model ExtentionIncomeAnalysis
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Scripts/ui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Content/Admin/Admin.css" rel="stylesheet" />
+    <link href="~/Content/Admin/pagination.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.3.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/messages_cn.js"></script>
+    <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
+    <script src="~/Scripts/Admin/function.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
+    <title>MonthManage</title>
+    <style type="text/css">
+        .shRow {
+            padding: 0;
+            margin: 0;
+            vertical-align: -3px;
+        }
+    </style>
+</head>
+<body class="mainbody">
+    <form id="form1" method="post">
+        <div class="tools_box">
+            <div class="tools_bar">
+                <div class="search_box">
+                    <span>日期:</span>
+                    <input type="text" name="SelTime" readonly="readonly" value="@Model.par.selTime.ToString("yyyy-MM")" class="txtInput" onfocus="WdatePicker({dateFmt: 'yyyy-MM'})" />
+                    <span>作品名称:</span>
+                    <input type="text" id="SelOpusName" name="SelOpusName" class="txtInput" value="@Model.par.opusName" />
+                    <input type="submit" id="btnSearch" name="btnSearch" value="搜 索" class="btnSearch" />
+                </div>
+                <a href="../admin/ImportExcelByMonth" class="tools_btn"><span><b class="add">导入包月源数据</b></span></a>
+            </div>
+        </div>
+
+        <!--列表展示.开始-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="msgtable">
+            <tr>
+                <th class="rCpName">
+                    作品归属
+                </th>
+                <th class="rTime">
+                    作品名称
+                </th>
+                <th class="rOpusName">
+                    作品单价
+                </th>
+                <th class="rNotBaoyue">
+                    累计次数
+                </th>
+                <th class="rBaoyue">
+                    累计收入
+                </th>
+                <th class="rPay">
+                    合计
+                </th>
+                <th class="rFree">
+                    总计
+                </th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model.list)
+                {
+                    <tr>
+                        <td align="center">
+                            <input type="text" name="cpname" />
+                        </td>
+                        <td align="center">@item.SingleOpusName</td>
+                        <td align="center"><input type="text" name="" /></td>
+                        <td align="center">@item.SumNum</td>
+                        <td align="center"><input type="text" name="" /></td>
+                        <td align="center"><input type="text" name="" /></td>
+                        <td align="center"><input type="text" name="" /></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td align="center" colspan="7">暂无记录</td></tr>
+            }
+        </table>
+        <!--列表展示.结束-->
+
+
+        <div class="line15"></div>
+        <div class="page_box">
+            <div id="PageContent" class="flickr right">@Html.Raw(ViewBag.PageContent)</div>
+        </div>
+        <div class="line10"></div>
+    </form>
+</body>
+</html>
