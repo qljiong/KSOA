@@ -179,10 +179,32 @@ namespace KSOA.Business
         /// <summary>
         /// 获取渠道投诉统计数据
         /// </summary>
-        public ExtentionIncomeAnalysis GetIncomeAnalysis(int PageSize, int PageIndex, out int totalCount, IncomeAnalysisParam pra)
+        public ExtentionChannelComplainAnalysis GetChannelAnalysisComplain(int PageSize, int PageIndex, out int totalCount, ChannelComplainParam pra)
         {
             totalCount = 0;
-            return new ExtentionIncomeAnalysis();
+            ////0.查询条件 作品名,月份
+            //if (pra.selmonth == null || pra.selmonth.ToString() == "0001/1/1 0:00:00")
+            //{
+            //    pra.selmonth=DateTime.Now;//当月
+            //}
+            pra.selmonth = new DateTime(2014,3,1);
+            //1.查询所有当月作品,及该作品的非包月付费用户数
+            var MonthSource = from q in _db.Admin_ExcelResourceForMonth where q.StatisticsTime.Month == pra.selmonth.Month && q.StatisticsTime.Year == pra.selmonth.Year group q by q.SingleOpusName into g  select new{g.Key,NotBaoyuePayBillPlayNum=g.Sum(s=>s.NotBaoyuePayBillPlayNum)};
+
+            //2.循环计算查取对应作品的数据
+            List<ChannelComplainResult> resultList=new List<ChannelComplainResult>();
+            ChannelComplainResult result;
+            foreach (var item in MonthSource)
+            {
+                result=new ChannelComplainResult();
+                result.notMonthPayCusNum = item.NotBaoyuePayBillPlayNum;
+                result.OpusName = item.Key;
+            }
+            //3.填入查询结果对象
+            //return new ExtentionChannelComplainAnalysis();
+
+
+            return new ExtentionChannelComplainAnalysis();
         }
     }
 }

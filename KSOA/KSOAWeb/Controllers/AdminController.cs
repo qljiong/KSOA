@@ -319,11 +319,11 @@ namespace KSOAWeb.Controllers
             string path = "";
             if ((int)type == (int)KSOAEnum.ImportExcelType.投诉源数据)
             {
-                path = Server.MapPath("/KSOAWeb/UploadFile/Complain/" + excelName);
+                path = Server.MapPath("~/UploadFile/Complain/" + excelName);
             }
             if ((int)type == (int)KSOAEnum.ImportExcelType.包月源数据)
             {
-                path = Server.MapPath("/KSOAWeb/UploadFile/Month/" + excelName);
+                path = Server.MapPath("~/UploadFile/Month/" + excelName);
             }
 
             using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -712,6 +712,115 @@ namespace KSOAWeb.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult CPlist(FormCollection form)
+        {
+            this.pageSize = GetPageSize(15); //每页数量
+            this.page = DTRequest.GetQueryInt("page", 1);
+            ViewBag.txtKeywords = this.keywords;
+            ViewBag.DataSource = new Admin_CPcompanyLogic().GetCpList(this.pageSize, this.page, out this.totalCount);
+
+            //绑定页码
+            ViewBag.txtPageNum = this.pageSize.ToString();
+            string pageUrl = Utils.CombUrlTxt("../admin/CPlist", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            return View();
+        }
+        #endregion
+
+        #region 渠道管理
+        /// <summary>
+        /// 新增渠道
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddChannel()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 新增渠道
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddChannel(FormCollection form)
+        {
+            string cpname = form["CPName"] ?? "";
+            if (cpname == "")
+            {
+                ViewBag.msg = "CP名称不能为空";
+                return View();
+            }
+            else
+            {
+                Admin_CPcompany acp = new Admin_CPcompany();
+                acp.CPname = cpname;
+                if (new Admin_CPcompanyLogic().AddCP(acp))
+                {
+                    ViewBag.msg = "CP添加成功";
+                }
+                else
+                {
+                    ViewBag.msg = "CP添加失败";
+                }
+                return View();
+            }
+
+        }
+
+        /// <summary>
+        /// 编辑渠道信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult EditChannel(int id)
+        {
+            Admin_CPcompany acp = new Admin_CPcompanyLogic().GetCPbyID(id);
+            return View(acp);
+        }
+
+        /// <summary>
+        /// 更新渠道信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult EditChannel(FormCollection form)
+        {
+            int id = int.Parse(form["cpid"]);
+            string cpname = form["cpname"];
+            if (new Admin_CPcompanyLogic().UpdateCPbyID(id, cpname))
+            {
+                ViewBag.msg = "CP更新成功";
+            }
+            else
+            {
+                ViewBag.msg = "CP更新失败";
+            }
+            Admin_CPcompany mm = new Admin_CPcompany();
+            return View(mm);
+        }
+
+        /// <summary>
+        /// 删除渠道
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult DelChannel()
+        {
+            String[] strids = Request["ids"].Split(',');
+
+            int[] arr2 = new int[strids.Length];   //用来存放将字符串转换成int[] 
+            for (int i = 0; i < strids.Length; i++)
+            {
+                arr2[i] = int.Parse(strids[i]);
+            }
+            new Admin_CPcompanyLogic().DelCP(arr2);
+
+            return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 渠道列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Channellist(FormCollection form)
         {
             this.pageSize = GetPageSize(15); //每页数量
             this.page = DTRequest.GetQueryInt("page", 1);
@@ -1118,8 +1227,22 @@ namespace KSOAWeb.Controllers
         #endregion
 
         #region 渠道投诉统计
-        public ActionResult ChannelComplainManage()
+        public ActionResult ChannelComplainManage(FormCollection form)
         {
+            ChannelComplainParam pra = new ChannelComplainParam();
+            if (form.Count > 0)
+            {
+                if (form["SelTime"] != "" && form["SelTime"] != null)
+                {
+                    //pra.selmonth = Convert.ToDateTime(form["SelTime"] + "-01");
+                }
+                else
+                {
+                    //pra.selmonth = DateTime.Now;
+                }
+                pra.opusName = form["SelOpusName"];
+            }
+            ExtentionChannelComplainAnalysis result = new Admin_ExcelResourceForComplainLogic().GetChannelAnalysisComplain(this.pageSize, this.page, out this.totalCount, pra);
             return View();
         }
         #endregion

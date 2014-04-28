@@ -19,6 +19,8 @@
         var accordion = null;
         var tree = null;
         $(function () {
+            $("#tree3").ligerTree({ checkbox: false, parentIcon: null, childIcon: null });
+
             //页面布局
             $("#global_layout").ligerLayout({ leftWidth: 180, height: '100%', topHeight: 65, bottomHeight: 24, allowTopResize: false, allowBottomResize: false, allowLeftCollapse: true, onHeightChanged: f_heightChanged });
 
@@ -155,14 +157,52 @@
             <!--左边-->
             <div position="left" title="管理菜单" id="global_left_nav">
                 <div title="业务平台" iconcss="menu-icon-model" class="l-scroll">
-                    <ul class="nlist" style="margin-top:3px;">
-                        <li><a href="javascript:f_addTab('ImportExcelByComplain','导入投诉源数据','../admin/ImportExcelByComplain')">导入投诉源数据</a></li>
-                        <li><a href="javascript:f_addTab('ComplainManage','投诉管理','../admin/ComplainManage')">投诉管理</a></li>
-                        <li><a href="javascript:f_addTab('ImportExcelByMonth','导入包月源数据','../admin/ImportExcelByMonth')">导入包月源数据</a></li>
-                        <li><a href="javascript:f_addTab('MonthManage','包月管理','../admin/MonthManage')">包月管理</a></li>
-                        <li><a href="javascript:f_addTab('IncomeManage','收入统计','../admin/IncomeManage')">收入统计</a></li>
-                        <li><a href="javascript:f_addTab('ChannelComplainManage','渠道投诉统计','../admin/ChannelComplainManage')">渠道投诉统计</a></li>
+                    <ul class="l-tree">
+                        <li treedataindex="0" outlinelevel="1" class="l-first ">
+                            <div class="l-body l-selected">
+                                <div class="l-box l-expandable-open">
+                                </div>
+                                <div class="l-box l-tree-icon-folder-open">
+                                </div>
+                                <span>
+                                    CP投诉数据管理
+                                </span>
+                            </div>
+                            <ul class="l-children" style="display: block;">
+                                <li treedataindex="1" isexpand="undefined" outlinelevel="2" url="article/list.aspx?channel_id=1"
+                                    class="l-first ">
+                                    <div class="l-body">
+                                        <div class="l-box l-line">
+                                        </div>
+                                        <div class="l-box l-note">
+                                        </div>
+                                        <div class="l-box l-tree-icon-leaf">
+                                        </div>
+                                        <a href="javascript:f_addTab('ComplainManage','分省投诉万投比','../admin/ComplainManage')">分省投诉万投比</a>
+                                    </div>
+                                </li>
+                                <li treedataindex="2" isexpand="undefined" outlinelevel="2" url="attribute/list.aspx?channel_id=1"
+                                    class="l-last ">
+                                    <div class="l-body">
+                                        <div class="l-box l-line">
+                                        </div>
+                                        <div class="l-box l-note-last">
+                                        </div>
+                                        <div class="l-box l-tree-icon-leaf">
+                                        </div>
+                                        <a href="javascript:f_addTab('ComplainManage','分CP投诉万投比','../admin/ComplainManage')">分CP投诉万投比</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
+                    <ul class="nlist" style="margin-top:3px;">
+                        <li><a href="javascript:f_addTab('MonthManage','包月点播数据管理','../admin/MonthManage')">包月点播数据管理</a></li>
+                        <li><a href="javascript:f_addTab('IncomeManage','点播收入数据管理','../admin/IncomeManage')">点播收入数据管理</a></li>
+                        <li><a href="javascript:f_addTab('ChannelComplainManage','合作渠道投诉管理','../admin/ChannelComplainManage')">合作渠道投诉管理</a></li>
+                        <li><a href="javascript:f_addTab('IncomeManagecollect','点播收入数据汇总','../admin/IncomeManagecollect')">点播收入数据汇总</a></li>
+                    </ul>
+                    
                 </div>
 
                 <div title="产品平台" iconcss="menu-icon-member">
@@ -185,7 +225,8 @@
                     <ul class="nlist">
                         <li><a class="l-link" href="javascript:f_addTab('Managerpwd','管理员管理','../admin/Managerpwd')">管理员密码修改</a></li>
                         <li><a class="l-link" href="javascript:f_addTab('PopList','人员管理','../admin/PopList')">人员管理</a></li>
-                        <li><a class="l-link" href="javascript:f_addTab('CPlist','平台管理','../admin/CPlist')">平台管理</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('CPlist','平台管理','../admin/CPlist')">CP管理</a></li>
+                        <li><a class="l-link" href="javascript:f_addTab('CPlist','渠道管理','../admin/CPlist')">渠道管理</a></li>
                     </ul>
                 </div>
             </div>

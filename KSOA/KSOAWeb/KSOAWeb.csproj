@@ -15,7 +15,7 @@
     <AssemblyName>KSOAWeb</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -629,6 +629,7 @@
     <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-status.gif" />
     <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.gif" />
     <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.png" />
+    <Content Include="UploadFile\UpFiledata\新建文本文档.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -700,14 +701,16 @@
     <Content Include="Views\Admin\IncomeManage.cshtml" />
     <Content Include="Views\Admin\ChannelComplainManage.cshtml" />
     <Content Include="Views\Admin\IncomeManagecollect.cshtml" />
+    <Content Include="Views\Admin\AddChannel.cshtml" />
+    <Content Include="Views\Admin\EditChannel.cshtml" />
+    <Content Include="Views\Admin\Channellist.cshtml" />
+    <Content Include="UploadFile\Complain\20140317153211-源数据.xls" />
+    <Content Include="UploadFile\Month\20140319190601-源数据（包月）.xls" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DownLoadHistory\" />
     <Folder Include="Models\" />
-    <Folder Include="UploadFile\Complain\" />
-    <Folder Include="UploadFile\Month\" />
-    <Folder Include="UploadFile\UpFiledata\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -744,7 +747,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>34191</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/KSOAWeb</IISUrl>
+          <IISUrl>http://localhost:34191/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://192.168.1.100:80/</CustomServerUrl>

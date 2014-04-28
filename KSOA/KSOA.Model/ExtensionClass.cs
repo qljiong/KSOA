@@ -145,7 +145,7 @@ namespace KSOA.Model
         /// <summary>
         /// 选择的月份
         /// </summary>
-        public int selmonth { get; set; }
+        public DateTime selmonth { get; set; }
         /// <summary>
         /// 公司名称
         /// </summary>
@@ -159,12 +159,80 @@ namespace KSOA.Model
         /// </summary>
         public string cpname { get; set; }
     }
+    /// <summary>
+    /// 渠道投诉分析查询结果类
+    /// </summary>
+    public class ChannelComplainResult
+    {
+        /// <summary>
+        /// 公司名称
+        /// </summary>
+        public string companyName { get; set; }
+        /// <summary>
+        /// 渠道名称
+        /// </summary>
+        public string cpName { get; set; }
+        /// <summary>
+        /// 作品名
+        /// </summary>
+        public string OpusName { get; set; }
+        /// <summary>
+        /// 推广渠道商
+        /// </summary>
+        public string ChannelPro { get; set; }
+        /// <summary>
+        /// 非包月付费用户数
+        /// </summary>
+        public int notMonthPayCusNum { get; set; }
+        /// <summary>
+        /// 一线遗留
+        /// </summary>
+        public int firstLineLeave { get; set; }
+        /// <summary>
+        /// 一线新增
+        /// </summary>
+        public int firstLineAdd { get; set; }
+        /// <summary>
+        /// 一线总
+        /// </summary>
+        public int firstLineSum { get; set; }
+        /// <summary>
+        /// 二线遗留
+        /// </summary>
+        public int secondLineLeave { get; set; }
+        /// <summary>
+        /// 二线新增
+        /// </summary>
+        public int secondLineAdd { get; set; }
+        /// <summary>
+        /// 二线总
+        /// </summary>
+        public int secondLineSum { get; set; }
+        /// <summary>
+        /// 一线新增万投比
+        /// </summary>
+        public double firstLinedAddPercent { get; set; }
+        /// <summary>
+        /// 一线总万投比
+        /// </summary>
+        public double firstLineSumPercent { get; set; }
+        /// <summary>
+        /// 二线新增万投比
+        /// </summary>
+        public double secondLinedAddPercent { get; set; }
+        /// <summary>
+        /// 二线总万投比
+        /// </summary>
+        public double secondLineSumPercent { get; set; }
+
+    }
 
     /// <summary>
     /// 渠道投诉统计查询辅助类
     /// </summary>
     public class ExtentionChannelComplainAnalysis
     {
+        List<ChannelComplainResult> list { get; set; }
         public ChannelComplainParam par { get; set; }
     }
 }
