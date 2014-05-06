@@ -13,7 +13,8 @@ namespace KSOA.Common
         public enum ImportExcelType
         {
             投诉源数据=1,
-            包月源数据
+            包月源数据,
+            非包月付费源数据
         }
 
         /// <summary>

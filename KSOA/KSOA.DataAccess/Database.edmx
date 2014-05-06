@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KSOA.DataAccess.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="KSOA.DataAccess.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Admin_ChannelInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChannelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admin_CPcompany">
           <Key>
             <PropertyRef Name="ID" />
@@ -47,7 +56,7 @@
           <Property Name="CPid" Type="int" Nullable="false" />
           <Property Name="SourceLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RowNumber" Type="int" Nullable="false" />
-          <Property Name="StatisticsTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="StatisticsTime" Type="datetime" Nullable="false" />
           <Property Name="SingleOpusName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NotBaoyuePlayNum" Type="int" Nullable="false" />
           <Property Name="BaoyuePlayNum" Type="int" Nullable="false" />
@@ -73,6 +82,17 @@
           <Property Name="QQ" Type="varchar" MaxLength="50" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
           <Property Name="AddTime" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin_NBPAccumulative">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountTime" Type="datetime" Nullable="false" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CpName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CpID" Type="int" />
+          <Property Name="NBPCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_NotBaoyuePayBillPlayCount">
           <Key>
@@ -294,11 +314,13 @@
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="KSOADataAccessStoreContainer">
+          <EntitySet Name="Admin_ChannelInfo" EntityType="Self.Admin_ChannelInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_CPcompany" EntityType="Self.Admin_CPcompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Department" EntityType="Self.Admin_Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="Self.Admin_ExcelResourceForComplain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="Self.Admin_ExcelResourceForMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_KSCustomer" EntityType="Self.Admin_KSCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_NBPAccumulative" EntityType="Self.Admin_NBPAccumulative" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_NotBaoyuePayBillPlayCount" EntityType="Self.Admin_NotBaoyuePayBillPlayCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_OperatLog" EntityType="Self.Admin_OperatLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Platform" EntityType="Self.Admin_Platform" Schema="dbo" store:Type="Tables" />
@@ -351,11 +373,13 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
     <edmx:ConceptualModels>
       <Schema Namespace="KSOA.DataAccess" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="KSOAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin_ChannelInfo" EntityType="KSOA.DataAccess.Admin_ChannelInfo" />
           <EntitySet Name="Admin_CPcompany" EntityType="KSOA.DataAccess.Admin_CPcompany" />
           <EntitySet Name="Admin_Department" EntityType="KSOA.DataAccess.Admin_Department" />
           <EntitySet Name="Admin_ExcelResourceForComplain" EntityType="KSOA.DataAccess.Admin_ExcelResourceForComplain" />
           <EntitySet Name="Admin_ExcelResourceForMonth" EntityType="KSOA.DataAccess.Admin_ExcelResourceForMonth" />
           <EntitySet Name="Admin_KSCustomer" EntityType="KSOA.DataAccess.Admin_KSCustomer" />
+          <EntitySet Name="Admin_NBPAccumulative" EntityType="KSOA.DataAccess.Admin_NBPAccumulative" />
           <EntitySet Name="Admin_NotBaoyuePayBillPlayCount" EntityType="KSOA.DataAccess.Admin_NotBaoyuePayBillPlayCount" />
           <EntitySet Name="Admin_OperatLog" EntityType="KSOA.DataAccess.Admin_OperatLog" />
           <EntitySet Name="Admin_Platform" EntityType="KSOA.DataAccess.Admin_Platform" />
@@ -371,6 +395,15 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
           <EntitySet Name="UI_ExcelImportByChannel" EntityType="KSOA.DataAccess.UI_ExcelImportByChannel" />
           <EntitySet Name="UI_ExcelImportByPlatform" EntityType="KSOA.DataAccess.UI_ExcelImportByPlatform" />
         </EntityContainer>
+        <EntityType Name="Admin_ChannelInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChannelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admin_CPcompany">
           <Key>
             <PropertyRef Name="ID" />
@@ -413,7 +446,7 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
           <Property Name="CPid" Type="Int32" Nullable="false" />
           <Property Name="SourceLevel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RowNumber" Type="Int32" Nullable="false" />
-          <Property Name="StatisticsTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="StatisticsTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SingleOpusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NotBaoyuePlayNum" Type="Int32" Nullable="false" />
           <Property Name="BaoyuePlayNum" Type="Int32" Nullable="false" />
@@ -439,6 +472,17 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
           <Property Name="QQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
           <Property Name="AddTime" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="Admin_NBPAccumulative">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Province" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CpID" Type="Int32" />
+          <Property Name="NBPCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Admin_NotBaoyuePayBillPlayCount">
           <Key>
@@ -661,6 +705,16 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="KSOADataAccessStoreContainer" CdmEntityContainer="KSOAEntities">
+          <EntitySetMapping Name="Admin_ChannelInfo">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_ChannelInfo">
+              <MappingFragment StoreEntitySet="Admin_ChannelInfo">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Admin_CPcompany">
             <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_CPcompany">
               <MappingFragment StoreEntitySet="Admin_CPcompany">
@@ -731,6 +785,18 @@ FROM [dbo].[UI_ExcelImportByPlatform] AS [UI_ExcelImportByPlatform]</DefiningQue
                 <ScalarProperty Name="CusName" ColumnName="CusName" />
                 <ScalarProperty Name="RealName" ColumnName="RealName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_NBPAccumulative">
+            <EntityTypeMapping TypeName="KSOA.DataAccess.Admin_NBPAccumulative">
+              <MappingFragment StoreEntitySet="Admin_NBPAccumulative">
+                <ScalarProperty Name="NBPCount" ColumnName="NBPCount" />
+                <ScalarProperty Name="CpID" ColumnName="CpID" />
+                <ScalarProperty Name="CpName" ColumnName="CpName" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="CountTime" ColumnName="CountTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

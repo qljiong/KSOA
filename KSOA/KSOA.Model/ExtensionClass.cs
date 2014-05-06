@@ -235,4 +235,19 @@ namespace KSOA.Model
         List<ChannelComplainResult> list { get; set; }
         public ChannelComplainParam par { get; set; }
     }
+
+    #region 非包月付费用户数查询辅助
+    public class NBPParam
+    {
+        public DateTime seltime { get; set; }
+
+        public string cpName { get; set; }
+    }
+
+    public class ExtentionNBP
+    {
+        public List<Admin_NBPAccumulative> list { get; set; }
+        public NBPParam par { get; set; }
+    }
+    #endregion
 }

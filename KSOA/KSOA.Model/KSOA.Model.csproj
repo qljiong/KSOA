@@ -40,11 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin_ChannelInfo.cs" />
     <Compile Include="Admin_CPcompany.cs" />
     <Compile Include="Admin_Department.cs" />
     <Compile Include="Admin_ExcelResourceForComplain.cs" />
     <Compile Include="Admin_ExcelResourceForMonth.cs" />
     <Compile Include="Admin_KSCustomer.cs" />
+    <Compile Include="Admin_NBPAccumulative.cs" />
     <Compile Include="Admin_NotBaoyuePayBillPlayCount.cs" />
     <Compile Include="Admin_OperatLog.cs" />
     <Compile Include="Admin_Platform.cs" />

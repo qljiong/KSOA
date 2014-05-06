@@ -5,25 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="369aab72abdb4b71b75a589170b8ec61" Name="Diagram1">
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_CPcompany" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_Department" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_ExcelResourceForComplain" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_ExcelResourceForMonth" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_KSCustomer" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_NotBaoyuePayBillPlayCount" Width="1.5" PointX="4.75" PointY="5.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_OperatLog" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_Platform" Width="1.5" PointX="6.75" PointY="4.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_Role" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_SysErrorLog" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_SysMenu" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Bank_CommercialOpus" Width="1.5" PointX="8.75" PointY="3.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Bank_Opus" Width="1.5" PointX="8.75" PointY="7.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Bank_OriginalGroup" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Work_Note" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Work_Notice" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.Work_Schedule" Width="1.5" PointX="10.75" PointY="8.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.UI_ExcelImportByChannel" Width="1.5" PointX="4.75" PointY="11.75" />
-        <EntityTypeShape EntityType="KSOA.DataAccess.UI_ExcelImportByPlatform" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_ChannelInfo" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_CPcompany" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_Department" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_ExcelResourceForComplain" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_ExcelResourceForMonth" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_KSCustomer" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_NBPAccumulative" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_NotBaoyuePayBillPlayCount" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_OperatLog" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_Platform" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_Role" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_SysErrorLog" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Admin_SysMenu" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Bank_CommercialOpus" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Bank_Opus" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Bank_OriginalGroup" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Work_Note" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Work_Notice" Width="1.5" PointX="10.75" PointY="9.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.Work_Schedule" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.UI_ExcelImportByChannel" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="KSOA.DataAccess.UI_ExcelImportByPlatform" Width="1.5" PointX="12.75" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -109,9 +109,13 @@ function ExePostBack(objId, objmsg, urltype) {
             {
                 opurl = "../admin/PopDel";
             }
-            if (urltype == "cp")//渠道管理
+            if (urltype == "cp")//cp管理
             {
                 opurl = "../admin/DelCP";
+            }
+            if (urltype == "Channel")//渠道管理
+            {
+                opurl = "../admin/DelChannel";
             }
             if (urltype == "notice")//公告管理
             {

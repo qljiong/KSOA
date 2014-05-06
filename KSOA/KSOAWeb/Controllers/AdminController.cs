@@ -325,6 +325,10 @@ namespace KSOAWeb.Controllers
             {
                 path = Server.MapPath("~/UploadFile/Month/" + excelName);
             }
+            if ((int)type == (int)KSOAEnum.ImportExcelType.非包月付费源数据)
+            {
+                path = Server.MapPath("~/UploadFile/NBP/" + excelName);
+            }
 
             using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
@@ -539,6 +543,73 @@ namespace KSOAWeb.Controllers
                 return new Admin_ExcelResourceForMonthLogic().SaveImportDatas(listModel); ;
             }
             #endregion
+
+            #region 非包月付费源数据
+            if ((int)type == (int)KSOAEnum.ImportExcelType.非包月付费源数据)
+            {
+                ISheet sheet = null;
+                List<Admin_NBPAccumulative> listModel = new List<Admin_NBPAccumulative>();
+                for (int i = 0; i < hss.Workbook.NumSheets; i++)//循环sheet
+                {
+                    sheet = hss.GetSheetAt(i);
+                    System.Collections.IEnumerator rows = sheet.GetRowEnumerator();
+                    rows.MoveNext();//跳过首行标题
+                    while (rows.MoveNext())
+                    {
+                        IRow row = (HSSFRow)rows.Current;
+                        Admin_NBPAccumulative dr = new Admin_NBPAccumulative();
+
+                        #region CountTime统计日期
+                        ICell CountTime = row.GetCell(0);
+                        if (CountTime == null)
+                        {
+                            dr.CountTime = new DateTime(1900, 1, 1);
+                        }
+                        else
+                        {
+                            dr.CountTime = Utils.ConvertStrToDate(CountTime.ToString());
+                        }
+                        #endregion
+                        #region Province省份
+                        ICell Province = row.GetCell(1);
+                        if (Province == null)
+                        {
+                            dr.Province = "";
+                        }
+                        else
+                        {
+                            dr.Province = Province.ToString();
+                        }
+                        #endregion
+                        #region CpNameCP名称
+                        ICell CpName = row.GetCell(2);
+                        if (CpName == null)
+                        {
+                            dr.CpName = "";
+                        }
+                        else
+                        {
+                            dr.CpName = CpName.ToString();
+                        }
+                        #endregion
+                        #region NBPCount非包月付费用户数
+                        ICell NBPCount = row.GetCell(3);
+                        if (NBPCount == null)
+                        {
+                            dr.NBPCount = 0;
+                        }
+                        else
+                        {
+                            dr.NBPCount = Convert.ToInt32(NBPCount.ToString());
+                        }
+                        #endregion
+                        listModel.Add(dr);
+                    }
+                }
+                return new Admin_NBPAccumulativeLogic().SaveImportDatas(listModel); ;
+            }
+            #endregion
+
             return false;
         }
         #endregion
@@ -742,27 +813,26 @@ namespace KSOAWeb.Controllers
         [HttpPost]
         public ActionResult AddChannel(FormCollection form)
         {
-            string cpname = form["CPName"] ?? "";
-            if (cpname == "")
+            string ChannelName = form["CPName"] ?? "";
+            if (ChannelName == "")
             {
-                ViewBag.msg = "CP名称不能为空";
+                ViewBag.msg = "渠道名称不能为空";
                 return View();
             }
             else
             {
-                Admin_CPcompany acp = new Admin_CPcompany();
-                acp.CPname = cpname;
-                if (new Admin_CPcompanyLogic().AddCP(acp))
+                Admin_ChannelInfo acp = new Admin_ChannelInfo();
+                acp.ChannelName = ChannelName;
+                if (new Admin_ChannelInfoLogic().AddCP(acp))
                 {
-                    ViewBag.msg = "CP添加成功";
+                    ViewBag.msg = "渠道添加成功";
                 }
                 else
                 {
-                    ViewBag.msg = "CP添加失败";
+                    ViewBag.msg = "渠道添加失败";
                 }
                 return View();
             }
-
         }
 
         /// <summary>
@@ -772,7 +842,7 @@ namespace KSOAWeb.Controllers
         /// <returns></returns>
         public ActionResult EditChannel(int id)
         {
-            Admin_CPcompany acp = new Admin_CPcompanyLogic().GetCPbyID(id);
+            Admin_ChannelInfo acp = new Admin_ChannelInfoLogic().GetCPbyID(id);
             return View(acp);
         }
 
@@ -786,15 +856,15 @@ namespace KSOAWeb.Controllers
         {
             int id = int.Parse(form["cpid"]);
             string cpname = form["cpname"];
-            if (new Admin_CPcompanyLogic().UpdateCPbyID(id, cpname))
+            if (new Admin_ChannelInfoLogic().UpdateCPbyID(id, cpname))
             {
-                ViewBag.msg = "CP更新成功";
+                ViewBag.msg = "渠道更新成功";
             }
             else
             {
-                ViewBag.msg = "CP更新失败";
+                ViewBag.msg = "渠道更新失败";
             }
-            Admin_CPcompany mm = new Admin_CPcompany();
+            Admin_ChannelInfo mm = new Admin_ChannelInfo();
             return View(mm);
         }
 
@@ -811,7 +881,7 @@ namespace KSOAWeb.Controllers
             {
                 arr2[i] = int.Parse(strids[i]);
             }
-            new Admin_CPcompanyLogic().DelCP(arr2);
+            new Admin_ChannelInfoLogic().DelCP(arr2);
 
             return Json(new { result = 1 }, JsonRequestBehavior.AllowGet);
         }
@@ -825,11 +895,11 @@ namespace KSOAWeb.Controllers
             this.pageSize = GetPageSize(15); //每页数量
             this.page = DTRequest.GetQueryInt("page", 1);
             ViewBag.txtKeywords = this.keywords;
-            ViewBag.DataSource = new Admin_CPcompanyLogic().GetCpList(this.pageSize, this.page, out this.totalCount);
+            ViewBag.DataSource = new Admin_ChannelInfoLogic().GetCpList(this.pageSize, this.page, out this.totalCount);
 
             //绑定页码
             ViewBag.txtPageNum = this.pageSize.ToString();
-            string pageUrl = Utils.CombUrlTxt("../admin/CPlist", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
+            string pageUrl = Utils.CombUrlTxt("../admin/Channellist", "group_id={0}&keywords={1}&page={2}", this.group_id.ToString(), this.keywords, "__id__");
             ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
             return View();
         }
@@ -1244,6 +1314,148 @@ namespace KSOAWeb.Controllers
             }
             ExtentionChannelComplainAnalysis result = new Admin_ExcelResourceForComplainLogic().GetChannelAnalysisComplain(this.pageSize, this.page, out this.totalCount, pra);
             return View();
+        }
+        #endregion
+
+        #region 导入非包月付费用户数统计详细(按时间,省份,CP)
+        public ActionResult NBPManage(FormCollection form)
+        {
+            ExtentionNBP cbag = new ExtentionNBP();
+            if (form.Count != 0 || Request.QueryString.Count != 0)//有选择条件
+            {
+                NBPParam pra = new NBPParam();
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["SelTime"] != "" && form["SelTime"] != null)
+                    {
+                        pra.seltime = Convert.ToDateTime(form["SelTime"]);
+                    }
+                    else
+                    {
+                        pra.seltime = new DateTime(1970, 1, 1);
+                    }
+                }
+                else if (DTRequest.GetQueryString("seltime") != "")
+                {
+                    pra.seltime = Convert.ToDateTime(DTRequest.GetQueryString("seltime"));
+                }
+                else
+                {
+                    pra.seltime = new DateTime(1970, 1, 1);
+                }
+
+               
+
+                //post请求
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (form["selCPName"] != "" && form["selCPName"] != null)
+                    {
+                        pra.cpName = form["selCPName"];
+                    }
+                    else
+                    {
+                        pra.cpName = "";
+                    }
+                }
+                else if (DTRequest.GetQueryString("selCPName") != "")
+                {
+                    pra.cpName = DTRequest.GetQueryString("selCPName");
+                }
+                else
+                {
+                    pra.cpName = "";
+                }
+
+                this.pageSize = GetPageSize(25); //每页数量
+                //post请求,点击查询返回第一页
+                if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.page = 1;
+                }
+                else
+                {
+                    this.page = DTRequest.GetQueryInt("page", 1);
+                }
+                ViewBag.txtKeywords = this.keywords;
+                cbag = new Admin_NBPAccumulativeLogic().GetNBPList(this.pageSize, this.page, out this.totalCount, pra);
+                //绑定页码
+                ViewBag.txtPageNum = this.pageSize.ToString();
+                string pageUrl = Utils.CombUrlTxt("../admin/NBPManage", "SelTime={0}&selOpusName={1}&selCPName={2}&page={3}", pra.seltime.ToString(), pra.cpName, pra.cpName, "__id__");
+                ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+                return View(cbag);
+            }
+            else
+            {
+                NBPParam pra = new NBPParam();
+                pra.seltime = form["SelTime"] == "" || form["SelTime"] == null ? new DateTime(1970, 1, 1) : Convert.ToDateTime(form["SelTime"]);
+                pra.cpName = "";
+
+                this.pageSize = GetPageSize(25); //每页数量
+                this.page = DTRequest.GetQueryInt("page", 1);
+                ViewBag.txtKeywords = this.keywords;
+                cbag = new Admin_NBPAccumulativeLogic().GetNBPList(this.pageSize, this.page, out this.totalCount, pra);
+                //绑定页码
+                ViewBag.txtPageNum = this.pageSize.ToString();
+                string pageUrl = Utils.CombUrlTxt("../admin/NBPManage", "SelTime={0}&selOpusName={1}&selCPName={2}&page={3}", pra.seltime.ToString(), pra.cpName, pra.cpName, "__id__");
+                ViewBag.PageContent = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+                return View(cbag);
+            }
+        }
+
+        public ActionResult ImportNBPCount()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ImportNBPCount(FormCollection form)
+        {
+            string msg = "";
+            HttpFileCollectionBase files = Request.Files;
+            HttpPostedFileBase file = files["InputExcel"];
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = file.FileName;
+                //判断文件名字是否包含路径名，如果有则提取文件名
+                if (fileName.LastIndexOf("\\") > -1)
+                {
+                    fileName = fileName.Substring(fileName.LastIndexOf("\\") + 1);
+                }
+                //判断文件格式，这里要求是JPG格式
+                if ((fileName.LastIndexOf('.') > -1 && fileName.Substring(fileName.LastIndexOf('.')).ToUpper() == ".XLS"))
+                {
+                    string path = Server.MapPath("~/UploadFile/NBP/");
+                    try
+                    {
+                        //重命名
+                        fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
+                        file.SaveAs(path + fileName);
+                        if (ReadExcelAndWriteToTable(fileName,0, KSOAEnum.ImportExcelType.非包月付费源数据))
+                        {
+                            msg = "上传失败！";
+                        }
+                        else
+                        {
+                            msg = "上传成功！";
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        msg = "上传失败,上传文件格式不匹配！   " + e.Message;
+                    }
+                }
+                else
+                {
+                    msg = "上传的文件格式不符合要求！";
+                }
+            }
+            else
+            {
+                msg = "上传的文件是空文件！";
+            }
+            return Json(new { result = 1, resultmsg = msg }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

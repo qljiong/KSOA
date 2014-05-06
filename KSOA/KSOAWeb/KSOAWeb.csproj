@@ -270,6 +270,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="DownLoadHistory\TextFile1.txt" />
     <Content Include="editor\kindeditor-min.js" />
     <Content Include="editor\kindeditor.js" />
     <Content Include="editor\lang\ar.js" />
@@ -629,6 +630,7 @@
     <Content Include="Scripts\ui\skins\Aqua\images\tree\tree-status.gif" />
     <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.gif" />
     <Content Include="Scripts\ui\skins\Aqua\images\tree\tree.png" />
+    <Content Include="UploadFile\NBP\占位文件.txt" />
     <Content Include="UploadFile\UpFiledata\新建文本文档.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -706,10 +708,11 @@
     <Content Include="Views\Admin\Channellist.cshtml" />
     <Content Include="UploadFile\Complain\20140317153211-源数据.xls" />
     <Content Include="UploadFile\Month\20140319190601-源数据（包月）.xls" />
+    <Content Include="Views\Admin\ImportNBPCount.cshtml" />
+    <Content Include="Views\Admin\NBPManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DownLoadHistory\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
