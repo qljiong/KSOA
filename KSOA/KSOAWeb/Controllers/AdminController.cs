@@ -1144,6 +1144,15 @@ namespace KSOAWeb.Controllers
         }
         #endregion
 
+        #region 投诉统计
+        public ActionResult ComplainAnalysis(FormCollection form)
+        {
+            this.pageSize = GetPageSize(1000); //每页数量,此查询显示暂不分页,预留1000行
+            ExtentionCbag result = new Admin_ExcelResourceForComplainLogic().GetGroupByCPAnalysis(this.pageSize, this.page, out this.totalCount, DateTime.Now);
+            return View(result);
+        }
+        #endregion
+
         #region 包月管理
         public ActionResult MonthManage(FormCollection form)
         {
@@ -1345,7 +1354,7 @@ namespace KSOAWeb.Controllers
                     pra.seltime = new DateTime(1970, 1, 1);
                 }
 
-               
+
 
                 //post请求
                 if (Request.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase))
@@ -1432,7 +1441,7 @@ namespace KSOAWeb.Controllers
                         //重命名
                         fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + fileName;
                         file.SaveAs(path + fileName);
-                        if (ReadExcelAndWriteToTable(fileName,0, KSOAEnum.ImportExcelType.非包月付费源数据))
+                        if (ReadExcelAndWriteToTable(fileName, 0, KSOAEnum.ImportExcelType.非包月付费源数据))
                         {
                             msg = "上传失败！";
                         }

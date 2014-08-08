@@ -28,5 +28,14 @@ namespace KSOAWeb.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 尝试效果的页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult trypage()
+        {
+            return View();
+        }
     }
 }

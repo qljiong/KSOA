@@ -710,6 +710,8 @@
     <Content Include="UploadFile\Month\20140319190601-源数据（包月）.xls" />
     <Content Include="Views\Admin\ImportNBPCount.cshtml" />
     <Content Include="Views\Admin\NBPManage.cshtml" />
+    <Content Include="Views\Admin\ComplainAnalysis.cshtml" />
+    <Content Include="Views\Home\trypage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

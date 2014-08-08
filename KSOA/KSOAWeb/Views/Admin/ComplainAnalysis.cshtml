@@ -1,0 +1,147 @@
+﻿@using KSOA.Model;
+@model ExtentionCbag
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>投诉统计</title>
+    <link href="~/Scripts/ui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
+    <link href="~/Content/Admin/Admin.css" rel="stylesheet" />
+    <link href="~/Content/Admin/pagination.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.3.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/messages_cn.js"></script>
+    <script src="~/Scripts/ui/js/ligerBuild.min.js"></script>
+    <script src="~/Scripts/Admin/function.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
+    <style type="text/css">
+        .msgtable th {
+            padding: 0.5em;
+            font-weight: 700;
+            background-color: yellow;
+            border: 1px solid black;
+            background-image: none;
+        }
+        .msgtable td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body class="mainbody">
+    <form id="form1" action="../admin/ComplainManage" method="post">
+        <div class="tools_box">
+            <div class="tools_bar">
+                <div class="search_box">
+                    <span>日期:</span>
+                    <input type="text" name="SelTime" readonly="readonly" value="" class="txtInput" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'})" />
+                    <input type="submit" id="btnSearch" name="btnSearch" value="查  询" class="btnSearch" />
+                </div>
+            </div>
+        </div>
+
+        <!--列表展示.开始-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="msgtable">
+            <tr>
+                <th rowspan="2">日期<br />@Model.SelTime.ToString("yyyy.M.d")</th>
+                <th rowspan="2">非包月付费用户数</th>
+                <th colspan="2">一线(新增)</th>
+                <th rowspan="2">一线(遗留)</th>
+                <th rowspan="2">一线总</th>
+                <th colspan="2">一线(新增)万投比</th>
+                <th>一线全网万投比</th>
+                <th colspan="2">二线(新增)</th>
+                <th>二线(遗留)</th>
+                <th>二线总</th>
+                <th colspan="2">二线(新增)万投比</th>
+                <th rowspan="2">二线全网万投比</th>
+            </tr>
+            <tr>
+                <th>截止 @Model.SelTime.AddDays(-1).ToString("M.d")</th>
+                <th>截止 @Model.SelTime.ToString("M.d")</th>
+                <th>截止 @Model.SelTime.AddDays(-1).ToString("M.d")</th>
+                <th>截止 @Model.SelTime.ToString("M.d")</th>
+                <th></th>
+                <th>截止 @Model.SelTime.AddDays(-1).ToString("M.d")</th>
+                <th>截止 @Model.SelTime.ToString("M.d")</th>
+                <th></th>
+                <th></th>
+                <th>截止 @Model.SelTime.AddDays(-1).ToString("M.d")</th>
+                <th>截止 @Model.SelTime.ToString("M.d")</th>
+            </tr>
+            @if (Model.cbag.Count >= 1)
+            {
+                foreach (var items in Model.cbag)
+                {
+                     <tr>
+                         <td>
+                             @items.cpname
+                         </td>
+                         <td>
+                             @items.nbpNum
+                         </td>
+                         <td>
+                             @items.yesterdayflAddPop
+                         </td>
+                         <td>
+                             @items.flAddPop
+                         </td>
+                         <td>
+                             @items.flleaveNum
+                         </td>
+                         <td>
+                             @items.flCount
+                         </td>
+                         <td>
+                             @items.flytproportion
+                         </td>
+                         <td>
+                             @items.fltdproportion
+                         </td>
+                         <td>
+                             @items.flproportion
+                         </td>
+                         <td>
+                             @items.yesterdaysdAddPop
+                         </td>
+                         <td>
+                             @items.sdAddPop
+                         </td>
+                         <td>
+                             @items.sdleaveNum
+                         </td>
+                         <td>
+                             @items.sdCount
+                         </td>
+                         <td>
+                             @items.sdytproportion
+                         </td>
+                         <td>
+                             @items.sdtdproportion
+                         </td>
+                         <td>
+                             @items.sdproportion
+                         </td>
+                     </tr>
+                }
+            }
+            else
+            {
+            <tr><td align="center" colspan="16">暂无记录</td></tr>
+            }
+        </table>
+        <!--列表展示.结束-->
+
+
+        <div class="line15"></div>
+        <div class="page_box">
+            <div id="PageContent" class="flickr right">@Html.Raw(ViewBag.PageContent)</div>
+        </div>
+        <div class="line10"></div>
+    </form>
+</body>
+</html>
